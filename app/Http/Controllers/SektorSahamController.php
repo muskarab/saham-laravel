@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\InstrumentSaham;
+use App\Models\SektorSaham;
 use Illuminate\Http\Request;
 
-class InstrumentSahamController extends Controller
+class SektorSahamController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class InstrumentSahamController extends Controller
      */
     public function index()
     {
-        $instrumnents = InstrumentSaham::all();
-        return view('instrument_saham.index', compact('instrumnents'));
+        $sektors = SektorSaham::all();
+        return view('sektor.index', compact('sektors'));
     }
 
     /**
@@ -42,10 +42,10 @@ class InstrumentSahamController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\InstrumentSaham  $instrumentSaham
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(InstrumentSaham $instrumentSaham)
+    public function show($id)
     {
         //
     }
@@ -53,10 +53,10 @@ class InstrumentSahamController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\InstrumentSaham  $instrumentSaham
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(InstrumentSaham $instrumentSaham)
+    public function edit($id)
     {
         //
     }
@@ -65,10 +65,10 @@ class InstrumentSahamController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\InstrumentSaham  $instrumentSaham
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, InstrumentSaham $instrumentSaham)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -76,10 +76,10 @@ class InstrumentSahamController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\InstrumentSaham  $instrumentSaham
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(InstrumentSaham $instrumentSaham)
+    public function destroy($id)
     {
         //
     }

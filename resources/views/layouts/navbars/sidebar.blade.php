@@ -91,13 +91,23 @@
                     <div class="collapse show" id="saham">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user.index') }}">
+                                <a class="nav-link" href="#">
                                     {{ __('Informasi Saham') }}
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
                                     {{ __('Nilai Saham') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('instrument.index') }}">
+                                    {{ __('Instrument Saham') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('sektor.index') }}">
+                                    {{ __('Sektor Saham') }}
                                 </a>
                             </li>
                         </ul>
