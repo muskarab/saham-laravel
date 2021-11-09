@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call([UsersTableSeeder::class]);
         $this->call([SektorSahamSeeder::class]);
         $this->call([InstrumentSahamSeeder::class]);
+        $this->call([IndexSahamSeeder::class]);
     }
 }

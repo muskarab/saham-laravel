@@ -91,7 +91,7 @@
                     <div class="collapse show" id="saham">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{ route('saham.index') }}">
                                     {{ __('Informasi Saham') }}
                                 </a>
                             </li>
@@ -100,6 +100,7 @@
                                     {{ __('Nilai Saham') }}
                                 </a>
                             </li>
+                            @if (Auth::user()->role == "admin")
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('instrument.index') }}">
                                     {{ __('Instrument Saham') }}
@@ -110,6 +111,7 @@
                                     {{ __('Sektor Saham') }}
                                 </a>
                             </li>
+                            @endif
                         </ul>
                     </div>
                 </li>

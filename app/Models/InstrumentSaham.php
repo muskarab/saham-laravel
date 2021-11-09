@@ -17,4 +17,9 @@ class InstrumentSaham extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function index()
+    {
+        return $this->hasMany(IndexSaham::class);
+    }
 }

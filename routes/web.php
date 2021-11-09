@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IndexSahamController;
 use App\Http\Controllers\InstrumentSahamController;
 use App\Http\Controllers\PerhitunganController;
 use App\Http\Controllers\SektorSahamController;
@@ -31,6 +32,7 @@ Auth::routes(['verify' => true]);
 Route::middleware(['auth', 'verified'])->group(function () {
 	Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
 	Route::group(['middleware' => ['cek_login:admin']], function () {
+		Route::resource('saham', IndexSahamController::class);
 		Route::resource('instrument', InstrumentSahamController::class);
 		Route::resource('sektor', SektorSahamController::class);
 		Route::resource('user', UserController::class);
