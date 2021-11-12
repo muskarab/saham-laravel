@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmitenController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IndexSahamController;
 use App\Http\Controllers\InstrumentSahamController;
@@ -32,11 +33,12 @@ Auth::routes(['verify' => true]);
 Route::middleware(['auth', 'verified'])->group(function () {
 	Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
 	Route::group(['middleware' => ['cek_login:admin']], function () {
-		Route::resource('saham', IndexSahamController::class);
+		Route::resource('emiten', EmitenController::class);
 		Route::resource('instrument', InstrumentSahamController::class);
 		Route::resource('sektor', SektorSahamController::class);
 		Route::resource('user', UserController::class);
 		Route::resource('perhitungan', PerhitunganController::class);
+		Route::resource('index_saham', IndexSahamController::class);
 		// Route::get('map', function () {
 			// 	return view('pages.maps');
 			// })->name('map');

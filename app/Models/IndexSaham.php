@@ -13,4 +13,9 @@ class IndexSaham extends Model
     {
         return $this->belongsTo(InstrumentSaham::class);
     }
+
+    public function emiten()
+    {
+        return $this->hasMany(Emiten::class);
+    }
 }

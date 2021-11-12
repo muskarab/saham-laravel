@@ -5,7 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SektorSaham extends Model
+class Sektor extends Model
 {
     use HasFactory;
+
+    public function emiten()
+    {
+        return $this->hasMany(Emiten::class);
+    }
 }

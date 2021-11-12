@@ -6,7 +6,7 @@
         </button>
         <!-- Brand -->
         <a class="navbar-brand pt-0" href="{{ route('home') }}">
-            <img src="{{ asset('argon') }}/img/brand/blue.png" class="navbar-brand-img" alt="...">
+            {{-- <img src="{{ asset('argon') }}/img/brand/blue.png" class="navbar-brand-img" alt="..."> --}}
         </a>
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
@@ -90,17 +90,12 @@
                     </a>
                     <div class="collapse show" id="saham">
                         <ul class="nav nav-sm flex-column">
+                            @if (Auth::user()->role == "admin")
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('saham.index') }}">
+                                <a class="nav-link" href="{{ route('emiten.index') }}">
                                     {{ __('Informasi Saham') }}
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    {{ __('Nilai Saham') }}
-                                </a>
-                            </li>
-                            @if (Auth::user()->role == "admin")
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('instrument.index') }}">
                                     {{ __('Instrument Saham') }}
@@ -109,6 +104,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('sektor.index') }}">
                                     {{ __('Sektor Saham') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('index_saham.index') }}">
+                                    {{ __('Index Saham') }}
                                 </a>
                             </li>
                             @endif

@@ -14,8 +14,8 @@ class IndexSahamController extends Controller
      */
     public function index()
     {
-        $sahams = IndexSaham::all();
-        return view('index_saham.index', compact('sahams'));
+        $indexs = IndexSaham::get();
+        return view('index_saham.index', compact('indexs'))->with('i');
     }
 
     /**

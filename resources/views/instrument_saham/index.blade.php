@@ -24,9 +24,10 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table align-items-center">
-                    <thead class="thead-light">
+                    <table class="table align-items-center table-dark">
+                    <thead class="thead-dark">
                         <tr>
+                            <th scope="col">No</th>
                             <th scope="col">Name</th>
                             <th scope="col"></th>
                         </tr>
@@ -34,30 +35,30 @@
                     <tbody>
                         @forelse ($instrumnents as $instrumnent)
                             <tr>
+                                <td scope="row">{{ ++$i }}</td>
                                 <td>{{ $instrumnent->name }}</td>
-                                {{-- @if ($user->role == "user")
                                 <td class="text-right">
                                     <div class="dropdown">
                                         <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
                                         </a>
-                                        <form action="{{ route('user.destroy', $user->id) }}" method="POST">
+                                        <form action="" method="POST">
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a class="dropdown-item" href="{{ route('user.edit', $user->id) }}">Update</a>
+                                                <a class="dropdown-item" href="">Update</a>
                                                 <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure to delete this data?')">Delete</button>
                                             </div>
                                         </form>
                                     </div>
                                 </td>
-                                @endif --}}
                             </tr>
                         @empty
                             
                         @endforelse
                     </tbody>
                 </table>
+                {{ $instrumnents->links() }}
                 </div>
     
             </div>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SektorSaham;
+use App\Models\Sektor;
 use Illuminate\Http\Request;
 
 class SektorSahamController extends Controller
@@ -14,8 +14,8 @@ class SektorSahamController extends Controller
      */
     public function index()
     {
-        $sektors = SektorSaham::all();
-        return view('sektor.index', compact('sektors'));
+        $sektors = Sektor::latest()->get();
+        return view('sektor.index', compact('sektors'))->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
