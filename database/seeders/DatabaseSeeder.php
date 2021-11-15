@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call([IndexSahamSeeder::class]);
         $this->call([SektorSeeder::class]);
         $this->call([EmitenSeeder::class]);
+        $this->call([BobotSeeder::class]);
     }
 }

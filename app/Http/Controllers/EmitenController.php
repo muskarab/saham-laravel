@@ -18,7 +18,7 @@ class EmitenController extends Controller
         $konvensionals = Emiten::where('index_id', '=', 1)->get();
         $syariahs = Emiten::where('index_id', '=', 2)->get();
         $indexs = IndexSaham::get();
-        return view('emiten.index', compact('konvensionals', 'syariahs', 'indexs'))->with('i');
+        return view('emiten.index', compact('konvensionals', 'syariahs', 'indexs'))->with('i')->with('j');
     }
 
     /**

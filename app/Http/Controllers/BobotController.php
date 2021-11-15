@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bobot;
-use App\Models\IndexSaham;
 use Illuminate\Http\Request;
 
-class IndexSahamController extends Controller
+class BobotController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,7 @@ class IndexSahamController extends Controller
      */
     public function index()
     {
-        $indexs = IndexSaham::get();
-        $bobots = Bobot::get();
-        return view('index_saham.index', compact('indexs', 'bobots'))->with('i')->with('j');
+        //
     }
 
     /**
@@ -44,10 +41,10 @@ class IndexSahamController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\IndexSaham  $indexSaham
+     * @param  \App\Models\Bobot  $bobot
      * @return \Illuminate\Http\Response
      */
-    public function show(IndexSaham $indexSaham)
+    public function show(Bobot $bobot)
     {
         //
     }
@@ -55,10 +52,10 @@ class IndexSahamController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\IndexSaham  $indexSaham
+     * @param  \App\Models\Bobot  $bobot
      * @return \Illuminate\Http\Response
      */
-    public function edit(IndexSaham $indexSaham)
+    public function edit(Bobot $bobot)
     {
         //
     }
@@ -67,10 +64,10 @@ class IndexSahamController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\IndexSaham  $indexSaham
+     * @param  \App\Models\Bobot  $bobot
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, IndexSaham $indexSaham)
+    public function update(Request $request, Bobot $bobot)
     {
         //
     }
@@ -78,10 +75,10 @@ class IndexSahamController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\IndexSaham  $indexSaham
+     * @param  \App\Models\Bobot  $bobot
      * @return \Illuminate\Http\Response
      */
-    public function destroy(IndexSaham $indexSaham)
+    public function destroy(Bobot $bobot)
     {
         //
     }

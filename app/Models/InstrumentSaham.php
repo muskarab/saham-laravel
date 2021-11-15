@@ -22,4 +22,9 @@ class InstrumentSaham extends Model
     {
         return $this->hasMany(IndexSaham::class);
     }
+
+    public function bobot()
+    {
+        return $this->hasMany(Bobot::class);
+    }
 }

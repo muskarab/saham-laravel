@@ -5,9 +5,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Brand -->
-        <a class="navbar-brand pt-0" href="{{ route('home') }}">
-            {{-- <img src="{{ asset('argon') }}/img/brand/blue.png" class="navbar-brand-img" alt="..."> --}}
-        </a>
+        {{-- <a class="navbar-brand pt-0" href="{{ route('home') }}">
+            <img src="{{ asset('argon') }}/img/brand/blue.png" class="navbar-brand-img" alt="...">
+        </a> --}}
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
             <li class="nav-item dropdown">
@@ -26,20 +26,8 @@
                         <i class="ni ni-single-02"></i>
                         <span>{{ __('My profile') }}</span>
                     </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="ni ni-settings-gear-65"></i>
-                        <span>{{ __('Settings') }}</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="ni ni-calendar-grid-58"></i>
-                        <span>{{ __('Activity') }}</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="ni ni-support-16"></i>
-                        <span>{{ __('Support') }}</span>
-                    </a>
                     <div class="dropdown-divider"></div>
-                    <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
+                    <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault() ;
                     document.getElementById('logout-form').submit();">
                         <i class="ni ni-user-run"></i>
                         <span>{{ __('Logout') }}</span>
@@ -53,9 +41,9 @@
             <div class="navbar-collapse-header d-md-none">
                 <div class="row">
                     <div class="col-6 collapse-brand">
-                        <a href="{{ route('home') }}">
+                        {{-- <a href="{{ route('home') }}">
                             <img src="{{ asset('argon') }}/img/brand/blue.png">
-                        </a>
+                        </a> --}}
                     </div>
                     <div class="col-6 collapse-close">
                         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
@@ -83,6 +71,7 @@
                         <i class="ni ni-tv-2 text-blue"></i> {{ __('Rangking Saham') }}
                     </a>
                 </li>
+                @if (Auth::user()->role == "admin")
                 <li class="nav-item">
                     <a class="nav-link active" href="#saham" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-examples">
                         <i class="ni ni-chart-bar-32 text-blue"></i>
@@ -90,7 +79,6 @@
                     </a>
                     <div class="collapse show" id="saham">
                         <ul class="nav nav-sm flex-column">
-                            @if (Auth::user()->role == "admin")
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('emiten.index') }}">
                                     {{ __('Informasi Saham') }}
@@ -108,17 +96,17 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('index_saham.index') }}">
-                                    {{ __('Index Saham') }}
+                                    {{ __('Index Bobot Saham') }}
                                 </a>
                             </li>
-                            @endif
                         </ul>
                     </div>
                 </li>
+                @endif
                 @if (Auth::user()->role == "admin")
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('user.index') }}">
-                        <i class="ni ni-circle-08 text-blue"></i> {{ __('User') }}
+                        <i class="fas fa-users text-blue"></i> {{ __('User') }}
                     </a>
                 </li>
                 <li class="nav-item">

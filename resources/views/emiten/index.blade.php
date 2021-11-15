@@ -117,7 +117,7 @@
                     <tbody>
                         @forelse ($syariahs as $syariah)
                             <tr>
-                                <td scope="row">{{ ++$i }}</td>
+                                <td scope="row">{{ ++$j }}</td>
                                 <td>{{ $syariah->emiten_char }}</td>
                                 {{-- <td>{{ $syariah->perusahaan }}</td> --}}
                                 <td>{{ $syariah->index->name }}</td>

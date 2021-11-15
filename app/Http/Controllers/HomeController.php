@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Emiten;
+use App\Models\Sektor;
+
 class HomeController extends Controller
 {
     /**
@@ -21,6 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $sectors = Sektor::get();
+        $emitens = Emiten::get();
+        $konvensionals = $emitens->where('index_id', 1);
+        $syariahs = $emitens->where('index_id', 2);
+        return view('dashboard', compact('sectors', 'emitens', 'konvensionals', 'syariahs'))->with('i');
     }
 }
