@@ -18,7 +18,7 @@
                             <h3 class="mb-0">Saham Konvensional</h3>
                         </div>
                         <div class="col-4 text-right">
-                            <a href="#" class="btn btn-sm btn-primary">Add Emiten Saham</a>
+                            <a href="{{ route('emiten.create') }}" class="btn btn-sm btn-primary">Add Emiten Saham</a>
                         </div>
                     </div>
                 </div>
@@ -56,11 +56,11 @@
                                         <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
                                         </a>
-                                        <form action="" method="POST">
+                                        <form action="{{ route('emiten.destroy', $konvensional->id) }}" method="POST">
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a class="dropdown-item" href="">Update</a>
+                                                <a class="dropdown-item" href="{{ route('emiten.edit', $konvensional->id) }}">Update</a>
                                                 <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure to delete this data?')">Delete</button>
                                             </div>
                                         </form>
@@ -83,11 +83,11 @@
         <div class="col">
             <div class="card shadow">
                 <div class="card-header border-0">
-                    @if ($message = Session::get('success'))
+                    {{-- @if ($message = Session::get('success'))
                         <div class="alert alert-success" role="alert">
                             <strong>Success!</strong> {{ $message }}
                         </div>
-                    @endif
+                    @endif --}}
                     <div class="row align-items-center">
                         <div class="col-8">
                             <h3 class="mb-0">Saham Syariah</h3>
@@ -131,11 +131,11 @@
                                         <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
                                         </a>
-                                        <form action="" method="POST">
+                                        <form action="{{ route('emiten.destroy', $syariah->id) }}" method="POST">
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a class="dropdown-item" href="">Update</a>
+                                                <a class="dropdown-item" href="{{ route('emiten.edit', $syariah->id) }}">Update</a>
                                                 <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure to delete this data?')">Delete</button>
                                             </div>
                                         </form>

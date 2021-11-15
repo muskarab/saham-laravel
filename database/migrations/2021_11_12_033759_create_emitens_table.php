@@ -19,11 +19,11 @@ class CreateEmitensTable extends Migration
             $table->string('perusahaan');
             $table->foreignId('index_id');
             $table->foreignId('sektor_id');
-            $table->string('descripsi');
-            $table->float('der', 8, 2);
-            $table->float('per', 8, 2);
-            $table->float('roe', 8, 2);
-            $table->float('eps', 8, 2);
+            $table->string('deskripsi');
+            $table->double('der');
+            $table->double('per');
+            $table->double('roe');
+            $table->double('eps');
             $table->timestamps();
         });
     }
