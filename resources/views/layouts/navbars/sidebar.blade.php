@@ -102,8 +102,11 @@
                         </ul>
                     </div>
                 </li>
-                @endif
-                @if (Auth::user()->role == "admin")
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('perhitungan.index') }}">
+                        <i class="fas fa-calculator text-blue"></i> {{ __('Data Perhitungan') }}
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('user.index') }}">
                         <i class="fas fa-users text-blue"></i> {{ __('User') }}

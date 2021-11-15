@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IndexSahamController;
 use App\Http\Controllers\InstrumentSahamController;
 use App\Http\Controllers\PerhitunganController;
+use App\Http\Controllers\PreferensiController;
 use App\Http\Controllers\SektorSahamController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -39,6 +40,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		Route::resource('user', UserController::class);
 		Route::resource('perhitungan', PerhitunganController::class);
 		Route::resource('index_saham', IndexSahamController::class);
+		Route::resource('perhitungan', PreferensiController::class);
 		// Route::get('map', function () {
 			// 	return view('pages.maps');
 			// })->name('map');

@@ -18,4 +18,9 @@ class IndexSaham extends Model
     {
         return $this->hasMany(Emiten::class);
     }
+
+    public function preferensi()
+    {
+        return $this->hasMany(Preferensi::class);
+    }
 }
