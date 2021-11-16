@@ -112,11 +112,6 @@
                         <i class="fas fa-users text-blue"></i> {{ __('User') }}
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('perhitungan.index') }}">
-                        <i class="ni ni-money-coins text-blue"></i> {{ __('Data Perhitungan') }}
-                    </a>
-                </li>
                 @endif
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('profile.edit') }}">

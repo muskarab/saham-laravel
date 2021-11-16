@@ -15,7 +15,7 @@ class CreateBobotsTable extends Migration
     {
         Schema::create('bobots', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('instrument_saham_id');
+            $table->foreignId('instrument_saham_id')->unique();
             $table->float('w_eps');
             $table->float('w_roe');
             $table->float('w_per');

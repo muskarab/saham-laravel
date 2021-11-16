@@ -15,7 +15,7 @@ class CreatePreferensisTable extends Migration
     {
         Schema::create('preferensis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('index_id');
+            $table->foreignId('index_id')->unique();
             $table->double('min_eps');
             $table->double('max_eps');
             $table->double('mean_eps');

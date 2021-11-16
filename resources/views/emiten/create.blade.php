@@ -80,7 +80,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="EPS" type="number" name="eps" id="eps">
+                                <input class="form-control" placeholder="EPS" type="number" step="any" name="eps" id="eps">
                                 </div>
                             </div>
                             </div>
@@ -93,7 +93,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="ROE" type="number" name="roe" id="roe">
+                                <input class="form-control" placeholder="ROE" type="number" step="any" name="roe" id="roe">
                                 </div>
                             </div>
                             </div>
@@ -108,7 +108,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="PER" type="number" name="per" id="per">
+                                <input class="form-control" placeholder="PER" type="number" step="any" name="per" id="per">
                                 </div>
                             </div>
                             </div>
@@ -121,7 +121,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="DER" type="number" name="der" id="der">
+                                <input class="form-control" placeholder="DER" type="number" step="any" name="der" id="der">
                                 </div>
                             </div>
                             </div>

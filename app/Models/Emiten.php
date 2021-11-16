@@ -20,4 +20,9 @@ class Emiten extends Model
     {
         return $this->belongsTo(Sektor::class);
     }
+
+    public function emiten()
+    {
+        return $this->hasOne(Emiten::class);
+    }
 }

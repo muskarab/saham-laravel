@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call([EmitenSeeder::class]);
         $this->call([BobotSeeder::class]);
         $this->call([PreferensiSeeder::class]);
+        $this->call([PreferensiKriteriaSeeder::class]);
     }
 }

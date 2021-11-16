@@ -85,13 +85,8 @@
                 </table>
                 {{-- {{ $konvensional->links() }} --}}
                 </div>
-    
             </div>
-
-            
         </div>
-
-        
     </div>
     @include('layouts.footers.auth')
 </div>
