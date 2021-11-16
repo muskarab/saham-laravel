@@ -38,7 +38,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		Route::resource('instrument', InstrumentSahamController::class);
 		Route::resource('sektor', SektorSahamController::class);
 		Route::resource('user', UserController::class);
-		Route::resource('perhitungan', PerhitunganController::class);
 		Route::resource('index_saham', IndexSahamController::class);
 		Route::resource('perhitungan', PreferensiController::class);
 		// Route::get('map', function () {

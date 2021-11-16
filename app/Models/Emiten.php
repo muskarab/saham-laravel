@@ -21,8 +21,13 @@ class Emiten extends Model
         return $this->belongsTo(Sektor::class);
     }
 
-    public function emiten()
+    public function prefereni_kriteria()
     {
-        return $this->hasOne(Emiten::class);
+        return $this->hasOne(PreferensiKriteria::class);
+    }
+
+    public function vektor_s()
+    {
+        return $this->hasOne(VektorS::class);
     }
 }

@@ -13,7 +13,10 @@ class PerhitunganController extends Controller
      */
     public function index()
     {
-        return view('perhitungan.index');
+                // $preferensis = Preferensi::get();
+        // $lastdata = PreferensiKriteria::orderBy('id', 'DESC')->first();
+        // dd($lastdata['id']);
+        // return view('perhitungan.index', compact('preferensis'));
     }
 
     /**

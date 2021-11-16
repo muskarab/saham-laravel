@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSektorSahamsTable extends Migration
+class CreateVektorSTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateSektorSahamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sektor_sahams', function (Blueprint $table) {
+        Schema::create('vektor_s', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('emiten_id')->unique();
+            $table->double('vektor_s');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateSektorSahamsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sektor_sahams');
+        Schema::dropIfExists('vektor_s');
     }
 }

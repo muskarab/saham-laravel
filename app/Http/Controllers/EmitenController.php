@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bobot;
 use App\Models\Emiten;
 use App\Models\IndexSaham;
 use App\Models\Preferensi;
 use App\Models\PreferensiKriteria;
 use App\Models\Sektor;
+use App\Models\VektorS;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -74,6 +76,11 @@ class EmitenController extends Controller
             'roe_pk' => 0,
             'per_pk' => 0,
             'der_pk' => 0,
+        ]);
+
+        $vekto_s = VektorS::create([
+            'emiten_id' => 0,
+            'vektor_s' => 0,
         ]);
 
         $min_eps_kon = Emiten::where('index_id', '=', 1)->min('eps');
@@ -162,9 +169,15 @@ class EmitenController extends Controller
             'avg_atas_der' => $avg_atas_der_sya,
         ]);
 
+        //Ubah data terakhir menjadi sesuai foreign_key
+        $lastdata = PreferensiKriteria::orderBy('id', 'DESC')->first();
+        $update = DB::table('preferensi_kriterias')->where('id', $lastdata['id'])->update([
+            'emiten_id' => $lastdata['id'],
+        ]);
+
+        //Update data terakhir sesuai perhitungan
         $preferensis_kons = Preferensi::where('index_id', '=', 1)->get();
         $emiten_kons = Emiten::where('index_id', '=', 1)->get();
-        $lastdata = PreferensiKriteria::orderBy('id', 'DESC')->first();
         foreach ($emiten_kons as $emiten_kon) {
             foreach ($preferensis_kons as $preferensis_kon) {
                 if ($emiten_kon['eps'] < $preferensis_kon['avg_bawah_eps'] && $emiten_kon['eps'] >= $preferensis_kon['min_eps']) {
@@ -207,24 +220,105 @@ class EmitenController extends Controller
                     $der_pk_kon = 4;
                 }
 
-                $update = DB::table('preferensi_kriterias')->where('id', $lastdata['id'])->update([
-                    'emiten_id' => $lastdata['id'],
+                $update = DB::table('preferensi_kriterias')->where('emiten_id', $emiten_kon->id)->update([
+                    'emiten_id' => $emiten_kon->id,
                     'eps_pk' => $eps_pk_kon,
                     'roe_pk' => $roe_pk_kon,
                     'per_pk' => $per_pk_kon,
                     'der_pk' => $der_pk_kon,
                 ]);
             }
-            // DB::table('preferensi_kriterias')->insert([
-            //     'emiten_id' => 1,
-            //     'eps_pk' => $eps_pk_kon,
-            //     'roe_pk' => $roe_pk_kon,
-            //     'per_pk' => $per_pk_kon,
-            //     'der_pk' => $der_pk_kon,
-            //     'created_at' => now(),
-            //     'updated_at' => now()
-            // ]);
+        }
 
+        $preferensis_syars = Preferensi::where('index_id', '=', 2)->get();
+        $emiten_syars = Emiten::where('index_id', '=', 2)->get();
+        foreach ($emiten_syars as $emiten_syar) {
+            foreach ($preferensis_syars as $preferensis_syar) {
+                if ($emiten_syar['eps'] < $preferensis_syar['avg_bawah_eps'] && $emiten_syar['eps'] >= $preferensis_syar['min_eps']) {
+                    $eps_pk_syar = 1;
+                } elseif ($emiten_syar['eps'] < $preferensis_syar['mean_eps'] && $emiten_syar['eps'] >= $preferensis_syar['avg_bawah_eps']) {
+                    $eps_pk_syar = 2;
+                } elseif ($emiten_syar['eps'] < $preferensis_syar['avg_atas_eps'] && $emiten_syar['eps'] >= $preferensis_syar['mean_eps']) {
+                    $eps_pk_syar = 3;
+                } elseif ($emiten_syar['eps'] <= $preferensis_syar['max_eps'] && $emiten_syar['eps'] > $preferensis_syar['avg_atas_eps']) {
+                    $eps_pk_syar = 4;
+                }
+
+                if ($emiten_syar['roe'] < $preferensis_syar['avg_bawah_roe'] && $emiten_syar['roe'] >= $preferensis_syar['min_roe']) {
+                    $roe_pk_syar = 1;
+                } elseif ($emiten_syar['roe'] < $preferensis_syar['mean_roe'] && $emiten_syar['roe'] >= $preferensis_syar['avg_bawah_roe']) {
+                    $roe_pk_syar = 2;
+                } elseif ($emiten_syar['roe'] < $preferensis_syar['avg_atas_roe'] && $emiten_syar['roe'] >= $preferensis_syar['mean_roe']) {
+                    $roe_pk_syar = 3;
+                } elseif ($emiten_syar['roe'] <= $preferensis_syar['max_roe'] && $emiten_syar['roe'] > $preferensis_syar['avg_atas_roe']) {
+                    $roe_pk_syar = 4;
+                }
+
+                if ($emiten_syar['per'] < $preferensis_syar['avg_bawah_per'] && $emiten_syar['per'] >= $preferensis_syar['min_per']) {
+                    $per_pk_syar = 1;
+                } elseif ($emiten_syar['per'] < $preferensis_syar['mean_per'] && $emiten_syar['per'] >= $preferensis_syar['avg_bawah_per']) {
+                    $per_pk_syar = 2;
+                } elseif ($emiten_syar['per'] < $preferensis_syar['avg_atas_per'] && $emiten_syar['per'] >= $preferensis_syar['mean_per']) {
+                    $per_pk_syar = 3;
+                } elseif ($emiten_syar['per'] <= $preferensis_syar['max_per'] && $emiten_syar['per'] > $preferensis_syar['avg_atas_per']) {
+                    $per_pk_syar = 4;
+                }
+
+                if ($emiten_syar['der'] < $preferensis_syar['avg_bawah_der'] && $emiten_syar['der'] >= $preferensis_syar['min_der']) {
+                    $der_pk_syar = 1;
+                } elseif ($emiten_syar['der'] < $preferensis_syar['mean_der'] && $emiten_syar['der'] >= $preferensis_syar['avg_bawah_der']) {
+                    $der_pk_syar = 2;
+                } elseif ($emiten_syar['der'] < $preferensis_syar['avg_atas_der'] && $emiten_syar['der'] >= $preferensis_syar['mean_der']) {
+                    $der_pk_syar = 3;
+                } elseif ($emiten_syar['der'] <= $preferensis_syar['max_der'] && $emiten_syar['der'] > $preferensis_syar['avg_atas_der']) {
+                    $der_pk_syar = 4;
+                }
+
+                $update = DB::table('preferensi_kriterias')->where('emiten_id', $emiten_syar->id)->update([
+                    'emiten_id' => $emiten_syar->id,
+                    'eps_pk' => $eps_pk_syar,
+                    'roe_pk' => $roe_pk_syar,
+                    'per_pk' => $per_pk_syar,
+                    'der_pk' => $der_pk_syar,
+                ]);
+            }
+        }
+
+        //Ubah data terakhir menjadi sesuai foreign_key
+        $lastdata_vektor_s = VektorS::orderBy('id', 'DESC')->first();
+        $update = DB::table('vektor_s')->where('id', $lastdata_vektor_s['id'])->update([
+            'emiten_id' => $lastdata_vektor_s['id'],
+        ]);
+
+        // Update data terakhir sesuai perhitungan
+        $emiten_kons = Emiten::where('index_id', 1)->get();
+        $bobots = Bobot::where('instrument_saham_id', '=', 1)->get();
+        foreach ($emiten_kons as $emiten_kon) {
+            foreach ($bobots as $bobot) {
+                $w_eps = pow($emiten_kon->prefereni_kriteria['eps_pk'], -$bobot['w_eps']);
+                $w_roe = pow($emiten_kon->prefereni_kriteria['roe_pk'], $bobot['w_roe']);
+                $w_per = pow($emiten_kon->prefereni_kriteria['per_pk'], $bobot['w_per']);
+                $w_total = $w_eps * $w_roe * $w_per;
+                $update = DB::table('vektor_s')->where('emiten_id', $emiten_kon->id)->update([
+                        'emiten_id' => $emiten_kon->id,
+                        'vektor_s' => $w_total,
+                    ]);
+            }
+        }
+
+        $emiten_syars = Emiten::where('index_id', 2)->get();
+        $bobots = Bobot::where('instrument_saham_id', '=', 2)->get();
+        foreach ($emiten_syars as $emiten_syar) {
+            foreach ($bobots as $bobot) {
+                $w_eps = pow($emiten_syar->prefereni_kriteria['eps_pk'], $bobot['w_eps']);
+                $w_roe = pow($emiten_syar->prefereni_kriteria['roe_pk'], $bobot['w_roe']);
+                $w_der = pow($emiten_syar->prefereni_kriteria['der_pk'], $bobot['w_der']);
+                $w_total = $w_eps * $w_roe * $w_der;
+                $update = DB::table('vektor_s')->where('emiten_id', $emiten_syar->id)->update([
+                        'emiten_id' => $emiten_syar->id,
+                        'vektor_s' => $w_total,
+                    ]);
+            }
         }
 
         if ($emiten) {
@@ -378,6 +472,7 @@ class EmitenController extends Controller
             'avg_atas_der' => $avg_atas_der_sya,
         ]);
 
+        //Update data sesuai perhitungan
         $preferensis_kons = Preferensi::where('index_id', '=', 1)->get();
         $emiten_kons = Emiten::where('index_id', '=', 1)->get();
         foreach ($emiten_kons as $emiten_kon) {
@@ -483,6 +578,40 @@ class EmitenController extends Controller
                     'per_pk' => $per_pk_syar,
                     'der_pk' => $der_pk_syar,
                 ]);
+            }
+        }
+
+        // Update data sesuai perhitungan
+        $emiten_kons = Emiten::where('index_id', 1)->get();
+        $bobots = Bobot::where('instrument_saham_id', '=', 1)->get();
+        foreach ($emiten_kons as $emiten_kon) {
+            foreach ($bobots as $bobot) {
+                $w_eps = pow($emiten_kon->prefereni_kriteria['eps_pk'], -$bobot['w_eps']);
+                $w_roe = pow($emiten_kon->prefereni_kriteria['roe_pk'], $bobot['w_roe']);
+                $w_per = pow($emiten_kon->prefereni_kriteria['per_pk'], $bobot['w_per']);
+                $w_total = $w_eps * $w_roe * $w_per;
+                $update = DB::table('vektor_s')->where(
+                    'emiten_id',
+                    $emiten_kon->id
+                )->update([
+                    'emiten_id' => $emiten_kon->id,
+                    'vektor_s' => $w_total,
+                ]);
+            }
+        }
+
+        $emiten_syars = Emiten::where('index_id', 2)->get();
+        $bobots = Bobot::where('instrument_saham_id', '=', 2)->get();
+        foreach ($emiten_syars as $emiten_syar) {
+            foreach ($bobots as $bobot) {
+                $w_eps = pow($emiten_syar->prefereni_kriteria['eps_pk'], $bobot['w_eps']);
+                $w_roe = pow($emiten_syar->prefereni_kriteria['roe_pk'], $bobot['w_roe']);
+                $w_der = pow($emiten_syar->prefereni_kriteria['der_pk'], $bobot['w_der']);
+                $w_total = $w_eps * $w_roe * $w_der;
+                $update = DB::table('vektor_s')->where('emiten_id', $emiten_kon->id)->update([
+                        'emiten_id' => $emiten_kon->id,
+                        'vektor_s' => $w_total,
+                    ]);
             }
         }
 
