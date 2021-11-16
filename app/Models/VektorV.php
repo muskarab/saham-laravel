@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class VektorV extends Model
 {
     use HasFactory;
-    
     protected $guarded = ['id'];
     protected $with = ['emiten'];
 

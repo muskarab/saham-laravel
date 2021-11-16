@@ -68,12 +68,12 @@ class PreferensiController extends Controller
         // echo $emiten_syars;
         // $bobots = Bobot::where('instrument_saham_id', '=', 2)->get();
         // $a = 0;
-        foreach ($emiten_syars as $emiten_syar) {
+        // foreach ($emiten_syars as $emiten_syar) {
         //     $a = 0;
             // foreach ($vektor_s as $vektor_s) {
-                echo $emiten_syar->vektor_s->id . '<br>';
+                // echo $emiten_syar->vektor_s->id . '<br>';
             // }
-        }
+        // }
             // echo $a;
             // $a += ($emiten_syar->vektor_s->vektor_s);
             // echo $a . '<br>';
@@ -95,8 +95,8 @@ class PreferensiController extends Controller
 
         // $lastdata = PreferensiKriteria::orderBy('id', 'DESC')->first();
         // dd($emiten_kons->all());
-        // $preferensis = Preferensi::get();
-        // return view('perhitungan.index', compact('preferensis'));
+        $preferensis = Preferensi::get();
+        return view('perhitungan.index', compact('preferensis'));
     }
 
     /**

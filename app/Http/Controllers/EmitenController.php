@@ -9,6 +9,7 @@ use App\Models\Preferensi;
 use App\Models\PreferensiKriteria;
 use App\Models\Sektor;
 use App\Models\VektorS;
+use App\Models\VektorV;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -81,6 +82,11 @@ class EmitenController extends Controller
         $vekto_s = VektorS::create([
             'emiten_id' => 0,
             'vektor_s' => 0,
+        ]);
+
+        $vekto_s = VektorV::create([
+            'emiten_id' => 0,
+            'vektor_v' => 0,
         ]);
 
         $min_eps_kon = Emiten::where('index_id', '=', 1)->min('eps');
@@ -298,10 +304,10 @@ class EmitenController extends Controller
                 $w_eps = pow($emiten_kon->prefereni_kriteria['eps_pk'], -$bobot['w_eps']);
                 $w_roe = pow($emiten_kon->prefereni_kriteria['roe_pk'], $bobot['w_roe']);
                 $w_per = pow($emiten_kon->prefereni_kriteria['per_pk'], $bobot['w_per']);
-                $w_total = $w_eps * $w_roe * $w_per;
+                $w_total_kon = $w_eps * $w_roe * $w_per;
                 $update = DB::table('vektor_s')->where('emiten_id', $emiten_kon->id)->update([
                         'emiten_id' => $emiten_kon->id,
-                        'vektor_s' => $w_total,
+                        'vektor_s' => $w_total_kon,
                     ]);
             }
         }
@@ -313,12 +319,55 @@ class EmitenController extends Controller
                 $w_eps = pow($emiten_syar->prefereni_kriteria['eps_pk'], $bobot['w_eps']);
                 $w_roe = pow($emiten_syar->prefereni_kriteria['roe_pk'], $bobot['w_roe']);
                 $w_der = pow($emiten_syar->prefereni_kriteria['der_pk'], $bobot['w_der']);
-                $w_total = $w_eps * $w_roe * $w_der;
+                $w_total_syar = $w_eps * $w_roe * $w_der;
                 $update = DB::table('vektor_s')->where('emiten_id', $emiten_syar->id)->update([
                         'emiten_id' => $emiten_syar->id,
-                        'vektor_s' => $w_total,
+                        'vektor_s' => $w_total_syar,
                     ]);
             }
+        }
+
+        //Ubah data terakhir menjadi sesuai foreign_key
+        $lastdata_vektor_v = VektorV::orderBy('id', 'DESC')->first();
+        $update = DB::table('vektor_v_s')->where('id', $lastdata_vektor_v['id'])->update([
+            'emiten_id' => $lastdata_vektor_s['id'],
+        ]);
+
+        // Update data terakhir sesuai perhitungan
+        $sum_vektor_s_kon = DB::table('emitens')
+            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+            ->where('index_id', 1)
+            ->select('vektor_s.vektor_s')
+            ->sum('vektor_s.vektor_s');
+        // echo $sum_vektor_s_kon;
+        $emiten_kons = Emiten::where('index_id', 1)->get();
+        foreach ($emiten_kons as $emiten_kon) {
+            $update = DB::table('vektor_v_s')->where('emiten_id', $emiten_kon->id)->update([
+                'emiten_id' => $emiten_kon->id,
+                'vektor_v' =>$emiten_kon->vektor_s['vektor_s'] / $sum_vektor_s_kon,
+            ]);
+            // DB::table('vektor_v_s')->insert([
+            //     'emiten_id' => $emiten_kon->id,
+            //     'vektor_v' => $emiten_kon->vektor_s['vektor_s'] / $sum_vektor_s_kon,
+            // ]);
+        }
+
+        $sum_vektor_s_syar = DB::table('emitens')
+        ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+        ->where('index_id', 2)
+        ->select('vektor_s.vektor_s')
+        ->sum('vektor_s.vektor_s');
+        // echo $sum_vektor_s_syar;
+        $emiten_syars = Emiten::where('index_id', 2)->get();
+        foreach ($emiten_syars as $emiten_syar) {
+            $update = DB::table('vektor_v_s')->where('emiten_id', $emiten_syar->id)->update([
+                'emiten_id' => $emiten_syar->id,
+                'vektor_v' => $emiten_syar->vektor_s['vektor_s'] / $sum_vektor_s_syar,
+            ]);
+            // DB::table('vektor_v_s')->insert([
+            //     'emiten_id' => $emiten_syar->id,
+            //     'vektor_v' => $emiten_syar->vektor_s['vektor_s'] / $sum_vektor_s_syar,
+            // ]);
         }
 
         if ($emiten) {
@@ -589,13 +638,13 @@ class EmitenController extends Controller
                 $w_eps = pow($emiten_kon->prefereni_kriteria['eps_pk'], -$bobot['w_eps']);
                 $w_roe = pow($emiten_kon->prefereni_kriteria['roe_pk'], $bobot['w_roe']);
                 $w_per = pow($emiten_kon->prefereni_kriteria['per_pk'], $bobot['w_per']);
-                $w_total = $w_eps * $w_roe * $w_per;
+                $w_total_kon = $w_eps * $w_roe * $w_per;
                 $update = DB::table('vektor_s')->where(
                     'emiten_id',
                     $emiten_kon->id
                 )->update([
                     'emiten_id' => $emiten_kon->id,
-                    'vektor_s' => $w_total,
+                    'vektor_s' => $w_total_kon,
                 ]);
             }
         }
@@ -607,12 +656,49 @@ class EmitenController extends Controller
                 $w_eps = pow($emiten_syar->prefereni_kriteria['eps_pk'], $bobot['w_eps']);
                 $w_roe = pow($emiten_syar->prefereni_kriteria['roe_pk'], $bobot['w_roe']);
                 $w_der = pow($emiten_syar->prefereni_kriteria['der_pk'], $bobot['w_der']);
-                $w_total = $w_eps * $w_roe * $w_der;
+                $w_total_syar = $w_eps * $w_roe * $w_der;
                 $update = DB::table('vektor_s')->where('emiten_id', $emiten_kon->id)->update([
                         'emiten_id' => $emiten_kon->id,
-                        'vektor_s' => $w_total,
+                        'vektor_s' => $w_total_syar,
                     ]);
             }
+        }
+
+        // Update data terakhir sesuai perhitungan
+        $sum_vektor_s_kon = DB::table('emitens')
+            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+            ->where('index_id', 1)
+            ->select('vektor_s.vektor_s')
+            ->sum('vektor_s.vektor_s');
+        // echo $sum_vektor_s_kon;
+        $emiten_kons = Emiten::where('index_id', 1)->get();
+        foreach ($emiten_kons as $emiten_kon) {
+            $update = DB::table('vektor_v_s')->where('emiten_id', $emiten_kon->id)->update([
+                    'emiten_id' => $emiten_kon->id,
+                    'vektor_v' => $emiten_kon->vektor_s['vektor_s'] / $sum_vektor_s_kon,
+                ]);
+            // DB::table('vektor_v_s')->insert([
+            //     'emiten_id' => $emiten_kon->id,
+            //     'vektor_v' => $emiten_kon->vektor_s['vektor_s'] / $sum_vektor_s_kon,
+            // ]);
+        }
+
+        $sum_vektor_s_syar = DB::table('emitens')
+        ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+            ->where('index_id', 2)
+            ->select('vektor_s.vektor_s')
+            ->sum('vektor_s.vektor_s');
+        // echo $sum_vektor_s_syar;
+        $emiten_syars = Emiten::where('index_id', 2)->get();
+        foreach ($emiten_syars as $emiten_syar) {
+            $update = DB::table('vektor_v_s')->where('emiten_id', $emiten_syar->id)->update([
+                'emiten_id' => $emiten_syar->id,
+                'vektor_v' => $emiten_syar->vektor_s['vektor_s'] / $sum_vektor_s_syar,
+            ]);
+            // DB::table('vektor_v_s')->insert([
+            //     'emiten_id' => $emiten_syar->id,
+            //     'vektor_v' => $emiten_syar->vektor_s['vektor_s'] / $sum_vektor_s_syar,
+            // ]);
         }
 
         if ($emiten) {

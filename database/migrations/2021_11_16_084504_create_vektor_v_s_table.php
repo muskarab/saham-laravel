@@ -13,7 +13,7 @@ class CreateVektorVSTable extends Migration
      */
     public function up()
     {
-        Schema::create('vektor_v', function (Blueprint $table) {
+        Schema::create('vektor_v_s', function (Blueprint $table) {
             $table->id();
             $table->foreignId('emiten_id')->unique();
             $table->double('vektor_v');
