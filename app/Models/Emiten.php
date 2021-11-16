@@ -30,4 +30,9 @@ class Emiten extends Model
     {
         return $this->hasOne(VektorS::class);
     }
+
+    public function vektor_v()
+    {
+        return $this->hasOne(VektorV::class);
+    }
 }
