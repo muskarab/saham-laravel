@@ -67,7 +67,7 @@
             <!-- Navigation -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">
+                    <a class="nav-link" href="{{ route('dashboard.index') }}">
                         <i class="ni ni-tv-2 text-blue"></i> {{ __('Rangking Saham') }}
                     </a>
                 </li>
@@ -118,16 +118,9 @@
                         <i class="ni ni-single-02 text-blue"></i> {{ __('Profile') }}
                     </a>
                 </li>
-                {{-- @if (Auth::user()->role == "admin")
-                <li class="nav-item ">
-                    <a class="nav-link" href="{{ route('map') }}">
-                        <i class="ni ni-pin-3 text-orange"></i> {{ __('Maps') }}
-                    </a>
-                </li>
-                @endif --}}
             </ul>
             <!-- Divider -->
-            <hr class="my-3">
+            {{-- <hr class="my-3"> --}}
             <!-- Heading -->
             {{-- <h6 class="navbar-heading text-muted">Documentation</h6> --}}
             <!-- Navigation -->

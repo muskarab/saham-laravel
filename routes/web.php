@@ -32,7 +32,7 @@ Auth::routes(['verify' => true]);
 // Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-	Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
+	Route::resource('dashboard', HomeController::class);
 	Route::group(['middleware' => ['cek_login:admin']], function () {
 		Route::resource('emiten', EmitenController::class);
 		Route::resource('instrument', InstrumentSahamController::class);

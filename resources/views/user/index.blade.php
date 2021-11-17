@@ -24,8 +24,8 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table align-items-center table-dark">
-                    <thead class="thead-dark">
+                    <table class="table align-items-center">
+                    <thead class="thead-light">
                         <tr>
                             <th scope="col">Name</th>
                             <th scope="col">Address</th>

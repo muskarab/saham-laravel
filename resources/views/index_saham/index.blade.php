@@ -18,14 +18,14 @@
                             <h3 class="mb-0">Index Saham</h3>
                         </div>
                         <div class="col-4 text-right">
-                            <a href="#" class="btn btn-sm btn-primary">Add Index Saham</a>
+                            {{-- <a href="#" class="btn btn-sm btn-primary">Add Index Saham</a> --}}
                         </div>
                     </div>
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table align-items-center table-dark">
-                    <thead class="thead-dark">
+                    <table class="table align-items-center">
+                    <thead class="thead-light">
                         <tr>
                             <th scope="col">No</th>
                             <th scope="col">Name</th>
@@ -85,8 +85,8 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table align-items-center table-dark">
-                    <thead class="thead-dark">
+                    <table class="table align-items-center">
+                    <thead class="thead-light">
                         <tr>
                             <th scope="col">No</th>
                             <th scope="col">Instrument Saham</th>
