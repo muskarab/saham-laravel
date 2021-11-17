@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->date('date_of_birth')->format('m-d-Y');
             $table->enum('role', ['admin', 'user'])->default('user');
             $table->string('email')->unique();
+            $table->enum('gender', ['laki-laki', 'perempuan'])->default('laki-laki');
             $table->foreignId('instrument_saham_id');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

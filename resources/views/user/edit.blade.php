@@ -10,7 +10,7 @@
                 <div class="card-header border-0">
                     <div class="row align-items-center">
                         <div class="col-8">
-                            <h3 class="mb-0">Add Users</h3>
+                            <h3 class="mb-0">Edit User {{ $user->name }}</h3>
                         </div>
                         <div class="col-4 text-right">
                             <a href="{{ route('user.index') }}" class="btn btn-sm btn-primary">Back</a>

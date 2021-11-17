@@ -17,7 +17,7 @@ class HomeController extends Controller
     public function index()
     {
         $sectors = Sektor::get();
-        $emitens = Emiten::paginate(5);
+        $emitens = Emiten::get();
         $konvensionals = $emitens->where('index_id', 1);
         $syariahs = $emitens->where('index_id', 2);
         // $final_kon = Emiten::where('index_id', 1)->get();
@@ -38,7 +38,7 @@ class HomeController extends Controller
         ->where('index_id', 2)
         ->select('emitens.*', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'sektors.name as sektor')
         ->orderByRaw('vektor_v DESC')->get();
-        // dd($final_kon);
+        // dd($emitens);
         return view('dashboard.index', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar'))->with('i')->with('j');
     }
 

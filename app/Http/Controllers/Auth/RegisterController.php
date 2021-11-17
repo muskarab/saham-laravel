@@ -55,6 +55,8 @@ class RegisterController extends Controller
             'address' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'date_of_birth' => ['required', 'string',],
+            'instrument_saham' => ['required'],
+            'gender' => ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -72,6 +74,8 @@ class RegisterController extends Controller
             'address' => $data['address'],
             'email' => $data['email'],
             'date_of_birth' => Carbon::createFromFormat('m/d/Y', $data['date_of_birth'])->format('Y-m-d'),
+            'instrument_saham_id' => $data['instrument_saham'],
+            'gender' => $data['gender'],
             'password' => Hash::make($data['password']),
             // dd($data)
         ]);

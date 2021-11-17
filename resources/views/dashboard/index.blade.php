@@ -100,217 +100,207 @@
     <div class="container-fluid mt--7">
         <div class="row mt-5">
             <div class="col-xl-12 mb-5 mb-xl-0">
-                @if (Auth::user()->role == "user")
-                    @if (Auth::user()->instrument_saham_id == 1)
-                    <div class="card shadow">
-                        <div class="card-header border-0">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <h3 class="mb-0">Konvensional</h3>
-                                </div>
-                                <div class="col text-right">
-                                    {{-- <a href="#!" class="btn btn-sm btn-primary">See all</a> --}}
-                                </div>
+                @if (Auth::user()->instrument_saham_id == 1)
+                <div class="card shadow">
+                    <div class="card-header border-0">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h3 class="mb-0">Konvensional</h3>
+                            </div>
+                            <div class="col text-right">
+                                {{-- <a href="#!" class="btn btn-sm btn-primary">See all</a> --}}
                             </div>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table align-items-center table-flush">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Emiten</th>
-                                        <th scope="col">Index</th>
-                                        <th scope="col">Sektor</th>
-                                        <th scope="col">Nilai Rekomendasi</th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($final_kon as $final_kon)
-                                    <tr>
-                                        <td>{{ ++$i }}</td>
-                                        <td>{{ $final_kon->emiten_char }}</td>
-                                        <td>{{ $final_kon->index }}</td>
-                                        <td>{{ $final_kon->sektor }}</td>
-                                        <td>{{ $final_kon->vektor_v }}</td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <form action="" method="POST">
-                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                        <a class="dropdown-item" href="">Show</a>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
-                    @endif
-                    @if (Auth::user()->instrument_saham_id == 2)
-                    <div class="card shadow">
-                        <div class="card-header border-0">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <h3 class="mb-0">Syariah</h3>
-                                </div>
-                                <div class="col text-right">
-                                    {{-- <a href="#!" class="btn btn-sm btn-primary">See all</a> --}}
-                                </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Emiten</th>
+                                    <th scope="col">Index</th>
+                                    <th scope="col">Sektor</th>
+                                    <th scope="col">Nilai Rekomendasi</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($final_kons as $final_kon)
+                                <tr>
+                                    <td>{{ ++$i }}</td>
+                                    <td>{{ $final_kon->emiten_char }}</td>
+                                    <td>{{ $final_kon->index }}</td>
+                                    <td>{{ $final_kon->sektor }}</td>
+                                    <td>{{ $final_kon->vektor_v }}</td>
+                                    <td class="text-right">
+                                        <div class="dropdown">
+                                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v text-blue"></i>
+                                            </a>
+                                            <form action="" method="POST">
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                    <a class="dropdown-item" href="{{ route('dashboard.show', $final_kon->id) }}">Show</a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                @endif
+                @if (Auth::user()->instrument_saham_id == 2)
+                <div class="card shadow">
+                    <div class="card-header border-0">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h3 class="mb-0">Syariah</h3>
+                            </div>
+                            <div class="col text-right">
+                                {{-- <a href="#!" class="btn btn-sm btn-primary">See all</a> --}}
                             </div>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table align-items-center table-flush">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Emiten</th>
-                                        <th scope="col">Index</th>
-                                        <th scope="col">Sektor</th>
-                                        <th scope="col">Nilai Rekomendasi</th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($final_syar as $final_syar)
-                                    <tr>
-                                        <td>{{ ++$j }}</td>
-                                        <td>{{ $final_syar->emiten_char }}</td>
-                                        <td>{{ $final_syar->index }}</td>
-                                        <td>{{ $final_syar->sektor }}</td>
-                                        <td>{{ $final_syar->vektor_v }}</td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <form action="" method="POST">
-                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                        <a class="dropdown-item" href="">Show</a>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
-                    @endif
-                    {{-- Admin --}}
-                @else
-                    <div class="card shadow">
-                        <div class="card-header border-0">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <h3 class="mb-0">Konvensional</h3>
-                                </div>
-                                <div class="col text-right">
-                                    {{-- <a href="#!" class="btn btn-sm btn-primary">See all</a> --}}
-                                </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Emiten</th>
+                                    <th scope="col">Index</th>
+                                    <th scope="col">Sektor</th>
+                                    <th scope="col">Nilai Rekomendasi</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($final_syar as $final_syar)
+                                <tr>
+                                    <td>{{ ++$j }}</td>
+                                    <td>{{ $final_syar->emiten_char }}</td>
+                                    <td>{{ $final_syar->index }}</td>
+                                    <td>{{ $final_syar->sektor }}</td>
+                                    <td>{{ $final_syar->vektor_v }}</td>
+                                    <td class="text-right">
+                                        <div class="dropdown">
+                                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v text-blue"></i>
+                                            </a>
+                                            <form action="" method="POST">
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                    <a class="dropdown-item" href="{{ route('dashboard.show', $final_syar->id) }}">Show</a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                @endif
+                @if (Auth::user()->instrument_saham_id == 3)
+                <div class="card shadow">
+                    <div class="card-header border-0">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h3 class="mb-0">Konvensional</h3>
+                            </div>
+                            <div class="col text-right">
+                                {{-- <a href="#!" class="btn btn-sm btn-primary">See all</a> --}}
                             </div>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table align-items-center table-flush">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Emiten</th>
-                                        <th scope="col">Index</th>
-                                        <th scope="col">Sektor</th>
-                                        <th scope="col">Nilai Rekomendasi</th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($final_kons as $final_kon)
-                                    <tr>
-                                        <td>{{ ++$i }}</td>
-                                        <td>{{ $final_kon->emiten_char }}</td>
-                                        <td>{{ $final_kon->index }}</td>
-                                        <td>{{ $final_kon->sektor }}</td>
-                                        <td>{{ $final_kon->vektor_v }}</td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <form action="" method="POST">
-                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <a class="dropdown-item" href="{{ route('dashboard.show', $final_kon->id) }}">Show</a>
-                                                        <a class="dropdown-item" href="">Update</a>
-                                                        <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure to delete this data?')">Delete</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
-                    <div class="card shadow">
-                        <div class="card-header border-0">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <h3 class="mb-0">Syariah</h3>
-                                </div>
-                                <div class="col text-right">
-                                    {{-- <a href="#!" class="btn btn-sm btn-primary">See all</a> --}}
-                                </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Emiten</th>
+                                    <th scope="col">Index</th>
+                                    <th scope="col">Sektor</th>
+                                    <th scope="col">Nilai Rekomendasi</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($final_kons as $final_kon)
+                                <tr>
+                                    <td>{{ ++$i }}</td>
+                                    <td>{{ $final_kon->emiten_char }}</td>
+                                    <td>{{ $final_kon->index }}</td>
+                                    <td>{{ $final_kon->sektor }}</td>
+                                    <td>{{ $final_kon->vektor_v }}</td>
+                                    <td class="text-right">
+                                        <div class="dropdown">
+                                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v text-blue text-blue"></i>
+                                            </a>
+                                            <form action="" method="POST">
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                    <a class="dropdown-item" href="{{ route('dashboard.show', $final_kon->id) }}">Show</a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card shadow">
+                    <div class="card-header border-0">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h3 class="mb-0">Syariah</h3>
+                            </div>
+                            <div class="col text-right">
+                                {{-- <a href="#!" class="btn btn-sm btn-primary">See all</a> --}}
                             </div>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table align-items-center table-flush">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Emiten</th>
-                                        <th scope="col">Index</th>
-                                        <th scope="col">Sektor</th>
-                                        <th scope="col">Nilai Rekomendasi</th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($final_syar as $final_syar)
-                                    <tr>
-                                        <td>{{ ++$j }}</td>
-                                        <td>{{ $final_syar->emiten_char }}</td>
-                                        <td>{{ $final_syar->index }}</td>
-                                        <td>{{ $final_syar->sektor }}</td>
-                                        <td>{{ $final_syar->vektor_v }}</td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <form action="" method="POST">
-                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <a class="dropdown-item" href="">Show</a>
-                                                        <a class="dropdown-item" href="">Update</a>
-                                                        <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure to delete this data?')">Delete</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Emiten</th>
+                                    <th scope="col">Index</th>
+                                    <th scope="col">Sektor</th>
+                                    <th scope="col">Nilai Rekomendasi</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($final_syar as $final_syar)
+                                <tr>
+                                    <td>{{ ++$j }}</td>
+                                    <td>{{ $final_syar->emiten_char }}</td>
+                                    <td>{{ $final_syar->index }}</td>
+                                    <td>{{ $final_syar->sektor }}</td>
+                                    <td>{{ $final_syar->vektor_v }}</td>
+                                    <td class="text-right">
+                                        <div class="dropdown">
+                                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v text-blue"></i>
+                                            </a>
+                                            <form action="" method="POST">
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                    <a class="dropdown-item" href="{{ route('dashboard.show', $final_syar->id) }}">Show</a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                 @endif
             </div>
         </div>

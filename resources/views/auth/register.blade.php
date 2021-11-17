@@ -81,6 +81,47 @@
                                     </span>
                                 @endif
                             </div>
+                            <div class="form-group{{ $errors->has('instrument_saham') ? ' has-danger' : '' }}">
+                                {{-- <label for="">Preferensi Saham</label> --}}
+                                <div class="input-group input-group-alternative mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-diamond"></i></span>
+                                    </div>
+                                    <select class="form-control" id="instrument_saham" name="instrument_saham">
+                                    {{-- <option value="#" disabled>Preferensi Saham</option> --}}
+                                        @foreach ($instrument_sahams as $instrument_saham)
+                                    <option value={{ $instrument_saham->id }}>{{ $instrument_saham->name }}</option>
+                                    @endforeach
+                                </select>
+                                    {{-- <input class="form-control datepicker" placeholder="Preferensi Saham" type="text" name="instrument_saham" value="{{ old('instrument_saham') }}" required> --}}
+                                    {{-- <input class="form-control{{ $errors->has('instrument_saham') ? ' is-invalid' : '' }}" placeholder="{{ __('Date of Birth') }}" type="instrument_saham" name="instrument_saham" value="{{ old('instrument_saham') }}" required> --}}
+                                </div>
+                                @if ($errors->has('instrument_saham'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('instrument_saham') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="form-group{{ $errors->has('gender') ? ' has-danger' : '' }}">
+                                {{-- <label for="">Preferensi Saham</label> --}}
+                                <div class="input-group input-group-alternative mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-badge"></i></span>
+                                    </div>
+                                    <select class="form-control" id="gender" name="gender">
+                                    {{-- <option value="#" disabled>Gender</option> --}}
+                                    <option value="laki-laki">Laki -Laki</option>
+                                    <option value="perempuan">Perempuan</option>
+                                </select>
+                                    {{-- <input class="form-control datepicker" placeholder="Preferensi Saham" type="text" name="gender" value="{{ old('gender') }}" required> --}}
+                                    {{-- <input class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" placeholder="{{ __('Date of Birth') }}" type="gender" name="gender" value="{{ old('gender') }}" required> --}}
+                                </div>
+                                @if ($errors->has('gender'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('gender') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
                             <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">
