@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InstrumentSaham;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 use function GuzzleHttp\Promise\all;
 
@@ -61,7 +63,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('user.edit', compact('user'));
+        $instruments = InstrumentSaham::get();
+        return view('user.edit', compact('user', 'instruments'));
     }
 
     /**
@@ -73,25 +76,34 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $request->validate([
-            'name' => ['required'],
-            'email' => ['required'],
-            'address' => ['required'],
-            'date_of_birth' => ['required'],
-            'role' => ['required'],
-        ]);
-
+        // $request->validate([
+        //     'name' => ['required'],
+        //     'email' => ['required'],
+        //     'address' => ['required'],
+        //     'date_of_birth' => ['required'],
+        //     'role' => ['required'],
+        // ]);
+        
         $user = User::findOrFail($user->id);
 
-        // $user->update([
-        //     'name' => request('name'),
-        //     'address' => request('address'),
-        //     'email' => request('email'),
-        //     'date_of_birth' => Carbon::createFromFormat('m/d/Y', request('date_of_birth'))->format('Y-m-d'),
-        //     'role' => request('role'),
-        // ]);
-        // dd($request);
-        $user->update($request->all());
+        $user->update([
+            'name' => request('name'),
+            'email' => request('email'),
+            'address' => request('address'),
+            // 'date_of_birth' => Carbon::createFromFormat('m/d/Y', $request['date_of_birth'])->format('Y-m-d'),
+            'gender' => request('gender'),
+            'instrument_saham_id' => request('instrument'),
+            // 'role' => request('role'),
+        ]);
+            // $user = DB::table('users')->where('id', $user->id)->update(['name' => request('name'),
+            //     'name' => request('name'),
+            //     'email' => request('email'),
+            //     'address' => request('address'),
+            //     'date_of_birth' => request('date_of_birth'),
+            //     'role' => request('role'),
+            // ]);
+            // $user->update($request->all());
+            // dd($request->all());
         return redirect()->route('user.index')->with('success', 'User updated success');
     }
 

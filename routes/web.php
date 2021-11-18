@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EmitenController;
+use App\Http\Controllers\FilterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IndexSahamController;
 use App\Http\Controllers\InstrumentSahamController;
@@ -22,11 +23,14 @@ Auth::routes(['verify' => true]);
 
 Route::middleware(['auth', 'verified'])->group(function () {
 	Route::resource('dashboard', HomeController::class);
+	Route::get('dashboard/year/{year:year}', [FilterController::class, 'sortbyyear']);
+	Route::get('dashboard/sektor/{sektor:sektor}', [FilterController::class, 'sortbysektor']);
+	Route::get('dashboard/top/{top:top}', [FilterController::class, 'sortbytop']);
+	Route::resource('user', UserController::class);
 	Route::group(['middleware' => ['cek_login:admin']], function () {
 		Route::resource('emiten', EmitenController::class);
 		Route::resource('instrument', InstrumentSahamController::class);
 		Route::resource('sektor', SektorSahamController::class);
-		Route::resource('user', UserController::class);
 		Route::resource('index_saham', IndexSahamController::class);
 		Route::resource('perhitungan', PreferensiController::class);
 		// Route::get('map', function () {
@@ -34,12 +38,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 			// })->name('map');
 		});
 		
-	Route::group(['middleware' => ['cek_login:user']], function () {
-		// Route::get('icons', function () {
-		// 	return view('pages.icons');
-		// })->name('icons');
-	});
-
+		Route::group(['middleware' => ['cek_login:user']], function () {
+			// Route::resource('user', UserController::class);
+			// Route::get('icons', function () {
+				// 	return view('pages.icons');
+				// })->name('icons');
+			});
+			
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::get('upgrade', function () {

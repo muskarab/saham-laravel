@@ -1,18 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('layouts.headers.guest')
-    
+@include('layouts.headers.guest')
+
 <div class="container-fluid mt--7">
     <div class="row">
         <div class="col">
             <div class="card shadow">
                 <div class="card-header border-0">
                     @if ($message = Session::get('success'))
-                        <div class="alert alert-success" role="alert">
-                            <strong>Success!</strong> {{ $message }}
-                        </div>
+                    <div class="alert alert-success" role="alert">
+                        <strong>Success!</strong> {{ $message }}
+                    </div>
                     @endif
+                    @if (Auth::user()->role == "admin")
                     <div class="row align-items-center">
                         <div class="col-8">
                             <h3 class="mb-0">Users</h3>
@@ -81,6 +82,7 @@
     </div>
     @include('layouts.footers.auth')
 </div>
+@endif
         
 @endsection
 

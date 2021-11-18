@@ -13,7 +13,11 @@
                             <h3 class="mb-0">Edit User {{ $user->name }}</h3>
                         </div>
                         <div class="col-4 text-right">
+                            @if ($user->role == "admin")
                             <a href="{{ route('user.index') }}" class="btn btn-sm btn-primary">Back</a>
+                            @else
+                            <a href="{{ route('emiten.index') }}" class="btn btn-sm btn-primary">Back</a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -54,32 +58,57 @@
                                 </div>
                             </div>
                             </div>
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                             <div class="form-group">
                                 <div class="input-group mb-4">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
                                 <input class="form-control datepicker" placeholder="Date of Birth" type="text" name="date_of_birth" value="{{ $user->date_of_birth }}">
                                 </div>
                             </div>
-                            </div>
+                            </div> --}}
                         </div>
+                        @if (Auth::user()->role == "admin")
                         <div class="row">
                             <div class="col-md-6">
-                            <div class="form-group">
+                                <div class="form-group">
                                 <label for="staticEmail" class="col-sm-2 col-form-label">Role</label>
-                                @if ($user->role == "admin")
                                 <select class="form-control" id="role" name="role">
                                     <option value=admin>Admin</option>
                                     <option value=user>User</option>
                                 </select>
-                                @else
-                                <select class="form-control" id="role" name="role">
-                                    <option value=admin>Admin</option>
-                                    <option value=user selected>User</option>
+                            </div>
+                        </div>
+                        </div>
+                        @endif
+                        <div class="row">
+                            <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="staticEmail" class="">Preferensi Saham</label>
+                                <select class="form-control" id="instrument" name="instrument">
+                                    @foreach ($instruments as $instrument)
+                                        @if ($user->instrument_saham_id == $instrument->id)
+                                        <option value={{ $instrument->id }} selected>(Selected){{ $instrument->name }}</option>
+                                        @else
+                                        <option value={{ $instrument->id }}>{{ $instrument->name }}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
-                                @endif
+                            </div>
+                            </div>
+                            <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="staticEmail" class="">Gender</label>
+                                <select class="form-control" id="gender" name="gender">
+                                    @if ($user->gender == "laki-laki")
+                                    <option value='laki-laki'>Laki-Laki</option>
+                                    <option value='perempuan'>Perempuan</option>
+                                    @else
+                                    <option value='perempuan'>Perempuan</option>
+                                    <option value='laki-laki'>Laki-Laki</option>
+                                    @endif
+                                </select>
                             </div>
                             </div>
                         </div>

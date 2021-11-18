@@ -21,13 +21,16 @@ class HomeController extends Controller
         $konvensionals = $emitens->where('index_id', 1);
         $syariahs = $emitens->where('index_id', 2);
         // $final_kon = Emiten::where('index_id', 1)->get();
-        $final_syar = Emiten::where('index_id', 2)->get();
+        // $final_syar = Emiten::where('index_id', 2)->get();
+
+        $years = Emiten::distinct('tahun')->get('tahun');
 
         $final_kons = DB::table('emitens')
         ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
         ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
         ->join('sektors', 'sektor_id', '=', 'sektors.id')
         ->where('index_id', 1)
+        // ->where('sektor_id', 1)
         ->select('emitens.*', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'sektors.name as sektor')
         ->orderByRaw('vektor_v DESC')->get();
 
@@ -38,8 +41,8 @@ class HomeController extends Controller
         ->where('index_id', 2)
         ->select('emitens.*', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'sektors.name as sektor')
         ->orderByRaw('vektor_v DESC')->get();
-        // dd($emitens);
-        return view('dashboard.index', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar'))->with('i')->with('j');
+        // dd($tahun);
+        return view('dashboard.index', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar', 'years'))->with('i')->with('j');
     }
 
     /**

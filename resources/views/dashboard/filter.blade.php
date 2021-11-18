@@ -98,35 +98,11 @@
     </div>
     
     <div class="container-fluid mt--7">
-        <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Sort By Tahun
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            @foreach ($years as $year)
-            <a class="dropdown-item" href="dashboard/year/{{ $year->tahun }}">{{ $year->tahun }}</a>
-            @endforeach
-        </div>
-        </div>
-        <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Sort By Sektor
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            @foreach ($sectors as $sector)
-            <a class="dropdown-item" href="dashboard/sektor/{{ $sector->id }}">{{ $sector->name }}</a>
-            @endforeach
-        </div>
-        </div>
-        <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Sort By Top
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="dashboard/top/3">3</a>
-            <a class="dropdown-item" href="dashboard/top/5">5</a>
-            <a class="dropdown-item" href="dashboard/top/10">10</a>
-        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <label class="text-white">Sort By : </label>
+                <a class="btn btn-white btn-sm" href="/dashboard">Clear</a>
+            </div>
         </div>
         <div class="row mt-3">
             <div class="col-xl-12 mb-5 mb-xl-0">

@@ -20,6 +20,7 @@ class CreateEmitensTable extends Migration
             $table->foreignId('index_id');
             $table->foreignId('sektor_id');
             $table->string('deskripsi');
+            $table->year('tahun');
             $table->double('der');
             $table->double('per');
             $table->double('roe');

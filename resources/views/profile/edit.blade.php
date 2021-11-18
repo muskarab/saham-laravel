@@ -70,7 +70,12 @@
                 <div class="card bg-secondary shadow">
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
-                            <h3 class="mb-0">{{ __('Edit Profile') }}</h3>
+                            <div class="col-8">
+                                <h3 class="mb-0">{{ __('Profile') }}</h3>
+                            </div>
+                            <div class="col-4 text-right">
+                                <a href="{{ route('user.edit', auth()->user()->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -93,11 +98,65 @@
                             <div class="pl-lg-4">
                                 <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-name">{{ __('Name') }}</label>
-                                    <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', auth()->user()->name) }}" required autofocus>
+                                    <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', auth()->user()->name) }}" disabled required autofocus>
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('name') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('address') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-address">{{ __('Address') }}</label>
+                                    <input type="text" address="address" id="input-address" class="form-control form-control-alternative{{ $errors->has('address') ? ' is-invalid' : '' }}" placeholder="{{ __('Address') }}" value="{{ old('address', auth()->user()->address) }}" disabled required autofocus>
+
+                                    @if ($errors->has('address'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('address') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('date_of_birth') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-date_of_birth">{{ __('Date_of_birth') }}</label>
+                                    <input type="text" date_of_birth="date_of_birth" id="input-date_of_birth" class="form-control form-control-alternative{{ $errors->has('date_of_birth') ? ' is-invalid' : '' }}" placeholder="{{ __('date_of_birth') }}" value="{{ old('date_of_birth', auth()->user()->date_of_birth) }}" disabled required autofocus>
+
+                                    @if ($errors->has('date_of_birth'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('date_of_birth') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-email">{{ __('Email') }}</label>
+                                    <input type="text" email="email" id="input-email" class="form-control form-control-alternative{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('email') }}" value="{{ old('email', auth()->user()->email) }}" disabled required autofocus>
+
+                                    @if ($errors->has('email'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('gender') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-gender">{{ __('Gender') }}</label>
+                                    <input type="text" gender="gender" id="input-gender" class="form-control form-control-alternative{{ $errors->has('gender') ? ' is-invalid' : '' }}" placeholder="{{ __('gender') }}" value="{{ old('gender', auth()->user()->gender) }}" disabled required autofocus>
+
+                                    @if ($errors->has('gender'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('gender') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('preferensi_saham') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-preferensi_saham">{{ __('Preferensi Saham') }}</label>
+                                    @foreach ($instruments as $instrument)
+                                    @if (auth()->user()->instrument_saham_id == $instrument->id)
+                                    <input type="text" preferensi_saham="preferensi_saham" id="input-preferensi_saham" class="form-control form-control-alternative{{ $errors->has('preferensi_saham') ? ' is-invalid' : '' }}" placeholder="{{ __('preferensi_saham') }}" value="{{ old('preferensi_saham', $instrument->name) }}" disabled required autofocus>
+                                    @endif
+                                    @endforeach
+
+                                    @if ($errors->has('preferensi_saham'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('preferensi_saham') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -112,13 +171,13 @@
                                     @endif
                                 </div> --}}
 
-                                <div class="text-center">
+                                {{-- <div class="text-center">
                                     <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
-                                </div>
+                                </div> --}}
                             </div>
                         </form>
-                        <hr class="my-4" />
-                        <form method="post" action="{{ route('profile.password') }}" autocomplete="off">
+                        {{-- <hr class="my-4" /> --}}
+                        {{-- <form method="post" action="{{ route('profile.password') }}" autocomplete="off">
                             @csrf
                             @method('put')
 
@@ -163,7 +222,7 @@
                                     <button type="submit" class="btn btn-success mt-4">{{ __('Change password') }}</button>
                                 </div>
                             </div>
-                        </form>
+                        </form> --}}
                     </div>
                 </div>
             </div>

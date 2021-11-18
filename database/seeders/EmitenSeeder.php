@@ -21,11 +21,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 8,
             'deskripsi' => 'Desc ADHI',
+            'tahun' => '2017',
             'eps' => 119.0000,
             'roe' => 3.5804,
             'per' => 11.6300,
             'der' => 3.4600,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -34,11 +35,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 4,
             'deskripsi' => 'Desc ADRO',
+            'tahun' => '2019',
             'eps' => 176.0000,
             'roe' => 5.3779,
             'per' => 10.4300,
             'der' => 0.6300,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -47,11 +49,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 4,
             'deskripsi' => 'Desc AKRA',
+            'tahun' => '2018',
             'eps' => 558.0000,
             'roe' => 11.1855,
             'per' => 6.5700,
             'der' => 0.9500,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -60,11 +63,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 1,
             'deskripsi' => 'Desc ANTM',
+            'tahun' => '2018',
             'eps' => 29.0000,
             'roe' => 1.8249,
             'per' => 29.4800,
             'der' => 0.6600,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -73,11 +77,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 7,
             'deskripsi' => 'Desc ASII',
+            'tahun' => '2018',
             'eps' => 513.0000,
             'roe' => 8.1505,
             'per' => 14.3300,
             'der' => 0.9100,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -86,11 +91,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 5,
             'deskripsi' => 'Desc BBCA',
+            'tahun' => '2018',
             'eps' => 936.0000,
             'roe' => 8.3467,
             'per' => 25.8100,
             'der' => 4.7500,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -99,11 +105,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 5,
             'deskripsi' => 'Desc BBNI',
+            'tahun' => '2018',
             'eps' => 806.0000,
             'roe' => 7.4226,
             'per' => 9.1900,
             'der' => 6.0600,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -112,11 +119,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 5,
             'deskripsi' => 'Desc BBRI',
+            'tahun' => '2018',
             'eps' => 244.0000,
             'roe' => 8.9597,
             'per' => 12.9200,
             'der' => 5.9200,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -125,11 +133,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 5,
             'deskripsi' => 'Desc BBTN',
+            'tahun' => '2018',
             'eps' => 272.0000,
             'roe' => 6.3631,
             'per' => 9.6800,
             'der' => 10.2600,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -138,11 +147,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 5,
             'deskripsi' => 'Desc BJBR',
+            'tahun' => '2018',
             'eps' => 188.0000,
             'roe' => 8.1117,
             'per' => 10.8100,
             'der' => 8.7100,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -151,11 +161,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 9,
             'deskripsi' => 'Desc BKSL',
+            'tahun' => '2018',
             'eps' => 2.0000,
             'roe' => 0.5103,
             'per' => 60.4300,
             'der' => 0.5600,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -164,11 +175,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 5,
             'deskripsi' => 'Desc BMRI',
+            'tahun' => '2018',
             'eps' => 527.0000,
             'roe' => 7.3976,
             'per' => 12.7600,
             'der' => 5.3900,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -177,11 +189,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 1,
             'deskripsi' => 'Desc BRPT',
+            'tahun' => '2018',
             'eps' => 67.0000,
             'roe' => 5.1648,
             'per' => 27.2800,
             'der' => 1.5600,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -190,11 +203,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 9,
             'deskripsi' => 'Desc BSDE',
+            'tahun' => '2018',
             'eps' => 43.0000,
             'roe' => 1.9481,
             'per' => 27.1600,
             'der' => 0.7300,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -203,11 +217,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 4,
             'deskripsi' => 'Desc ELSA',
+            'tahun' => '2018',
             'eps' => 35.0000,
             'roe' => 4.0545,
             'per' => 10.6300,
             'der' => 0.6700,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -216,11 +231,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 8,
             'deskripsi' => 'Desc EXCL',
+            'tahun' => '2018',
             'eps' => -15.0000,
             'roe' => -0.3806,
             'per' => -180.4400,
             'der' => 1.6200,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -229,11 +245,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 3,
             'deskripsi' => 'Desc GGRM',
+            'tahun' => '2018',
             'eps' => 3695.0000,
             'roe' => 8.7285,
             'per' => 20.0400,
             'der' => 0.6200,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -242,11 +259,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 3,
             'deskripsi' => 'Desc HMSP',
+            'tahun' => '2018',
             'eps' => 105.0000,
             'roe' => 22.0535,
             'per' => 36.6300,
             'der' => 0.5800,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -255,11 +273,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 3,
             'deskripsi' => 'Desc ICBP',
+            'tahun' => '2018',
             'eps' => 393.0000,
             'roe' => 11.2259,
             'per' => 22.4600,
             'der' => 0.6900,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -268,11 +287,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 1,
             'deskripsi' => 'Desc INCO',
+            'tahun' => '2018',
             'eps' => 85.0000,
             'roe' => 1.5883,
             'per' => 43.5400,
             'der' => 0.1700,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -281,11 +301,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 3,
             'deskripsi' => 'Desc INDF',
+            'tahun' => '2018',
             'eps' => 446.0000,
             'roe' => 5.1597,
             'per' => 13.2400,
             'der' => 0.9800,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -294,11 +315,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 4,
             'deskripsi' => 'Desc INDY',
+            'tahun' => '2018',
             'eps' => 422.0000,
             'roe' => 7.5319,
             'per' => 6.6400,
             'der' => 2.1000,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -307,11 +329,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 1,
             'deskripsi' => 'Desc INKP',
+            'tahun' => '2018',
             'eps' => 1793.0000,
             'roe' => 9.6803,
             'per' => 9.6800,
             'der' => 1.3500,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -320,11 +343,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 1,
             'deskripsi' => 'Desc INTP',
+            'tahun' => '2018',
             'eps' => 193.0000,
             'roe' => 1.5894,
             'per' => 95.8900,
             'der' => 0.1800,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -333,11 +357,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 4,
             'deskripsi' => 'Desc ITMG',
+            'tahun' => '2018',
             'eps' => 2625.0000,
             'roe' => 11.4116,
             'per' => 9.8500,
             'der' => 0.4600,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -346,11 +371,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 8,
             'deskripsi' => 'Desc JSMR',
+            'tahun' => '2018',
             'eps' => 288.0000,
             'roe' => 5.0254,
             'per' => 15.5100,
             'der' => 3.5300,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -359,11 +385,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 6,
             'deskripsi' => 'Desc KLBF',
+            'tahun' => '2018',
             'eps' => 52.0000,
             'roe' => 8.8248,
             'per' => 26.6000,
             'der' => 0.2800,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -372,11 +399,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 9,
             'deskripsi' => 'Desc LPKR',
+            'tahun' => '2018',
             'eps' => 23.0000,
             'roe' => 0.6048,
             'per' => 14.9500,
             'der' => 0.9300,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -385,11 +413,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 2,
             'deskripsi' => 'Desc LPPF',
+            'tahun' => '2018',
             'eps' => 922.0000,
             'roe' => 57.5278,
             'per' => 7.5100,
             'der' => 1.8700,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -398,11 +427,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 4,
             'deskripsi' => 'Desc MEDC',
+            'tahun' => '2018',
             'eps' => 67.0000,
             'roe' => 3.5273,
             'per' => 14.9000,
             'der' => 2.5200,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -411,11 +441,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 2,
             'deskripsi' => 'Desc MNCN',
+            'tahun' => '2018',
             'eps' => 89.0000,
             'roe' => 6.6390,
             'per' => 9.0300,
             'der' => 0.5900,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -424,11 +455,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 4,
             'deskripsi' => 'Desc PGAS',
+            'tahun' => '2018',
             'eps' => 173.0000,
             'roe' => 4.5072,
             'per' => 12.9700,
             'der' => 0.9900,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -437,11 +469,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 4,
             'deskripsi' => 'Desc PTBA',
+            'tahun' => '2018',
             'eps' => 447.0000,
             'roe' => 20.2270,
             'per' => 9.6600,
             'der' => 0.5900,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -450,11 +483,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 8,
             'deskripsi' => 'Desc PTPP',
+            'tahun' => '2018',
             'eps' => 155.0000,
             'roe' => 4.2956,
             'per' => 9.8500,
             'der' => 1.9900,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -463,11 +497,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 2,
             'deskripsi' => 'Desc SCMA',
+            'tahun' => '2018',
             'eps' => 116.0000,
             'roe' => 17.7105,
             'per' => 16.2300,
             'der' => 0.3100,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -476,11 +511,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 1,
             'deskripsi' => 'Desc SMGR',
+            'tahun' => '2018',
             'eps' => 328.0000,
             'roe' => 3.1505,
             'per' => 30.3000,
             'der' => 0.6100,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -489,11 +525,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 2,
             'deskripsi' => 'Desc SRIL',
+            'tahun' => '2018',
             'eps' => 79.0000,
             'roe' => 11.5808,
             'per' => 4.3400,
             'der' => 1.6800,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -502,11 +539,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 3,
             'deskripsi' => 'Desc SSMS',
+            'tahun' => '2018',
             'eps' => 69.0000,
             'roe' => 7.6064,
             'per' => 18.7400,
             'der' => 1.5100,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -515,11 +553,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 8,
             'deskripsi' => 'Desc TLKM',
+            'tahun' => '2018',
             'eps' => 176.0000,
             'roe' => 13.0262,
             'per' => 20.7300,
             'der' => 1.0500,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -528,11 +567,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 1,
             'deskripsi' => 'Desc TPIA',
+            'tahun' => '2018',
             'eps' => 186.0000,
             'roe' => 6.6613,
             'per' => 26.4400,
             'der' => 0.7300,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -541,11 +581,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 7,
             'deskripsi' => 'Desc UNTR',
+            'tahun' => '2018',
             'eps' => 2938.0000,
             'roe' => 11.1178,
             'per' => 11.2300,
             'der' => 0.7200,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -554,11 +595,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 3,
             'deskripsi' => 'Desc UNVR',
+            'tahun' => '2018',
             'eps' => 925.0000,
             'roe' => 70.4310,
             'per' => 50.8200,
             'der' => 3.1000,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -567,11 +609,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 8,
             'deskripsi' => 'Desc WIKA',
+            'tahun' => '2018',
             'eps' => 115.0000,
             'roe' => 4.2276,
             'per' => 11.8400,
             'der' => 2.6100,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -580,11 +623,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 1,
             'deskripsi' => 'Desc WSBP',
+            'tahun' => '2018',
             'eps' => 52.0000,
             'roe' => 9.5218,
             'per' => 6.8300,
             'der' => 1.0300,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -593,11 +637,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 1,
             'sektor_id' => 8,
             'deskripsi' => 'Desc WSKT',
+            'tahun' => '2018',
             'eps' => 441.0000,
             'roe' => 15.0774,
             'per' => 3.8600,
             'der' => 3.4800,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
 
@@ -608,11 +653,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 4,
             'deskripsi' => 'Desc ADRO',
+            'tahun' => '2018',
             'eps' => 176.0000,
             'roe' => 5.3779,
             'per' => 10.4300,
             'der' => 0.6300,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -621,11 +667,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 4,
             'deskripsi' => 'Desc AKRA',
+            'tahun' => '2018',
             'eps' => 558.0000,
             'roe' => 11.1855,
             'per' => 6.5700,
             'der' => 0.9500,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -634,11 +681,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 1,
             'deskripsi' => 'Desc ANTM',
+            'tahun' => '2018',
             'eps' => 29.0000,
             'roe' => 1.8249,
             'per' => 29.4800,
             'der' => 0.6600,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -647,11 +695,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 7,
             'deskripsi' => 'Desc ASII',
+            'tahun' => '2018',
             'eps' => 513.0000,
             'roe' => 8.1505,
             'per' => 14.3300,
             'der' => 0.9100,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -660,11 +709,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 1,
             'deskripsi' => 'Desc BRPT',
+            'tahun' => '2018',
             'eps' => 67.0000,
             'roe' => 5.1648,
             'per' => 27.2800,
             'der' => 1.5600,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -673,11 +723,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 9,
             'deskripsi' => 'Desc BSDE',
+            'tahun' => '2018',
             'eps' => 43.0000,
             'roe' => 1.9481,
             'per' => 27.1600,
             'der' => 0.7300,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -686,11 +737,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 9,
             'deskripsi' => 'Desc CTRA',
+            'tahun' => '2018',
             'eps' => 19.0000,
             'roe' => 1.4552,
             'per' => 46.0800,
             'der' => 1.1300,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -699,11 +751,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 8,
             'deskripsi' => 'Desc EXCL',
+            'tahun' => '2018',
             'eps' => -15.0000,
             'roe' => -0.3806,
             'per' => -180.4400,
             'der' => 1.6200,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -712,11 +765,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 3,
             'deskripsi' => 'Desc ICBP',
+            'tahun' => '2018',
             'eps' => 393.0000,
             'roe' => 11.2259,
             'per' => 22.4600,
             'der' => 0.6900,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -725,11 +779,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 1,
             'deskripsi' => 'Desc INCO',
+            'tahun' => '2018',
             'eps' => 85.0000,
             'roe' => 1.5883,
             'per' => 43.5400,
             'der' => 0.1700,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -738,11 +793,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 3,
             'deskripsi' => 'Desc INDF',
+            'tahun' => '2018',
             'eps' => 446.0000,
             'roe' => 5.1597,
             'per' => 13.2400,
             'der' => 0.9800,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -751,11 +807,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 4,
             'deskripsi' => 'Desc INDY',
+            'tahun' => '2018',
             'eps' => 422.0000,
             'roe' => 7.5319,
             'per' => 6.6400,
             'der' => 2.1000,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -764,11 +821,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 1,
             'deskripsi' => 'Desc INTP',
+            'tahun' => '2018',
             'eps' => 193.0000,
             'roe' => 1.5894,
             'per' => 95.8900,
             'der' => 0.1800,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -777,11 +835,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 4,
             'deskripsi' => 'Desc ITMG',
+            'tahun' => '2018',
             'eps' => 2625.0000,
             'roe' => 11.4116,
             'per' => 9.8500,
             'der' => 0.4600,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -790,11 +849,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 6,
             'deskripsi' => 'Desc KLBF',
+            'tahun' => '2018',
             'eps' => 52.0000,
             'roe' => 8.8248,
             'per' => 26.6000,
             'der' => 0.2800,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -803,11 +863,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 9,
             'deskripsi' => 'Desc LPKR',
+            'tahun' => '2018',
             'eps' => 23.0000,
             'roe' => 0.6048,
             'per' => 14.9500,
             'der' => 0.9300,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -816,11 +877,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 2,
             'deskripsi' => 'Desc LPPF',
+            'tahun' => '2018',
             'eps' => 922.0000,
             'roe' => 57.5278,
             'per' => 7.5100,
             'der' => 1.8700,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -829,11 +891,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 4,
             'deskripsi' => 'Desc PGAS',
+            'tahun' => '2018',
             'eps' => 173.0000,
             'roe' => 4.5072,
             'per' => 12.9700,
             'der' => 0.9900,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -842,11 +905,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 4,
             'deskripsi' => 'Desc PTBA',
+            'tahun' => '2018',
             'eps' => 447.0000,
             'roe' => 20.2270,
             'per' => 9.6600,
             'der' => 0.5900,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -855,11 +919,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 8,
             'deskripsi' => 'Desc PTPP',
+            'tahun' => '2018',
             'eps' => 155.0000,
             'roe' => 4.2956,
             'per' => 9.8500,
             'der' => 1.9900,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -868,11 +933,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 2,
             'deskripsi' => 'Desc SCMA',
+            'tahun' => '2018',
             'eps' => 116.0000,
             'roe' => 17.7105,
             'per' => 16.2300,
             'der' => 0.3100,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -881,11 +947,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 1,
             'deskripsi' => 'Desc SMGR',
+            'tahun' => '2018',
             'eps' => 328.0000,
             'roe' => 3.1505,
             'per' => 30.3000,
             'der' => 0.6100,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -894,11 +961,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 9,
             'deskripsi' => 'Desc SMRA',
+            'tahun' => '2018',
             'eps' => 11.0000,
             'roe' => 2.3894,
             'per' => 60.2800,
             'der' => 1.7400,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -907,11 +975,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 8,
             'deskripsi' => 'Desc TLKM',
+            'tahun' => '2018',
             'eps' => 176.0000,
             'roe' => 13.0262,
             'per' => 20.7300,
             'der' => 1.0500,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -920,11 +989,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 1,
             'deskripsi' => 'Desc TPIA',
+            'tahun' => '2018',
             'eps' => 186.0000,
             'roe' => 6.6613,
             'per' => 26.4400,
             'der' => 0.7300,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -933,11 +1003,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 7,
             'deskripsi' => 'Desc UNTR',
+            'tahun' => '2018',
             'eps' => 2938.0000,
             'roe' => 11.1178,
             'per' => 11.2300,
             'der' => 0.7200,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -946,11 +1017,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 3,
             'deskripsi' => 'Desc UNVR',
+            'tahun' => '2018',
             'eps' => 925.0000,
             'roe' => 70.4310,
             'per' => 50.8200,
             'der' => 3.1000,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -959,11 +1031,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 8,
             'deskripsi' => 'Desc WIKA',
+            'tahun' => '2018',
             'eps' => 115.0000,
             'roe' => 4.2276,
             'per' => 11.8400,
             'der' => 2.6100,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -972,11 +1045,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 1,
             'deskripsi' => 'Desc WSBP',
+            'tahun' => '2018',
             'eps' => 52.0000,
             'roe' => 9.5218,
             'per' => 6.8300,
             'der' => 1.0300,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         DB::table('emitens')->insert([
@@ -985,11 +1059,12 @@ class EmitenSeeder extends Seeder
             'index_id' => 2,
             'sektor_id' => 8,
             'deskripsi' => 'Desc WSKT',
+            'tahun' => '2018',
             'eps' => 441.0000,
             'roe' => 15.0774,
             'per' => 3.8600,
             'der' => 3.4800,
-            'created_at' => now(),
+            'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
         
