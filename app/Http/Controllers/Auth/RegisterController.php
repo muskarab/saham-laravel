@@ -69,15 +69,65 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'address' => $data['address'],
-            'email' => $data['email'],
-            'date_of_birth' => Carbon::createFromFormat('m/d/Y', $data['date_of_birth'])->format('Y-m-d'),
-            'instrument_saham_id' => $data['instrument_saham'],
-            'gender' => $data['gender'],
-            'password' => Hash::make($data['password']),
-            // dd($data)
-        ]);
+        if ($data['instrument_saham'] == 1) {
+            return User::create([
+                'name' => $data['name'],
+                'address' => $data['address'],
+                'email' => $data['email'],
+                'date_of_birth' => Carbon::createFromFormat('m/d/Y', $data['date_of_birth'])->format('Y-m-d'),
+                'instrument_saham_id' => $data['instrument_saham'],
+                'gender' => $data['gender'],
+                'password' => Hash::make($data['password']),
+                'w_eps_kon' => 6,
+                'w_roe_kon' => 6,
+                'w_per_kon' => 2,
+                'w_der_kon' => 0,
+                'w_eps_syar' => 0,
+                'w_roe_syar' => 0,
+                'w_per_syar' => 0,
+                'w_der_syar' => 0,
+                // dd($data)
+            ]);
+        }
+        if ($data['instrument_saham'] == 2) {
+            return User::create([
+                'name' => $data['name'],
+                'address' => $data['address'],
+                'email' => $data['email'],
+                'date_of_birth' => Carbon::createFromFormat('m/d/Y', $data['date_of_birth'])->format('Y-m-d'),
+                'instrument_saham_id' => $data['instrument_saham'],
+                'gender' => $data['gender'],
+                'password' => Hash::make($data['password']),
+                'w_eps_kon' => 0,
+                'w_roe_kon' => 0,
+                'w_per_kon' => 0,
+                'w_der_kon' => 0,
+                'w_eps_syar' => 3,
+                'w_roe_syar' => 4,
+                'w_per_syar' => 0,
+                'w_der_syar' => 7,
+                // dd($data)
+            ]);
+        }
+        if ($data['instrument_saham'] == 3) {
+            return User::create([
+                'name' => $data['name'],
+                'address' => $data['address'],
+                'email' => $data['email'],
+                'date_of_birth' => Carbon::createFromFormat('m/d/Y', $data['date_of_birth'])->format('Y-m-d'),
+                'instrument_saham_id' => $data['instrument_saham'],
+                'gender' => $data['gender'],
+                'password' => Hash::make($data['password']),
+                'w_eps_kon' => 6,
+                'w_roe_kon' => 6,
+                'w_per_kon' => 2,
+                'w_der_kon' => 0,
+                'w_eps_syar' => 3,
+                'w_roe_syar' => 4,
+                'w_per_syar' => 0,
+                'w_der_syar' => 7,
+                // dd($data)
+            ]);
+        }
     }
 }
