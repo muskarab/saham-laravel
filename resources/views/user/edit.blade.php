@@ -112,6 +112,144 @@
                             </div>
                             </div>
                         </div>
+                        @if ($user->instrument_saham_id == 1)
+                        <label for="staticEmail" class="">Nilai Bobot Saham Konvensional</label>
+                        <div class="row">
+                            <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">EPS</span>
+                                </div>
+                                <input class="form-control" type="number" name="w_eps_kon" value="{{ $user->w_eps_kon }}">
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">ROE</span>
+                                </div>
+                                <input class="form-control" type="number" name="w_roe_kon" value="{{ $user->w_roe_kon }}">
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">PER</span>
+                                </div>
+                                <input class="form-control" type="number" name="w_per_kon" value="{{ $user->w_per_kon }}">
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        @endif
+                        @if ($user->instrument_saham_id == 2)
+                        <label for="staticEmail" class="">Nilai Bobot Saham Syariah</label>
+                        <div class="row">
+                            <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">EPS</span>
+                                </div>
+                                <input class="form-control" type="number" name="w_eps_syar" value="{{ $user->w_eps_syar }}">
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">ROE</span>
+                                </div>
+                                <input class="form-control" type="number" name="w_roe_syar" value="{{ $user->w_roe_syar }}">
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">DER</span>
+                                </div>
+                                <input class="form-control" type="number" name="w_der_syar" value="{{ $user->w_der_syar }}">
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        @endif
+                        @if ($user->instrument_saham_id == 3)
+                        <label for="staticEmail" class="">Nilai Bobot Saham Konvensional</label>
+                        <div class="row">
+                            <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">EPS</span>
+                                </div>
+                                <input class="form-control" type="number" name="w_eps_kon" value="{{ $user->w_eps_kon }}">
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">ROE</span>
+                                </div>
+                                <input class="form-control" type="number" name="w_roe_kon" value="{{ $user->w_roe_kon }}">
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">PER</span>
+                                </div>
+                                <input class="form-control" type="number" name="w_per_kon" value="{{ $user->w_per_kon }}">
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <label for="staticEmail" class="">Nilai Bobot Saham Syariah</label>
+                        <div class="row">
+                            <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">EPS</span>
+                                </div>
+                                <input class="form-control" type="number" name="w_eps_syar" value="{{ $user->w_eps_syar }}">
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">ROE</span>
+                                </div>
+                                <input class="form-control" type="number" name="w_roe_syar" value="{{ $user->w_roe_syar }}">
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">DER</span>
+                                </div>
+                                <input class="form-control" type="number" name="w_der_syar" value="{{ $user->w_der_syar }}">
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        @endif
                         <div class="col-4">
                             <button type="submit" class="btn btn-primary">Update</button>
                         </div>

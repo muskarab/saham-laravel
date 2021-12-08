@@ -5,7 +5,6 @@ use App\Http\Controllers\FilterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IndexSahamController;
 use App\Http\Controllers\InstrumentSahamController;
-use App\Http\Controllers\PerhitunganController;
 use App\Http\Controllers\PreferensiController;
 use App\Http\Controllers\SektorSahamController;
 use App\Http\Controllers\UserController;

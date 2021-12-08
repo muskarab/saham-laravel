@@ -89,7 +89,7 @@
                                     </div>
                                     <select class="form-control" id="instrument_saham" name="instrument_saham">
                                     {{-- <option value="#" disabled>Preferensi Saham</option> --}}
-                                        @foreach ($instrument_sahams as $instrument_saham)
+                                    @foreach ($instrument_sahams as $instrument_saham)
                                     <option value={{ $instrument_saham->id }}>{{ $instrument_saham->name }}</option>
                                     @endforeach
                                 </select>
