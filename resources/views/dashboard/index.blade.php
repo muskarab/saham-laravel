@@ -151,7 +151,6 @@
                                     <th scope="col">Index</th>
                                     <th scope="col">Sektor</th>
                                     <th scope="col">Nilai Rekomendasi</th>
-                                    <th scope="col">Tahun</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
@@ -163,7 +162,6 @@
                                     <td>{{ $final_kon->index }}</td>
                                     <td>{{ $final_kon->sektor }}</td>
                                     <td>{{ $final_kon->vektor_v }}</td>
-                                    <td>{{ $final_kon->tahun}}</td>
                                     <td class="text-right">
                                         <div class="dropdown">
                                             <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -204,7 +202,6 @@
                                     <th scope="col">Index</th>
                                     <th scope="col">Sektor</th>
                                     <th scope="col">Nilai Rekomendasi</th>
-                                    <th scope="col">Tahun</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
@@ -216,7 +213,6 @@
                                     <td>{{ $final_syar->index }}</td>
                                     <td>{{ $final_syar->sektor }}</td>
                                     <td>{{ $final_syar->vektor_v }}</td>
-                                    <td>{{ $final_syar->tahun}}</td>
                                     <td class="text-right">
                                         <div class="dropdown">
                                             <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -257,7 +253,6 @@
                                     <th scope="col">Index</th>
                                     <th scope="col">Sektor</th>
                                     <th scope="col">Nilai Rekomendasi</th>
-                                    <th scope="col">Tahun</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
@@ -269,7 +264,6 @@
                                     <td>{{ $final_kon->index }}</td>
                                     <td>{{ $final_kon->sektor }}</td>
                                     <td>{{ $final_kon->vektor_v }}</td>
-                                    <td>{{ $final_kon->tahun}}</td>
                                     <td class="text-right">
                                         <div class="dropdown">
                                             <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -308,7 +302,6 @@
                                     <th scope="col">Index</th>
                                     <th scope="col">Sektor</th>
                                     <th scope="col">Nilai Rekomendasi</th>
-                                    <th scope="col">Tahun</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
@@ -320,7 +313,6 @@
                                     <td>{{ $final_syar->index }}</td>
                                     <td>{{ $final_syar->sektor }}</td>
                                     <td>{{ $final_syar->vektor_v }}</td>
-                                    <td>{{ $final_syar->tahun}}</td>
                                     <td class="text-right">
                                         <div class="dropdown">
                                             <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

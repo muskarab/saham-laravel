@@ -17,6 +17,7 @@ class IndexSahamSeeder extends Seeder
         DB::table('index_sahams')->insert([
             'name' => 'LQ45',
             'instrument_saham_id' => 1,
+            'tahun' => '2018',
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -24,6 +25,7 @@ class IndexSahamSeeder extends Seeder
         DB::table('index_sahams')->insert([
             'name' => 'JII',
             'instrument_saham_id' => 2,
+            'tahun' => '2018',
             'created_at' => now(),
             'updated_at' => now()
         ]);

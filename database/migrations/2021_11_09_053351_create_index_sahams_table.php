@@ -17,6 +17,7 @@ class CreateIndexSahamsTable extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('instrument_saham_id')->unique();
+            $table->year('tahun');
             $table->timestamps();
         });
     }

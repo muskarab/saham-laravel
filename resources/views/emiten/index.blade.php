@@ -31,6 +31,7 @@
                             <th scope="col">Name</th>
                             {{-- <th scope="col">Perusahaan</th>     --}}
                             <th scope="col">Index</th>
+                            <th scope="col">Tahun</th>
                             <th scope="col">Sektor</th>
                             <th scope="col">EPS</th>
                             <th scope="col">ROE</th>
@@ -46,6 +47,7 @@
                                 <td>{{ $konvensional->emiten_char }}</td>
                                 {{-- <td>{{ $konvensional->perusahaan }}</td> --}}
                                 <td>{{ $konvensional->index->name }}</td>
+                                <td>{{ $konvensional->index->tahun }}</td>
                                 <td>{{ $konvensional->sektor->name }}</td>
                                 <td>{{ $konvensional->eps }}</td>
                                 <td>{{ $konvensional->roe }}</td>
