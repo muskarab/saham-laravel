@@ -16,4 +16,9 @@ class VektorS extends Model
     {
         return $this->belongsTo(Emiten::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

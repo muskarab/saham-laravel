@@ -43,4 +43,9 @@ class User extends Authenticatable //implements MustVerifyEmail
     {
         return $this->belongsTo(InstrumentSaham::class);
     }
+
+    public function vektor_s()
+    {
+        return $this->hasOne(VektorS::class);
+    }
 }

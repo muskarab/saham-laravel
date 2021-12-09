@@ -15,7 +15,8 @@ class CreateVektorSTable extends Migration
     {
         Schema::create('vektor_s', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('emiten_id')->unique();
+            $table->foreignId('user_id');
+            $table->foreignId('emiten_id');
             $table->double('vektor_s');
             $table->timestamps();
         });

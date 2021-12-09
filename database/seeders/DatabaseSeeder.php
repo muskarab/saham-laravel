@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         // $this->call([BobotSeeder::class]);
         $this->call([PreferensiSeeder::class]);
         $this->call([PreferensiKriteriaSeeder::class]);
-        // $this->call([VektorSSeeder::class]);
+        $this->call([VektorSSeeder::class]);
         // $this->call([VektorVSeeder::class]);
     }
 }
