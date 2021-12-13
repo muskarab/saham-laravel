@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Emiten;
 use App\Models\InstrumentSaham;
 use App\Models\User;
+use App\Models\VektorS;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 use function GuzzleHttp\Promise\all;
 
@@ -82,51 +86,167 @@ class UserController extends Controller
         //     'role' => ['required'],
         // ]);
         
-        $user = User::findOrFail($user->id);
+        $user = User::findOrFail(Auth::user()->id);
+        $emiten_kons = Emiten::where('index_id', 1)->get();
+        $emiten_syars = Emiten::where('index_id', 2)->get();
+
+        // $vektor_s_kons = DB::table('emitens')
+        //     ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+        //     ->where('index_id', 1)
+        //     ->where('vektor_s.user_id', Auth::user()->id)
+        //     ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
+        //     ->get();
+        // $vektor_s_kons = DB::table('vektor_s')
+        // ->where('user_id', Auth::user()->id)
+        // ->get();
+        $vektor_s_kons = DB::table('emitens')
+            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+            ->where('index_id', 1)
+            ->where('vektor_s.user_id', Auth::user()->id)
+            ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
+            ->get();
+        $sum_vektor_s_syar = DB::table('emitens')
+            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+            ->where('index_id', 2)
+            ->where('vektor_s.user_id', Auth::user()->id)
+            ->select('vektor_s.vektor_s')
+            ->sum('vektor_s.vektor_s');
+        $vektor_s_syars = DB::table('emitens')
+            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+            ->where('index_id', 2)
+            ->where('vektor_s.user_id', Auth::user()->id)
+            ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
+            ->get();
 
         if ($user->instrument_saham_id == 3) {
-            $user->update([
-                'name' => request('name'),
-                'email' => request('email'),
-                'address' => request('address'),
-                // 'date_of_birth' => Carbon::createFromFormat('m/d/Y', $request['date_of_birth'])->format('Y-m-d'),
-                'gender' => request('gender'),
-                'instrument_saham_id' => request('instrument'),
-                'w_eps_kon' => request('w_eps_kon'),
-                'w_roe_kon' => request('w_roe_kon'),
-                'w_per_kon' => request('w_per_kon'),
-                'w_eps_syar' => request('w_eps_syar'),
-                'w_roe_syar' => request('w_roe_syar'),
-                'w_der_syar' => request('w_der_syar'),
-                // 'role' => request('role'),
-            ]);
+            if ($user->id == Auth::user()->id) {
+                $user->update([
+                    'name' => request('name'),
+                    'email' => request('email'),
+                    'address' => request('address'),
+                    // 'date_of_birth' => Carbon::createFromFormat('m/d/Y', $request['date_of_birth'])->format('Y-m-d'),
+                    'gender' => request('gender'),
+                    'instrument_saham_id' => request('instrument'),
+                    'w_eps_kon' => request('w_eps_kon'),
+                    'w_roe_kon' => request('w_roe_kon'),
+                    'w_per_kon' => request('w_per_kon'),
+                    'w_eps_syar' => request('w_eps_syar'),
+                    'w_roe_syar' => request('w_roe_syar'),
+                    'w_der_syar' => request('w_der_syar'),
+                ]);
+                foreach ($emiten_kons as $emiten_kon) {
+                    $w_user_total = $user->w_eps_kon + $user->w_roe_kon + $user->w_per_kon;
+                    $w_eps = pow($emiten_kon->prefereni_kriteria['eps_pk'], - ($user['w_eps_kon'] / $w_user_total));
+                    $w_roe = pow($emiten_kon->prefereni_kriteria['roe_pk'], ($user['w_roe_kon'] / $w_user_total));
+                    $w_per = pow($emiten_kon->prefereni_kriteria['per_pk'], ($user['w_per_kon'] / $w_user_total));
+                    $w_total = $w_eps * $w_roe * $w_per;
+                    $vektor_s_user = DB::table('vektor_s')
+                        ->where('emiten_id', $emiten_kon->id)
+                        ->where('user_id', Auth::user()->id)
+                        ->update([
+                            // 'emiten_id' => $emiten_kon->id,
+                            // 'user_id' => $user->id,
+                            'vektor_s' => $w_total,
+                        ]);
+                }
+
+                foreach ($emiten_syars as $emiten_syar) {
+                    $w_user_total = $user->w_eps_syar + $user->w_roe_syar + $user->w_der_syar;
+                    $w_eps = pow($emiten_syar->prefereni_kriteria['eps_pk'], ($user['w_eps_syar'] / $w_user_total));
+                    $w_roe = pow($emiten_syar->prefereni_kriteria['roe_pk'], ($user['w_roe_syar'] / $w_user_total));
+                    $w_der = pow($emiten_syar->prefereni_kriteria['der_pk'], ($user['w_der_syar'] / $w_user_total));
+                    $w_total = $w_eps * $w_roe * $w_der;
+                    $vektor_s_user = DB::table('vektor_s')
+                    ->where('emiten_id', $emiten_syar->id)
+                    ->where('user_id', Auth::user()->id)
+                    ->update([
+                        'emiten_id' => $emiten_syar->id,
+                        // 'user_id' => $user->id,
+                        'vektor_s' => $w_total,
+                    ]);
+                }
+            }
         }elseif ($user->instrument_saham_id == 1) {
-            $user->update([
-                'name' => request('name'),
-                'email' => request('email'),
-                'address' => request('address'),
-                // 'date_of_birth' => Carbon::createFromFormat('m/d/Y', $request['date_of_birth'])->format('Y-m-d'),
-                'gender' => request('gender'),
-                'instrument_saham_id' => request('instrument'),
-                'w_eps_kon' => request('w_eps_kon'),
-                'w_roe_kon' => request('w_roe_kon'),
-                'w_per_kon' => request('w_per_kon'),
-                // 'role' => request('role'),
-            ]);
+            if ($user->id == Auth::user()->id) {
+                $user->update([
+                    'name' => request('name'),
+                    'email' => request('email'),
+                    'address' => request('address'),
+                    // 'date_of_birth' => Carbon::createFromFormat('m/d/Y', $request['date_of_birth'])->format('Y-m-d'),
+                    'gender' => request('gender'),
+                    'instrument_saham_id' => request('instrument'),
+                    'w_eps_kon' => request('w_eps_kon'),
+                    'w_roe_kon' => request('w_roe_kon'),
+                    'w_per_kon' => request('w_per_kon'),
+                ]);
+                foreach ($emiten_kons as $emiten_kon) {
+                    foreach ($vektor_s_kons as $vektor_s_kon) {
+                    $w_user_total = $user->w_eps_kon + $user->w_roe_kon + $user->w_per_kon;
+                    $w_eps = pow($emiten_kon->prefereni_kriteria['eps_pk'], - ($user['w_eps_kon'] / $w_user_total));
+                    $w_roe = pow($emiten_kon->prefereni_kriteria['roe_pk'], ($user['w_roe_kon'] / $w_user_total));
+                    $w_per = pow($emiten_kon->prefereni_kriteria['per_pk'], ($user['w_per_kon'] / $w_user_total));
+                    $w_total = $w_eps * $w_roe * $w_per;
+                    DB::table('vektor_s')
+                    ->where('emiten_id', $emiten_kon->id)
+                    ->where('user_id', Auth::user()->id)
+                    ->update([
+                        // 'emiten_id' => $emiten_kon->id,
+                        // 'user_id' => $user->id,
+                        'vektor_s' => $w_total,
+                    ]);
+                    }
+                }
+                // $sum_vektor_s_kon = DB::table('emitens')
+                // ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                // ->where('index_id', 1)
+                // ->where('vektor_s.user_id', Auth::user()->id)
+                // ->select('vektor_s.vektor_s')
+                // ->sum('vektor_s.vektor_s');
+                // // foreach ($emiten_kons as $emiten_kon) {
+                //     foreach ($vektor_s_kons as $vektor_s_kon) {
+                //         // $vektor_s_final = $vektor_s_kon->vektor_s / $sum_vektor_s_kon;
+                //         DB::table('vektor_v_s')
+                //         ->where('emiten_id', $vektor_s_kon->id)
+                //         ->where('user_id', Auth::user()->id)
+                //         ->update([
+                //                 // 'user_id' => $user->id,
+                //                 // 'emiten_id' => $vektor_s_kon->id,
+                //                 'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
+                //                 // 'created_at' => now(),
+                //                 // 'updated_at' => now()
+                //         ]);
+                //     }
+                // // }
+            }
         } elseif ($user->instrument_saham_id == 2) {
-            $user->update([
-                'name' => request('name'),
-                'email' => request('email'),
-                'address' => request('address'),
-                // 'date_of_birth' => Carbon::createFromFormat('m/d/Y', $request['date_of_birth'])->format('Y-m-d'),
-                'gender' => request('gender'),
-                'instrument_saham_id' => request('instrument'),
-                'w_eps_syar' => request('w_eps_syar'),
-                'w_roe_syar' => request('w_roe_syar'),
-                'w_der_syar' => request('w_der_syar'),
-                // 'role' => request('role'),
-                // 'role' => request('role'),
-            ]);
+            if ($user->id == Auth::user()->id) {
+                $user->update([
+                    'name' => request('name'),
+                    'email' => request('email'),
+                    'address' => request('address'),
+                    // 'date_of_birth' => Carbon::createFromFormat('m/d/Y', $request['date_of_birth'])->format('Y-m-d'),
+                    'gender' => request('gender'),
+                    'instrument_saham_id' => request('instrument'),
+                    'w_eps_syar' => request('w_eps_syar'),
+                    'w_roe_syar' => request('w_roe_syar'),
+                    'w_der_syar' => request('w_der_syar'),
+                ]);
+                foreach ($emiten_syars as $emiten_syar) {
+                    $w_user_total = $user->w_eps_syar + $user->w_roe_syar + $user->w_der_syar;
+                    $w_eps = pow($emiten_syar->prefereni_kriteria['eps_pk'], ($user['w_eps_syar'] / $w_user_total));
+                    $w_roe = pow($emiten_syar->prefereni_kriteria['roe_pk'], ($user['w_roe_syar'] / $w_user_total));
+                    $w_der = pow($emiten_syar->prefereni_kriteria['der_pk'], ($user['w_der_syar'] / $w_user_total));
+                    $w_total = $w_eps * $w_roe * $w_der;
+                    $vektor_s_user = DB::table('vektor_s')
+                    ->where('emiten_id', $emiten_syar->id)
+                    ->where('user_id', Auth::user()->id)
+                    ->update([
+                        'emiten_id' => $emiten_syar->id,
+                        // 'user_id' => $user->id,
+                        'vektor_s' => $w_total,
+                    ]);
+                }
+            }
         }
 
             // $user = DB::table('users')->where('id', $user->id)->update(['name' => request('name'),

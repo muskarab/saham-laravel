@@ -48,4 +48,9 @@ class User extends Authenticatable //implements MustVerifyEmail
     {
         return $this->hasOne(VektorS::class);
     }
+
+    public function vektor_v()
+    {
+        return $this->hasOne(VektorV::class);
+    }
 }
