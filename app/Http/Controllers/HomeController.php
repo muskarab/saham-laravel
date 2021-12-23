@@ -6,6 +6,7 @@ use App\Models\Emiten;
 use App\Models\IndexSaham;
 use App\Models\Sektor;
 use App\Models\VektorS;
+use App\Models\VektorV;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,54 +20,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $vektor_s_kons = DB::table('emitens')
-            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-            ->where('index_id', 1)
-            ->where('vektor_s.user_id', Auth::user()->id)
-            ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
-            ->get();
-        $sum_vektor_s_kon = DB::table('emitens')
-            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-            ->where('index_id', 1)
-            ->where('vektor_s.user_id', Auth::user()->id)
-            ->select('vektor_s.vektor_s')
-            ->sum('vektor_s.vektor_s');
-        // foreach ($emiten_kons as $emiten_kon) {
-        foreach ($vektor_s_kons as $vektor_s_kon) {
-            DB::table('vektor_v_s')
-            ->where('emiten_id', $vektor_s_kon->id)
-                ->where('user_id', Auth::user()->id)
-                ->update([
-                    'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
-                    // 'created_at' => now(),
-                    'updated_at' => now()
-                ]);
-        }
-
-        $vektor_s_syars = DB::table('emitens')
-            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-            ->where('index_id', 2)
-            ->where('vektor_s.user_id', Auth::user()->id)
-            ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
-            ->get();
-        $sum_vektor_s_kon = DB::table('emitens')
-            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-            ->where('index_id', 2)
-            ->where('vektor_s.user_id', Auth::user()->id)
-            ->select('vektor_s.vektor_s')
-            ->sum('vektor_s.vektor_s');
-        // foreach ($emiten_syars as $emiten_kon) {
-        foreach ($vektor_s_syars as $vektor_s_syar) {
-            DB::table('vektor_v_s')
-            ->where('emiten_id', $vektor_s_syar->id)
-                ->where('user_id', Auth::user()->id)
-                ->update([
-                    'vektor_v' => $vektor_s_syar->vektor_s / $sum_vektor_s_kon,
-                    // 'created_at' => now(),
-                    'updated_at' => now()
-                ]);
-        }
-
         $sectors = Sektor::get();
         $emitens = Emiten::get();
         $konvensionals = $emitens->where('index_id', 1);
@@ -100,27 +53,10 @@ class HomeController extends Controller
         ->orderByRaw('vektor_s DESC')
         ->get();
 
-        $vektor_s_kons = DB::table('vektor_s')
-        ->where('user_id', Auth::user()->id)
-        // ->select('vektor_s')
-        ->get();
-
-        $vektor_v_s_kons = DB::table('emitens')
-        ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
-        ->where('index_id', 1)
-        ->where('vektor_v_s.user_id', Auth::user()->id)
-        ->select('emitens.*', 'vektor_v_s.user_id', 'vektor_v_s.emiten_id', 'vektor_v_s.vektor_v')
-        ->get();
-
-        $vektor_v_s_syar = DB::table('emitens')
-        ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
-        ->where('index_id', 2)
-        ->where('vektor_v_s.user_id', Auth::user()->id)
-        ->select('emitens.*', 'vektor_v_s.user_id', 'vektor_v_s.emiten_id', 'vektor_v_s.vektor_v')
-        ->get();
-
-        $vektor_s_user = VektorS::where('user_id', Auth::user()->id)->get();
-        // dd($vektor_v_s_kons);
+        // $vektor_s_user = VektorS::where('user_id', Auth::user()->id)->get();
+        // $lastdata_emiten_kon = Emiten::where('index_id', 1)->orderBy('id', 'DESC')->first();
+        // $lastdata_vektor_v = VektorS::where('user_id', 2)->orderBy('id', 'DESC')->first();
+        // dd($sum_vektor_s_syar);
         return view('dashboard.index', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar', 'years'))->with('i')->with('j');
     }
 
