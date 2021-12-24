@@ -20,7 +20,7 @@ class FilterController extends Controller
         ->join('sektors', 'sektor_id', '=', 'sektors.id')
         ->where('index_id', 1)
         ->where('tahun', $year)
-        ->select('emitens.*', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'sektors.name as sektor')
+        ->select('emitens.*', 'vektor_v_s.vektor_v', 'index_sahams.name as index','sektors.name as sektor', 'index_sahams.tahun as tahun')
         ->orderByRaw('vektor_v DESC')->get();
 
         $final_syar = DB::table('emitens')
@@ -29,7 +29,7 @@ class FilterController extends Controller
         ->join('sektors', 'sektor_id', '=', 'sektors.id')
         ->where('index_id', 2)
         ->where('tahun', $year)
-        ->select('emitens.*', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'sektors.name as sektor')
+        ->select('emitens.*', 'vektor_v_s.vektor_v', 'index_sahams.name as index','sektors.name as sektor', 'index_sahams.tahun as tahun')
         ->orderByRaw('vektor_v DESC')->get();
         return view('dashboard.filter', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar'))->with('i')->with('j');
     }
@@ -45,7 +45,7 @@ class FilterController extends Controller
         ->join('sektors', 'sektor_id', '=', 'sektors.id')
         ->where('index_id', 1)
         ->where('sektor_id', $sektor)
-        ->select('emitens.*', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'sektors.name as sektor')
+        ->select('emitens.*', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'sektors.name as sektor', 'index_sahams.tahun as tahun')
         ->orderByRaw('vektor_v DESC')->get();
 
         $final_syar = DB::table('emitens')
@@ -54,7 +54,7 @@ class FilterController extends Controller
         ->join('sektors', 'sektor_id', '=', 'sektors.id')
         ->where('index_id', 2)
         ->where('sektor_id', $sektor)
-        ->select('emitens.*', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'sektors.name as sektor')
+        ->select('emitens.*', 'vektor_v_s.vektor_v', 'index_sahams.name as index','sektors.name as sektor', 'index_sahams.tahun as tahun')
         ->orderByRaw('vektor_v DESC')->get();
         return view('dashboard.filter', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar'))->with('i')->with('j');
     }
@@ -69,7 +69,7 @@ class FilterController extends Controller
         ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
         ->join('sektors', 'sektor_id', '=', 'sektors.id')
         ->where('index_id', 1)
-        ->select('emitens.*', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'sektors.name as sektor')
+        ->select('emitens.*', 'vektor_v_s.vektor_v', 'index_sahams.name as index','sektors.name as sektor', 'index_sahams.tahun as tahun')
         ->orderByRaw('vektor_v DESC')->paginate($top);
 
         $final_syar = DB::table('emitens')
@@ -77,7 +77,7 @@ class FilterController extends Controller
         ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
         ->join('sektors', 'sektor_id', '=', 'sektors.id')
         ->where('index_id', 2)
-        ->select('emitens.*', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'sektors.name as sektor')
+        ->select('emitens.*', 'vektor_v_s.vektor_v', 'index_sahams.name as index','sektors.name as sektor', 'index_sahams.tahun as tahun')
         ->orderByRaw('vektor_v DESC')->paginate($top);
         return view('dashboard.filter', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar'))->with('i')->with('j');
     }

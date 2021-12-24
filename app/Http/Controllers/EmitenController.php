@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bobot;
 use App\Models\Emiten;
 use App\Models\IndexSaham;
 use App\Models\Preferensi;
@@ -342,7 +341,6 @@ class EmitenController extends Controller
         $emiten_kons = Emiten::where('index_id', 1)->get();
         $emiten_syars = Emiten::where('index_id', 2)->get();
         $lastdata_emiten = Emiten::orderBy('id', 'DESC')->first();
-        $bobots = Bobot::where('instrument_saham_id', '=', 1)->get();
         foreach ($users as $user) {
             if ($user->instrument_saham_id == 1) {
                 //update vektor s
@@ -809,7 +807,6 @@ class EmitenController extends Controller
         $emiten_kons = Emiten::where('index_id', 1)->get();
         $emiten_syars = Emiten::where('index_id', 2)->get();
         $lastdata_emiten = Emiten::orderBy('id', 'DESC')->first();
-        $bobots = Bobot::where('instrument_saham_id', '=', 1)->get();
         foreach ($users as $user) {
             if ($user->instrument_saham_id == 1) {
                 //update vektor s

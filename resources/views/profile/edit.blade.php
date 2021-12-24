@@ -2,12 +2,6 @@
 
 @section('content')
 @include('layouts.headers.guest')
-    {{-- @include('users.partials.header', [
-        'title' => __('Hello') . ' '. auth()->user()->name,
-        'description' => __('This is your profile page. You can see the progress you\'ve made with your work and manage your projects or assigned tasks'),
-        'class' => 'col-lg-7'
-    ])    --}}
-
     <div class="container-fluid mt--7">
         <div class="row">
             <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
@@ -180,7 +174,6 @@
                                 <div class="form-group{{ $errors->has('gender') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-gender">{{ __('Gender') }}</label>
                                     <input type="text" gender="gender" id="input-gender" class="form-control form-control-alternative{{ $errors->has('gender') ? ' is-invalid' : '' }}" placeholder="{{ __('gender') }}" value="{{ old('gender', auth()->user()->gender) }}" disabled required autofocus>
-
                                     @if ($errors->has('gender'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('gender') }}</strong>
@@ -194,7 +187,6 @@
                                     <input type="text" preferensi_saham="preferensi_saham" id="input-preferensi_saham" class="form-control form-control-alternative{{ $errors->has('preferensi_saham') ? ' is-invalid' : '' }}" placeholder="{{ __('preferensi_saham') }}" value="{{ old('preferensi_saham', $instrument->name) }}" disabled required autofocus>
                                     @endif
                                     @endforeach
-
                                     @if ($errors->has('preferensi_saham'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('preferensi_saham') }}</strong>

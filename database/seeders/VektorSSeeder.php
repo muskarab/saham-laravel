@@ -20,7 +20,6 @@ class VektorSSeeder extends Seeder
         $users = User::get();
         $emiten_kons = Emiten::where('index_id', 1)->get();
         $emiten_syars = Emiten::where('index_id', 2)->get();
-        $bobots = Bobot::where('instrument_saham_id', '=', 1)->get();
         foreach ($users as $user) {
             if ($user->instrument_saham_id == 1) {
                 foreach ($emiten_kons as $emiten_kon) {

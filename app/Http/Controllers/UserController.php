@@ -120,7 +120,7 @@ class UserController extends Controller
                     'w_per_kon' => request('w_per_kon'),
                 ]);
             }
-        } elseif ($user->instrument_saham_id == 2) {
+        }elseif ($user->instrument_saham_id == 2) {
             if ($user->id == Auth::user()->id) {
                 $user->update([
                     'name' => request('name'),
@@ -139,10 +139,8 @@ class UserController extends Controller
         $users = User::get();
         $emiten_kons = Emiten::where('index_id', 1)->get();
         $emiten_syars = Emiten::where('index_id', 2)->get();
-        $lastdata_emiten = Emiten::orderBy('id', 'DESC')->first();
-        $bobots = Bobot::where('instrument_saham_id','=', 1)->get();
-        foreach ($users as $user) {
-            if ($user->instrument_saham_id == 1) {
+        // foreach ($users as $user) {
+            if (Auth::user()->instrument_saham_id == 1) {
                 //update vektor s
                 foreach ($emiten_kons as $emiten_kon) {
                     $w_user_total = $user->w_eps_kon + $user->w_roe_kon + $user->w_per_kon;
@@ -152,40 +150,35 @@ class UserController extends Controller
                     $w_total = $w_eps * $w_roe * $w_per;
                     DB::table('vektor_s')
                     ->where('user_id', $user->id)
-                        ->where('emiten_id', $emiten_kon->id)
-                        ->update([
-                            'vektor_s' => $w_total,
-                            'updated_at' => now()
-                        ]);
+                    ->where('emiten_id', $emiten_kon->id)
+                    ->update([
+                        'vektor_s' => $w_total,
+                        'updated_at' => now()
+                    ]);
                 }
                 //update vektor v
                 $sum_vektor_s_kon = DB::table('emitens')
-                    ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                    ->where('index_id', 1)
-                    ->where('vektor_s.user_id', $user->id)
-                    ->select('vektor_s.vektor_s')
-                    ->sum('vektor_s.vektor_s');
+                ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                ->where('index_id', 1)
+                ->where('vektor_s.user_id', $user->id)
+                ->select('vektor_s.vektor_s')
+                ->sum('vektor_s.vektor_s');
                 $vektor_s_kons = DB::table('emitens')
                 ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
                 ->where('index_id', 1)
-                    ->where('vektor_s.user_id', $user->id)
-                    ->select(
-                        'emitens.*',
-                        'vektor_s.user_id',
-                        'vektor_s.vektor_s'
-                    )
-                    ->get();
+                ->where('vektor_s.user_id', $user->id)
+                ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
+                ->get();
                 foreach ($vektor_s_kons as $vektor_s_kon) {
-                    DB::table('vektor_v_s')
-                        ->where('user_id', $user->id)
-                        ->where('emiten_id', $vektor_s_kon->id)
-                        ->update([
-                            'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
-                            'updated_at' => now()
-                        ]);
+                DB::table('vektor_v_s')
+                    ->where('user_id', $user->id)
+                    ->where('emiten_id', $vektor_s_kon->id)
+                    ->update([
+                        'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
+                        'updated_at' => now()
+                    ]);
                 }
-            }
-            if ($user->instrument_saham_id == 2) {
+            }elseif (Auth::user()->instrument_saham_id == 2) {
                 //update vektor s
                 foreach ($emiten_syars as $emiten_syar) {
                     $w_user_total = $user->w_eps_syar + $user->w_roe_syar + $user->w_der_syar;
@@ -201,29 +194,26 @@ class UserController extends Controller
                 //update vektor v
                 $sum_vektor_s_syar = DB::table('emitens')
                 ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                    ->where('index_id', 2)
-                    ->where('vektor_s.user_id', $user->id)
-                    ->select('vektor_s.vektor_s')
-                    ->sum('vektor_s.vektor_s');
+                ->where('index_id', 2)
+                ->where('vektor_s.user_id', $user->id)
+                ->select('vektor_s.vektor_s')
+                ->sum('vektor_s.vektor_s');
                 $vektor_s_syars = DB::table('emitens')
                 ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                ->where('index_id',
-                    2
-                )
+                ->where('index_id', 2)
                 ->where('vektor_s.user_id', $user->id)
                 ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
                 ->get();
                 foreach ($vektor_s_syars as $vektor_s_syar) {
                     DB::table('vektor_v_s')
                     ->where('user_id', $user->id)
-                        ->where('emiten_id', $vektor_s_syar->id)
-                        ->update([
-                            'vektor_v' => $vektor_s_syar->vektor_s / $sum_vektor_s_syar,
-                            'updated_at' => now()
-                        ]);
+                    ->where('emiten_id', $vektor_s_syar->id)
+                    ->update([
+                        'vektor_v' => $vektor_s_syar->vektor_s / $sum_vektor_s_syar,
+                        'updated_at' => now()
+                    ]);
                 }
-            }
-            if ($user->instrument_saham_id == 3) {
+            }elseif (Auth::user()->instrument_saham_id == 3) {
                 //update vektor s
                 foreach ($emiten_kons as $emiten_kon) {
                     $w_user_total = $user->w_eps_kon + $user->w_roe_kon + $user->w_per_kon;
@@ -241,26 +231,22 @@ class UserController extends Controller
                 ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
                 ->where('index_id', 1)
                 ->where('vektor_s.user_id', $user->id)
-                    ->select('vektor_s.vektor_s')
-                    ->sum('vektor_s.vektor_s');
+                ->select('vektor_s.vektor_s')
+                ->sum('vektor_s.vektor_s');
                 $vektor_s_kons = DB::table('emitens')
                 ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
                 ->where('index_id', 1)
-                    ->where('vektor_s.user_id', $user->id)
-                    ->select(
-                        'emitens.*',
-                        'vektor_s.user_id',
-                        'vektor_s.vektor_s'
-                    )
-                    ->get();
+                ->where('vektor_s.user_id', $user->id)
+                ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
+                ->get();
                 foreach ($vektor_s_kons as $vektor_s_kon) {
                     DB::table('vektor_v_s')
-                        ->where('user_id', $user->id)
-                        ->where('emiten_id', $vektor_s_kon->id)
-                        ->update([
-                            'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
-                            'updated_at' => now()
-                        ]);
+                    ->where('user_id', $user->id)
+                    ->where('emiten_id', $vektor_s_kon->id)
+                    ->update([
+                        'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
+                        'updated_at' => now()
+                    ]);
                 }
                 //update vektor s
                 foreach ($emiten_syars as $emiten_syar) {
@@ -277,29 +263,27 @@ class UserController extends Controller
                 //update vektor v
                 $sum_vektor_s_syar = DB::table('emitens')
                 ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                    ->where('index_id', 2)
-                    ->where('vektor_s.user_id', $user->id)
-                    ->select('vektor_s.vektor_s')
-                    ->sum('vektor_s.vektor_s');
+                ->where('index_id', 2)
+                ->where('vektor_s.user_id', $user->id)
+                ->select('vektor_s.vektor_s')
+                ->sum('vektor_s.vektor_s');
                 $vektor_s_syars = DB::table('emitens')
                 ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                ->where('index_id',
-                    2
-                )
+                ->where('index_id', 2 )
                 ->where('vektor_s.user_id', $user->id)
                 ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
                 ->get();
                 foreach ($vektor_s_syars as $vektor_s_syar) {
                     DB::table('vektor_v_s')
                     ->where('user_id', $user->id)
-                        ->where('emiten_id', $vektor_s_syar->id)
-                        ->update([
-                            'vektor_v' => $vektor_s_syar->vektor_s / $sum_vektor_s_syar,
-                            'updated_at' => now()
-                        ]);
+                    ->where('emiten_id', $vektor_s_syar->id)
+                    ->update([
+                        'vektor_v' => $vektor_s_syar->vektor_s / $sum_vektor_s_syar,
+                        'updated_at' => now()
+                    ]);
                 }
             }
-        }
+        // }
 
         return redirect()->route('user.index')->with('success', 'User updated success');
     }
