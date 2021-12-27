@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bobot;
 use App\Models\Emiten;
 use App\Models\IndexSaham;
+use App\Models\InstrumentSaham;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -31,7 +32,8 @@ class IndexSahamController extends Controller
      */
     public function create()
     {
-        //
+        // $instruments = InstrumentSaham::get();
+        return view('index_saham.create');
     }
 
     /**
@@ -42,7 +44,25 @@ class IndexSahamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'index_char' => ['required','max:4'],
+            'tahun' => ['required'],
+        ]);
+        // dd($request->all());
+
+        $index_saham = IndexSaham::create([
+            'name' => request('index_char'),
+            'tahun' => request('tahun'),
+            'instrument_saham_id' => request('instrument_id'),
+        ]);
+
+        if ($index_saham) {
+            //redirect dengan pesan sukses
+            return redirect()->route('index_saham.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        } else {
+            //redirect dengan pesan error
+            return redirect()->route('index_saham.index')->with(['error' => 'Data Gagal Disimpan!']);
+        }
     }
 
     /**

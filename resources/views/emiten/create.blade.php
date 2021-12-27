@@ -54,7 +54,7 @@
                                 <label for="">Index Saham</label>
                                 <select class="form-control" id="index_id" name="index_id">
                                     @foreach ($indexs as $index)
-                                    <option value={{ $index->id }}>{{ $index->name }}</option>
+                                    <option value={{ $index->id }}>{{ $index->tahun }} - {{ $index->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

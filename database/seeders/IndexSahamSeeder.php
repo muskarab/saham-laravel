@@ -29,5 +29,21 @@ class IndexSahamSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+
+        DB::table('index_sahams')->insert([
+            'name' => 'QWER',
+            'instrument_saham_id' => 1,
+            'tahun' => '2019',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('index_sahams')->insert([
+            'name' => 'ASDF',
+            'instrument_saham_id' => 2,
+            'tahun' => '2019',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 }

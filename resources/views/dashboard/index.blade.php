@@ -149,6 +149,7 @@
                                     <th scope="col">No</th>
                                     <th scope="col">Emiten</th>
                                     <th scope="col">Index</th>
+                                    <th scope="col">Tahun</th>
                                     <th scope="col">Sektor</th>
                                     <th scope="col">Nilai Rekomendasi</th>
                                     <th scope="col"></th>
@@ -160,6 +161,7 @@
                                     <td>{{ ++$i }}</td>
                                     <td>{{ $final_kon->emiten_char }}</td>
                                     <td>{{ $final_kon->index }}</td>
+                                    <td>{{ $final_kon->tahun }}</td>
                                     <td>{{ $final_kon->sektor }}</td>
                                     <td>{{ $final_kon->vektor_v }}</td>
                                     <td class="text-right">
@@ -200,6 +202,7 @@
                                     <th scope="col">No</th>
                                     <th scope="col">Emiten</th>
                                     <th scope="col">Index</th>
+                                    <th scope="col">Tahun</th>
                                     <th scope="col">Sektor</th>
                                     <th scope="col">Nilai Rekomendasi</th>
                                     <th scope="col"></th>
@@ -211,6 +214,7 @@
                                     <td>{{ ++$j }}</td>
                                     <td>{{ $final_syar->emiten_char }}</td>
                                     <td>{{ $final_syar->index }}</td>
+                                    <td>{{ $final_kon->tahun }}</td>
                                     <td>{{ $final_syar->sektor }}</td>
                                     <td>{{ $final_syar->vektor_v }}</td>
                                     <td class="text-right">
@@ -251,6 +255,7 @@
                                     <th scope="col">No</th>
                                     <th scope="col">Emiten</th>
                                     <th scope="col">Index</th>
+                                    <th scope="col">Tahun</th>
                                     <th scope="col">Sektor</th>
                                     <th scope="col">Nilai Rekomendasi</th>
                                     <th scope="col"></th>
@@ -262,6 +267,7 @@
                                     <td>{{ ++$i }}</td>
                                     <td>{{ $final_kon->emiten_char }}</td>
                                     <td>{{ $final_kon->index }}</td>
+                                    <td>{{ $final_kon->tahun }}</td>
                                     <td>{{ $final_kon->sektor }}</td>
                                     <td>{{ $final_kon->vektor_v }}</td>
                                     <td class="text-right">
@@ -300,6 +306,7 @@
                                     <th scope="col">No</th>
                                     <th scope="col">Emiten</th>
                                     <th scope="col">Index</th>
+                                    <th scope="col">Tahun</th>
                                     <th scope="col">Sektor</th>
                                     <th scope="col">Nilai Rekomendasi</th>
                                     <th scope="col"></th>
@@ -311,6 +318,7 @@
                                     <td>{{ ++$j }}</td>
                                     <td>{{ $final_syar->emiten_char }}</td>
                                     <td>{{ $final_syar->index }}</td>
+                                    <td>{{ $final_kon->tahun }}</td>
                                     <td>{{ $final_syar->sektor }}</td>
                                     <td>{{ $final_syar->vektor_v }}</td>
                                     <td class="text-right">

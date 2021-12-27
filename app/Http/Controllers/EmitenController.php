@@ -48,15 +48,15 @@ class EmitenController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'emiten_char' => ['required','max:4'],
-        //     'perusahaan' => ['required'],
-        //     'esp' => ['required'],
-        //     'roe' => ['required'],
-        //     'per' => ['required'],
-        //     'der' => ['required'],
-        //     'deskripsi' => ['required'],
-        // ]);
+        $request->validate([
+            'emiten_char' => ['required','max:4'],
+            'perusahaan' => ['required'],
+            'esp' => ['required'],
+            'roe' => ['required'],
+            'per' => ['required'],
+            'der' => ['required'],
+            'deskripsi' => ['required'],
+        ]);
         // dd($request->all());
         
         $emiten = Emiten::create([

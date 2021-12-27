@@ -18,7 +18,7 @@
                             <h3 class="mb-0">Index Saham</h3>
                         </div>
                         <div class="col-4 text-right">
-                            {{-- <a href="#" class="btn btn-sm btn-primary">Add Index Saham</a> --}}
+                            <a href="{{ route('index_saham.create') }}" class="btn btn-sm btn-primary">Add Index Saham</a>
                         </div>
                     </div>
                 </div>

@@ -18,8 +18,14 @@ class VektorSSeeder extends Seeder
     public function run()
     {
         $users = User::get();
-        $emiten_kons = Emiten::where('index_id', 1)->get();
-        $emiten_syars = Emiten::where('index_id', 2)->get();
+        $emiten_kons = Emiten::join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+        ->where('instrument_saham_id', 1)
+        ->select('emitens.*', 'index_sahams.name')
+        ->get();
+        $emiten_syars = Emiten::join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+        ->where('instrument_saham_id', 2)
+        ->select('emitens.*', 'index_sahams.name')
+        ->get();
         foreach ($users as $user) {
             if ($user->instrument_saham_id == 1) {
                 foreach ($emiten_kons as $emiten_kon) {

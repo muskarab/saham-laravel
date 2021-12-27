@@ -15,8 +15,8 @@ class CreateIndexSahamsTable extends Migration
     {
         Schema::create('index_sahams', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignId('instrument_saham_id')->unique();
+            $table->char('name', 4);
+            $table->foreignId('instrument_saham_id');
             $table->year('tahun');
             $table->timestamps();
         });
