@@ -220,6 +220,7 @@ class HomeController extends Controller
         ->orderByRaw('vektor_s DESC')
         ->get();
 
+        $last_indexs = IndexSaham::orderBy('id', 'DESC')->first();
         // dd($final_kons);
         return view('dashboard.index', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar', 'years'))->with('i')->with('j');
     }

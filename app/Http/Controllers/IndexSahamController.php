@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bobot;
-use App\Models\Emiten;
 use App\Models\IndexSaham;
-use App\Models\InstrumentSaham;
-use App\Models\User;
+use App\Models\Preferensi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -56,6 +54,30 @@ class IndexSahamController extends Controller
             'instrument_saham_id' => request('instrument_id'),
         ]);
 
+        $last_indexs = IndexSaham::orderBy('id', 'DESC')->first();
+        Preferensi::create([
+            'index_id' => $last_indexs->id,
+            'min_eps' => 0,
+            'max_eps' => 0,
+            'mean_eps' => 0,
+            'avg_bawah_eps' => 0,
+            'avg_atas_eps' => 0,
+            'min_roe' => 0,
+            'max_roe' => 0,
+            'mean_roe' => 0,
+            'avg_bawah_roe' => 0,
+            'avg_atas_roe' => 0,
+            'min_per' => 0,
+            'max_per' => 0,
+            'mean_per' => 0,
+            'avg_bawah_per' => 0,
+            'avg_atas_per' => 0,
+            'min_der' => 0,
+            'max_der' => 0,
+            'mean_der' => 0,
+            'avg_bawah_der' => 0,
+            'avg_atas_der' => 0,
+        ]);
         if ($index_saham) {
             //redirect dengan pesan sukses
             return redirect()->route('index_saham.index')->with(['success' => 'Data Berhasil Disimpan!']);
