@@ -19,27 +19,95 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $emiten_kons = Emiten::where('index_id', 1)->get();
-        // $emiten_syars = Emiten::where('index_id', 2)->get();
+        $indexs = IndexSaham::get();
+        $emiten_kons = Emiten::join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+        ->where('instrument_saham_id', 1)
+        ->select('emitens.*', 'index_sahams.name')
+        ->get();
+        $emiten_syars = Emiten::join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+        ->where('instrument_saham_id', 2)
+        ->select('emitens.*', 'index_sahams.name')
+        ->get();
         // if (Auth::user()->instrument_saham_id == 1) {
         //     //Konvensional
-        //     foreach ($emiten_kons as $emiten_kon) {
-        //         $w_user_total = Auth::user()->w_eps_kon + Auth::user()->w_roe_kon + Auth::user()->w_per_kon;
-        //         $w_eps = pow($emiten_kon->prefereni_kriteria['eps_pk'], - (Auth::user()->w_eps_kon / $w_user_total));
-        //         $w_roe = pow($emiten_kon->prefereni_kriteria['roe_pk'], (Auth::user()->w_roe_kon / $w_user_total));
-        //         $w_per = pow($emiten_kon->prefereni_kriteria['per_pk'], (Auth::user()->w_per_kon / $w_user_total));
-        //         $w_total = $w_eps * $w_roe * $w_per;
-        //         DB::table('vektor_s')
-        //         ->where('user_id', 0)
-        //         ->where('emiten_id', $emiten_kon->id)
-        //         ->update([
-        //             'emiten_id' => $emiten_kon->id,
-        //             'user_id' => Auth::user()->id,
-        //             'vektor_s' => $w_total,
-        //             'created_at' => now(),
-        //             'updated_at' => now()
-        //         ]);
-        //     }
+
+        foreach ($emiten_kons as $emiten_kon) {
+            $w_user_total = Auth::user()->w_eps_kon + Auth::user()->w_roe_kon + Auth::user()->w_per_kon;
+            $w_eps = pow($emiten_kon->prefereni_kriteria['eps_pk'], - (Auth::user()->w_eps_kon / $w_user_total));
+            $w_roe = pow($emiten_kon->prefereni_kriteria['roe_pk'], (Auth::user()->w_roe_kon / $w_user_total));
+            $w_per = pow($emiten_kon->prefereni_kriteria['per_pk'], (Auth::user()->w_per_kon / $w_user_total));
+            $w_total = $w_eps * $w_roe * $w_per;
+            DB::table('vektor_s')
+            ->where('user_id', 0)
+            ->where('emiten_id', $emiten_kon->id)
+            ->update([
+                'user_id' => Auth::user()->id,
+                'vektor_s' => $w_total,
+                'updated_at' => now()
+            ]);
+        }
+        foreach ($emiten_syars as $emiten_syar) {
+            $w_user_total = Auth::user()->w_eps_syar + Auth::user()->w_roe_syar + Auth::user()->w_der_syar;
+            $w_eps = pow($emiten_syar->prefereni_kriteria['eps_pk'], (Auth::user()->w_eps_syar / $w_user_total));
+            $w_roe = pow($emiten_syar->prefereni_kriteria['roe_pk'], (Auth::user()->w_roe_syar / $w_user_total));
+            $w_der = pow($emiten_syar->prefereni_kriteria['der_pk'], (Auth::user()->w_der_syar / $w_user_total));
+            $w_total = $w_eps * $w_roe * $w_der;
+            DB::table('vektor_s')
+            ->where('user_id', 0)
+            ->where('emiten_id', $emiten_syar->id)
+            ->update([
+                'user_id' => Auth::user()->id,
+                'vektor_s' => $w_total,
+                'updated_at' => now()
+            ]);
+        }
+
+        foreach ($indexs as $index) {
+            $sum_vektor_s_kon = DB::table('emitens')
+                ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                ->where('index_sahams.id', $index->id)
+                ->where('vektor_s.user_id', Auth::user()->id)
+                ->select('vektor_s.vektor_s')
+                ->sum('vektor_s.vektor_s');
+            $vektor_s_kons = DB::table('emitens')
+                ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                ->where('index_sahams.id', $index->id)
+                ->where('vektor_s.user_id', Auth::user()->id)
+                ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
+                ->get();
+            foreach ($vektor_s_kons as $vektor_s_kon) {
+                DB::table('vektor_v_s')
+                ->where('user_id', 0)
+                ->where('emiten_id', $vektor_s_kon->id)
+                ->update([
+                    'user_id' => Auth::user()->id,
+                    'emiten_id' => $vektor_s_kon->id,
+                    'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
+            }
+        }
+
+            // foreach ($emiten_kons as $emiten_kon) {
+            //     $w_user_total = Auth::user()->w_eps_kon + Auth::user()->w_roe_kon + Auth::user()->w_per_kon;
+            //     $w_eps = pow($emiten_kon->prefereni_kriteria['eps_pk'], - (Auth::user()->w_eps_kon / $w_user_total));
+            //     $w_roe = pow($emiten_kon->prefereni_kriteria['roe_pk'], (Auth::user()->w_roe_kon / $w_user_total));
+            //     $w_per = pow($emiten_kon->prefereni_kriteria['per_pk'], (Auth::user()->w_per_kon / $w_user_total));
+            //     $w_total = $w_eps * $w_roe * $w_per;
+            //     DB::table('vektor_s')
+            //     ->where('user_id', 0)
+            //     ->where('emiten_id', $emiten_kon->id)
+            //     ->update([
+            //         'emiten_id' => $emiten_kon->id,
+            //         'user_id' => Auth::user()->id,
+            //         'vektor_s' => $w_total,
+            //         'created_at' => now(),
+            //         'updated_at' => now()
+            //     ]);
+            // }
         //     $sum_vektor_s_kon = DB::table('emitens')
         //     ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
         //     ->where('index_id', 1)
