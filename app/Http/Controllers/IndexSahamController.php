@@ -146,6 +146,7 @@ class IndexSahamController extends Controller
     {
         $indexSaham = IndexSaham::findOrFail($indexSaham->id);
         $indexSaham->delete();
+        DB::table('preferensis')->where('index_id', $indexSaham->id)->delete();
         $emitens = Emiten::where('index_id', $indexSaham->id)->get();
         foreach ($emitens as $emiten) {
             DB::table('vektor_s')->where('emiten_id', $emiten->id)->delete();
