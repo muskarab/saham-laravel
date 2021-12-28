@@ -46,11 +46,11 @@
                                         <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v text-blue"></i>
                                         </a>
-                                        <form action="" method="POST">
+                                        <form action="{{ route('index_saham.destroy', $index->id) }}" method="POST">
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a class="dropdown-item" href="">Update</a>
+                                                <a class="dropdown-item" href="{{ route('index_saham.edit', $index->id) }}">Update</a>
                                                 <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure to delete this data?')">Delete</button>
                                             </div>
                                         </form>

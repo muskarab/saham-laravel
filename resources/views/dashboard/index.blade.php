@@ -131,7 +131,7 @@
         <div class="row mt-3">
             <div class="col-xl-12 mb-5 mb-xl-0">
                 @if (Auth::user()->instrument_saham_id == 1)
-                <div class="card shadow">
+                 <div class="card shadow">
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col">
@@ -167,7 +167,7 @@
                                     <td class="text-right">
                                         <div class="dropdown">
                                             <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v text-blue"></i>
+                                            <i class="fas fa-ellipsis-v text-blue text-blue"></i>
                                             </a>
                                             <form action="" method="POST">
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
@@ -214,7 +214,7 @@
                                     <td>{{ ++$j }}</td>
                                     <td>{{ $final_syar->emiten_char }}</td>
                                     <td>{{ $final_syar->index }}</td>
-                                    <td>{{ $final_kon->tahun }}</td>
+                                    <td>{{ $final_syar->tahun }}</td>
                                     <td>{{ $final_syar->sektor }}</td>
                                     <td>{{ $final_syar->vektor_v }}</td>
                                     <td class="text-right">
@@ -318,7 +318,7 @@
                                     <td>{{ ++$j }}</td>
                                     <td>{{ $final_syar->emiten_char }}</td>
                                     <td>{{ $final_syar->index }}</td>
-                                    <td>{{ $final_kon->tahun }}</td>
+                                    <td>{{ $final_syar->tahun }}</td>
                                     <td>{{ $final_syar->sektor }}</td>
                                     <td>{{ $final_syar->vektor_v }}</td>
                                     <td class="text-right">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bobot;
+use App\Models\Emiten;
 use App\Models\IndexSaham;
 use App\Models\Preferensi;
 use Illuminate\Http\Request;
@@ -106,7 +107,8 @@ class IndexSahamController extends Controller
      */
     public function edit(IndexSaham $indexSaham)
     {
-        //
+        // dd($indexSaham);
+        return view('index_saham.edit', compact('indexSaham'));
     }
 
     /**
@@ -118,7 +120,20 @@ class IndexSahamController extends Controller
      */
     public function update(Request $request, IndexSaham $indexSaham)
     {
-        //
+        $indexSaham = IndexSaham::findOrFail($indexSaham->id);
+        $indexSaham->update([
+            'name' => request('index_char'),
+            'tahun' => request('tahun'),
+            'instrument_saham_id' => request('instrument_id'),
+        ]);
+
+        if ($indexSaham) {
+            //redirect dengan pesan sukses
+            return redirect()->route('index_saham.index')->with(['success' => 'Data Berhasil Diupdate!']);
+        } else {
+            //redirect dengan pesan error
+            return redirect()->route('index_saham.index')->with(['error' => 'Data Gagal Diupdate!']);
+        }
     }
 
     /**
@@ -129,6 +144,21 @@ class IndexSahamController extends Controller
      */
     public function destroy(IndexSaham $indexSaham)
     {
-        //
+        $indexSaham = IndexSaham::findOrFail($indexSaham->id);
+        $indexSaham->delete();
+        $emitens = Emiten::where('index_id', $indexSaham->id)->get();
+        foreach ($emitens as $emiten) {
+            DB::table('vektor_s')->where('emiten_id', $emiten->id)->delete();
+            DB::table('vektor_v_s')->where('emiten_id', $emiten->id)->delete();
+        }
+        DB::table('emitens')->where('index_id', $indexSaham->id)->delete();
+
+        if ($indexSaham) {
+            //redirect dengan pesan sukses
+            return redirect()->route('index_saham.index')->with(['success' => 'Data Berhasil Diupdate!']);
+        } else {
+            //redirect dengan pesan error
+            return redirect()->route('index_saham.index')->with(['error' => 'Data Gagal Diupdate!']);
+        }
     }
 }
