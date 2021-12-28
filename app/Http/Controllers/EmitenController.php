@@ -80,9 +80,13 @@ class EmitenController extends Controller
         ]);
 
         $users = User::get();
-        $lastdata_emiten = Emiten::orderBy('id', 'DESC')->first();
+
+        $lastdata_emiten = Emiten::join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+        ->select('emitens.*', 'index_sahams.instrument_saham_id')
+        ->orderBy('id', 'DESC')
+        ->first();
         foreach ($users as $user) {
-            if ($lastdata_emiten->index_id == 1) {
+            if ($lastdata_emiten->instrument_saham_id == 1) {
                 if ($user->instrument_saham_id == 1) {
                     VektorS::where('user_id', $user->id)->create([
                         'emiten_id' => $lastdata_emiten->id,
@@ -108,7 +112,7 @@ class EmitenController extends Controller
                     ]);
                 }
             }
-            if ($lastdata_emiten->index_id == 2) {
+            if ($lastdata_emiten->instrument_saham_id == 2) {
                 if ($user->instrument_saham_id == 2) {
                     VektorS::where('user_id', $user->id)->create([
                         'emiten_id' => $lastdata_emiten->id,
@@ -136,6 +140,7 @@ class EmitenController extends Controller
             }
         }
 
+        //Update preferensi
         $indexs = IndexSaham::get();
         foreach ($indexs as $index) {
             $min_eps = Emiten::where('index_id', '=', $index->id)->min('eps');
@@ -185,211 +190,87 @@ class EmitenController extends Controller
             ]);
         }
 
-        // $min_eps_kon = Emiten::where('index_id', '=', 1)->min('eps');
-        // $min_roe_kon = Emiten::where('index_id', '=', 1)->min('roe');
-        // $min_per_kon = Emiten::where('index_id', '=', 1)->min('per');
-        // $min_der_kon = Emiten::where('index_id', '=', 1)->min('der');
-        // $max_eps_kon = Emiten::where('index_id', '=', 1)->max('eps');
-        // $max_roe_kon = Emiten::where('index_id', '=', 1)->max('roe');
-        // $max_per_kon = Emiten::where('index_id', '=', 1)->max('per');
-        // $max_der_kon = Emiten::where('index_id', '=', 1)->max('der');
-        // $mean_eps_kon = Emiten::where('index_id', '=', 1)->avg('eps');
-        // $mean_roe_kon = Emiten::where('index_id', '=', 1)->avg('roe');
-        // $mean_per_kon = Emiten::where('index_id', '=', 1)->avg('per');
-        // $mean_der_kon = Emiten::where('index_id', '=', 1)->avg('der');
-        // $avg_bawah_eps_kon = ($min_eps_kon + $mean_eps_kon) / 2;
-        // $avg_bawah_roe_kon = ($min_roe_kon + $mean_roe_kon) / 2;
-        // $avg_bawah_per_kon = ($min_per_kon + $mean_per_kon) / 2;
-        // $avg_bawah_der_kon = ($min_der_kon + $mean_der_kon) / 2;
-        // $avg_atas_eps_kon = ($mean_eps_kon + $max_eps_kon) / 2;
-        // $avg_atas_roe_kon = ($mean_roe_kon + $max_roe_kon) / 2;
-        // $avg_atas_per_kon = ($mean_per_kon + $max_per_kon) / 2;
-        // $avg_atas_der_kon = ($mean_der_kon + $max_der_kon) / 2;
-        // $min_eps_sya = Emiten::where('index_id', '=', 2)->min('eps');
-        // $min_roe_sya = Emiten::where('index_id', '=', 2)->min('roe');
-        // $min_per_sya = Emiten::where('index_id', '=', 2)->min('per');
-        // $min_der_sya = Emiten::where('index_id', '=', 2)->min('der');
-        // $max_eps_sya = Emiten::where('index_id', '=', 2)->max('eps');
-        // $max_roe_sya = Emiten::where('index_id', '=', 2)->max('roe');
-        // $max_per_sya = Emiten::where('index_id', '=', 2)->max('per');
-        // $max_der_sya = Emiten::where('index_id', '=', 2)->max('der');
-        // $mean_eps_sya = Emiten::where('index_id', '=', 2)->avg('eps');
-        // $mean_roe_sya = Emiten::where('index_id', '=', 2)->avg('roe');
-        // $mean_per_sya = Emiten::where('index_id', '=', 2)->avg('per');
-        // $mean_der_sya = Emiten::where('index_id', '=', 2)->avg('der');
-        // $avg_bawah_eps_sya = ($min_eps_sya + $mean_eps_sya) / 2;
-        // $avg_bawah_roe_sya = ($min_roe_sya + $mean_roe_sya) / 2;
-        // $avg_bawah_per_sya = ($min_per_sya + $mean_per_sya) / 2;
-        // $avg_bawah_der_sya = ($min_der_sya + $mean_der_sya) / 2;
-        // $avg_atas_eps_sya = ($mean_eps_sya + $max_eps_sya) / 2;
-        // $avg_atas_roe_sya = ($mean_roe_sya + $max_roe_sya) / 2;
-        // $avg_atas_per_sya = ($mean_per_sya + $max_per_sya) / 2;
-        // $avg_atas_der_sya = ($mean_der_sya + $max_der_sya) / 2;
-
-        // $konfensional = DB::table('preferensis')->where('id', 1)->update([
-        //     'min_eps' => $min_eps_kon,
-        //     'max_eps' => $max_eps_kon,
-        //     'mean_eps' => $mean_eps_kon,
-        //     'avg_bawah_eps' => $avg_bawah_eps_kon,
-        //     'avg_atas_eps' => $avg_atas_eps_kon,
-        //     'min_roe' => $min_roe_kon,
-        //     'max_roe' => $max_roe_kon,
-        //     'mean_roe' => $mean_roe_kon,
-        //     'avg_bawah_roe' => $avg_bawah_roe_kon,
-        //     'avg_atas_roe' => $avg_atas_roe_kon,
-        //     'min_per' => $min_per_kon,
-        //     'max_per' => $max_per_kon,
-        //     'mean_per' => $mean_per_kon,
-        //     'avg_bawah_per' => $avg_bawah_per_kon,
-        //     'avg_atas_per' => $avg_atas_per_kon,
-        //     'min_der' => $min_der_kon,
-        //     'max_der' => $max_der_kon,
-        //     'mean_der' => $mean_der_kon,
-        //     'avg_bawah_der' => $avg_bawah_der_kon,
-        //     'avg_atas_der' => $avg_atas_der_kon,
-        // ]);
-        // $syariah = DB::table('preferensis')->where('id', 2)->update([
-        //     'min_eps' => $min_eps_sya,
-        //     'max_eps' => $max_eps_sya,
-        //     'mean_eps' => $mean_eps_sya,
-        //     'avg_bawah_eps' => $avg_bawah_eps_sya,
-        //     'avg_atas_eps' => $avg_atas_eps_sya,
-        //     'min_roe' => $min_roe_sya,
-        //     'max_roe' => $max_roe_sya,
-        //     'mean_roe' => $mean_roe_sya,
-        //     'avg_bawah_roe' => $avg_bawah_roe_sya,
-        //     'avg_atas_roe' => $avg_atas_roe_sya,
-        //     'min_per' => $min_per_sya,
-        //     'max_per' => $max_per_sya,
-        //     'mean_per' => $mean_per_sya,
-        //     'avg_bawah_per' => $avg_bawah_per_sya,
-        //     'avg_atas_per' => $avg_atas_per_sya,
-        //     'min_der' => $min_der_sya,
-        //     'max_der' => $max_der_sya,
-        //     'mean_der' => $mean_der_sya,
-        //     'avg_bawah_der' => $avg_bawah_der_sya,
-        //     'avg_atas_der' => $avg_atas_der_sya,
-        // ]);
-
         //Ubah data terakhir menjadi sesuai foreign_key
         $lastdata = PreferensiKriteria::orderBy('id', 'DESC')->first();
         $update = DB::table('preferensi_kriterias')->where('id', $lastdata['id'])->update([
             'emiten_id' => $lastdata['id'],
         ]);
 
-        //Update data terakhir sesuai perhitungan
-        $preferensis_kons = Preferensi::where('index_id', '=', 1)->get();
-        $emiten_kons = Emiten::where('index_id', '=', 1)->get();
-        foreach ($emiten_kons as $emiten_kon) {
-            foreach ($preferensis_kons as $preferensis_kon) {
-                if ($emiten_kon['eps'] < $preferensis_kon['avg_bawah_eps'] && $emiten_kon['eps'] >= $preferensis_kon['min_eps']) {
-                    $eps_pk_kon = 1;
-                } elseif ($emiten_kon['eps'] < $preferensis_kon['mean_eps'] && $emiten_kon['eps'] >= $preferensis_kon['avg_bawah_eps']) {
-                    $eps_pk_kon = 2;
-                } elseif ($emiten_kon['eps'] < $preferensis_kon['avg_atas_eps'] && $emiten_kon['eps'] >= $preferensis_kon['mean_eps']) {
-                    $eps_pk_kon = 3;
-                } elseif ($emiten_kon['eps'] <= $preferensis_kon['max_eps'] && $emiten_kon['eps'] > $preferensis_kon['avg_atas_eps']) {
-                    $eps_pk_kon = 4;
-                }
+        //Update data Preferensi Saham terakhir sesuai perhitungan
+        $indexs = IndexSaham::get();
+        foreach ($indexs as $index) {
+            $preferensis = Preferensi::where('index_id', '=', $index->id)->get();
+            $emitens = Emiten::where('index_id', '=', $index->id)->get();
+            foreach ($emitens as $emiten) {
+                foreach ($preferensis as $preferensi) {
+                    if ($emiten['eps'] < $preferensi['avg_bawah_eps'] && $emiten['eps'] >= $preferensi['min_eps']) {
+                        $eps_pk = 1;
+                    } elseif ($emiten['eps'] < $preferensi['mean_eps'] && $emiten['eps'] >= $preferensi['avg_bawah_eps']) {
+                        $eps_pk = 2;
+                    } elseif ($emiten['eps'] < $preferensi['avg_atas_eps'] && $emiten['eps'] >= $preferensi['mean_eps']) {
+                        $eps_pk = 3;
+                    } elseif ($emiten['eps'] <= $preferensi['max_eps'] && $emiten['eps'] > $preferensi['avg_atas_eps']
+                    ) {
+                        $eps_pk = 4;
+                    }
 
-                if ($emiten_kon['roe'] < $preferensis_kon['avg_bawah_roe'] && $emiten_kon['roe'] >= $preferensis_kon['min_roe']) {
-                    $roe_pk_kon = 1;
-                } elseif ($emiten_kon['roe'] < $preferensis_kon['mean_roe'] && $emiten_kon['roe'] >= $preferensis_kon['avg_bawah_roe']) {
-                    $roe_pk_kon = 2;
-                } elseif ($emiten_kon['roe'] < $preferensis_kon['avg_atas_roe'] && $emiten_kon['roe'] >= $preferensis_kon['mean_roe']) {
-                    $roe_pk_kon = 3;
-                } elseif ($emiten_kon['roe'] <= $preferensis_kon['max_roe'] && $emiten_kon['roe'] > $preferensis_kon['avg_atas_roe']) {
-                    $roe_pk_kon = 4;
-                }
+                    if ($emiten['roe'] < $preferensi['avg_bawah_roe'] && $emiten['roe'] >= $preferensi['min_roe']) {
+                        $roe_pk = 1;
+                    } elseif ($emiten['roe'] < $preferensi['mean_roe'] && $emiten['roe'] >= $preferensi['avg_bawah_roe']) {
+                        $roe_pk = 2;
+                    } elseif ($emiten['roe'] < $preferensi['avg_atas_roe'] && $emiten['roe'] >= $preferensi['mean_roe']) {
+                        $roe_pk = 3;
+                    } elseif ($emiten['roe'] <= $preferensi['max_roe'] && $emiten['roe'] > $preferensi['avg_atas_roe']
+                    ) {
+                        $roe_pk = 4;
+                    }
 
-                if ($emiten_kon['per'] < $preferensis_kon['avg_bawah_per'] && $emiten_kon['per'] >= $preferensis_kon['min_per']) {
-                    $per_pk_kon = 1;
-                } elseif ($emiten_kon['per'] < $preferensis_kon['mean_per'] && $emiten_kon['per'] >= $preferensis_kon['avg_bawah_per']) {
-                    $per_pk_kon = 2;
-                } elseif ($emiten_kon['per'] < $preferensis_kon['avg_atas_per'] && $emiten_kon['per'] >= $preferensis_kon['mean_per']) {
-                    $per_pk_kon = 3;
-                } elseif ($emiten_kon['per'] <= $preferensis_kon['max_per'] && $emiten_kon['per'] > $preferensis_kon['avg_atas_per']) {
-                    $per_pk_kon = 4;
-                }
+                    if ($emiten['per'] < $preferensi['avg_bawah_per'] && $emiten['per'] >= $preferensi['min_per']) {
+                        $per_pk = 1;
+                    } elseif ($emiten['per'] < $preferensi['mean_per'] && $emiten['per'] >= $preferensi['avg_bawah_per']) {
+                        $per_pk = 2;
+                    } elseif ($emiten['per'] < $preferensi['avg_atas_per'] && $emiten['per'] >= $preferensi['mean_per']) {
+                        $per_pk = 3;
+                    } elseif ($emiten['per'] <= $preferensi['max_per'] && $emiten['per'] > $preferensi['avg_atas_per']
+                    ) {
+                        $per_pk = 4;
+                    }
 
-                if ($emiten_kon['der'] < $preferensis_kon['avg_bawah_der'] && $emiten_kon['der'] >= $preferensis_kon['min_der']) {
-                    $der_pk_kon = 1;
-                } elseif ($emiten_kon['der'] < $preferensis_kon['mean_der'] && $emiten_kon['der'] >= $preferensis_kon['avg_bawah_der']) {
-                    $der_pk_kon = 2;
-                } elseif ($emiten_kon['der'] < $preferensis_kon['avg_atas_der'] && $emiten_kon['der'] >= $preferensis_kon['mean_der']) {
-                    $der_pk_kon = 3;
-                } elseif ($emiten_kon['der'] <= $preferensis_kon['max_der'] && $emiten_kon['der'] > $preferensis_kon['avg_atas_der']) {
-                    $der_pk_kon = 4;
+                    if ($emiten['der'] < $preferensi['avg_bawah_der'] && $emiten['der'] >= $preferensi['min_der']) {
+                        $der_pk = 1;
+                    } elseif ($emiten['der'] < $preferensi['mean_der'] && $emiten['der'] >= $preferensi['avg_bawah_der']) {
+                        $der_pk = 2;
+                    } elseif ($emiten['der'] < $preferensi['avg_atas_der'] && $emiten['der'] >= $preferensi['mean_der']) {
+                        $der_pk = 3;
+                    } elseif ($emiten['der'] <= $preferensi['max_der'] && $emiten['der'] > $preferensi['avg_atas_der']
+                    ) {
+                        $der_pk = 4;
+                    }
+                    DB::table('preferensi_kriterias')->where('emiten_id', $emiten->id)->update([
+                        'emiten_id' => $emiten->id,
+                        'eps_pk' => $eps_pk,
+                        'roe_pk' => $roe_pk,
+                        'per_pk' => $per_pk,
+                        'der_pk' => $der_pk,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ]);
                 }
-
-                $update = DB::table('preferensi_kriterias')->where('emiten_id', $emiten_kon->id)->update([
-                    'emiten_id' => $emiten_kon->id,
-                    'eps_pk' => $eps_pk_kon,
-                    'roe_pk' => $roe_pk_kon,
-                    'per_pk' => $per_pk_kon,
-                    'der_pk' => $der_pk_kon,
-                ]);
             }
         }
 
-        $preferensis_syars = Preferensi::where('index_id', '=', 2)->get();
-        $emiten_syars = Emiten::where('index_id', '=', 2)->get();
-        foreach ($emiten_syars as $emiten_syar) {
-            foreach ($preferensis_syars as $preferensis_syar) {
-                if ($emiten_syar['eps'] < $preferensis_syar['avg_bawah_eps'] && $emiten_syar['eps'] >= $preferensis_syar['min_eps']) {
-                    $eps_pk_syar = 1;
-                } elseif ($emiten_syar['eps'] < $preferensis_syar['mean_eps'] && $emiten_syar['eps'] >= $preferensis_syar['avg_bawah_eps']) {
-                    $eps_pk_syar = 2;
-                } elseif ($emiten_syar['eps'] < $preferensis_syar['avg_atas_eps'] && $emiten_syar['eps'] >= $preferensis_syar['mean_eps']) {
-                    $eps_pk_syar = 3;
-                } elseif ($emiten_syar['eps'] <= $preferensis_syar['max_eps'] && $emiten_syar['eps'] > $preferensis_syar['avg_atas_eps']) {
-                    $eps_pk_syar = 4;
-                }
-
-                if ($emiten_syar['roe'] < $preferensis_syar['avg_bawah_roe'] && $emiten_syar['roe'] >= $preferensis_syar['min_roe']) {
-                    $roe_pk_syar = 1;
-                } elseif ($emiten_syar['roe'] < $preferensis_syar['mean_roe'] && $emiten_syar['roe'] >= $preferensis_syar['avg_bawah_roe']) {
-                    $roe_pk_syar = 2;
-                } elseif ($emiten_syar['roe'] < $preferensis_syar['avg_atas_roe'] && $emiten_syar['roe'] >= $preferensis_syar['mean_roe']) {
-                    $roe_pk_syar = 3;
-                } elseif ($emiten_syar['roe'] <= $preferensis_syar['max_roe'] && $emiten_syar['roe'] > $preferensis_syar['avg_atas_roe']) {
-                    $roe_pk_syar = 4;
-                }
-
-                if ($emiten_syar['per'] < $preferensis_syar['avg_bawah_per'] && $emiten_syar['per'] >= $preferensis_syar['min_per']) {
-                    $per_pk_syar = 1;
-                } elseif ($emiten_syar['per'] < $preferensis_syar['mean_per'] && $emiten_syar['per'] >= $preferensis_syar['avg_bawah_per']) {
-                    $per_pk_syar = 2;
-                } elseif ($emiten_syar['per'] < $preferensis_syar['avg_atas_per'] && $emiten_syar['per'] >= $preferensis_syar['mean_per']) {
-                    $per_pk_syar = 3;
-                } elseif ($emiten_syar['per'] <= $preferensis_syar['max_per'] && $emiten_syar['per'] > $preferensis_syar['avg_atas_per']) {
-                    $per_pk_syar = 4;
-                }
-
-                if ($emiten_syar['der'] < $preferensis_syar['avg_bawah_der'] && $emiten_syar['der'] >= $preferensis_syar['min_der']) {
-                    $der_pk_syar = 1;
-                } elseif ($emiten_syar['der'] < $preferensis_syar['mean_der'] && $emiten_syar['der'] >= $preferensis_syar['avg_bawah_der']) {
-                    $der_pk_syar = 2;
-                } elseif ($emiten_syar['der'] < $preferensis_syar['avg_atas_der'] && $emiten_syar['der'] >= $preferensis_syar['mean_der']) {
-                    $der_pk_syar = 3;
-                } elseif ($emiten_syar['der'] <= $preferensis_syar['max_der'] && $emiten_syar['der'] > $preferensis_syar['avg_atas_der']) {
-                    $der_pk_syar = 4;
-                }
-
-                $update = DB::table('preferensi_kriterias')->where('emiten_id', $emiten_syar->id)->update([
-                    'emiten_id' => $emiten_syar->id,
-                    'eps_pk' => $eps_pk_syar,
-                    'roe_pk' => $roe_pk_syar,
-                    'per_pk' => $per_pk_syar,
-                    'der_pk' => $der_pk_syar,
-                ]);
-            }
-        }
-
+        //Update vektor s dan vektor v
         $users = User::get();
-        $emiten_kons = Emiten::where('index_id', 1)->get();
-        $emiten_syars = Emiten::where('index_id', 2)->get();
-        $lastdata_emiten = Emiten::orderBy('id', 'DESC')->first();
+        $index_kons = IndexSaham::where('instrument_saham_id', 1)->get();
+        $index_syars = IndexSaham::where('instrument_saham_id', 2)->get();
+        $emiten_kons = Emiten::join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+        ->where('instrument_saham_id', 1)
+        ->select('emitens.*', 'index_sahams.name')
+        ->get();
+        $emiten_syars = Emiten::join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+        ->where('instrument_saham_id', 2)
+        ->select('emitens.*', 'index_sahams.name')
+        ->get();
         foreach ($users as $user) {
             if ($user->instrument_saham_id == 1) {
                 //update vektor s
@@ -408,26 +289,30 @@ class EmitenController extends Controller
                     ]);
                 }
                 //update vektor v
-                $sum_vektor_s_kon = DB::table('emitens')
-                ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                ->where('index_id', 1)
-                ->where('vektor_s.user_id', $user->id)
-                ->select('vektor_s.vektor_s')
-                ->sum('vektor_s.vektor_s');
-                $vektor_s_kons = DB::table('emitens')
-                ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                ->where('index_id', 1)
-                ->where('vektor_s.user_id', $user->id)
-                ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
-                ->get();
-                foreach ($vektor_s_kons as $vektor_s_kon) {
-                    DB::table('vektor_v_s')
-                    ->where('user_id', $user->id)
-                    ->where('emiten_id', $vektor_s_kon->id)
-                    ->update([
-                        'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
-                        'updated_at' => now()
-                    ]);
+                foreach ($index_kons as $index_kon) {
+                    $sum_vektor_s_kon = DB::table('emitens')
+                    ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                    ->where('index_sahams.id', $index_kon->id)
+                    ->where('vektor_s.user_id', $user->id)
+                    ->select('vektor_s.vektor_s')
+                    ->sum('vektor_s.vektor_s');
+                    $vektor_s_kons = DB::table('emitens')
+                    ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                    ->where('index_sahams.id', $index_kon->id)
+                    ->where('vektor_s.user_id', $user->id)
+                    ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
+                    ->get();
+                    foreach ($vektor_s_kons as $vektor_s_kon) {
+                        DB::table('vektor_v_s')
+                        ->where('user_id', $user->id)
+                        ->where('emiten_id', $vektor_s_kon->id)
+                        ->update([
+                            'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
+                            'updated_at' => now()
+                        ]);
+                    }
                 }
             }
             if ($user->instrument_saham_id == 2) {
@@ -444,26 +329,30 @@ class EmitenController extends Controller
                     ]);
                 }
                 //update vektor v
-                $sum_vektor_s_syar = DB::table('emitens')
+                foreach ($index_syars as $index_syar) {
+                    $sum_vektor_s_kon = DB::table('emitens')
                     ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                    ->where('index_id', 2)
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                    ->where('index_sahams.id', $index_syar->id)
                     ->where('vektor_s.user_id', $user->id)
                     ->select('vektor_s.vektor_s')
                     ->sum('vektor_s.vektor_s');
-                $vektor_s_syars = DB::table('emitens')
+                    $vektor_s_kons = DB::table('emitens')
                     ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                    ->where('index_id', 2)
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                    ->where('index_sahams.id', $index_syar->id)
                     ->where('vektor_s.user_id', $user->id)
                     ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
                     ->get();
-                foreach ($vektor_s_syars as $vektor_s_syar) {
-                    DB::table('vektor_v_s')
-                    ->where('user_id', $user->id)
-                    ->where('emiten_id', $vektor_s_syar->id)
-                    ->update([
-                        'vektor_v' => $vektor_s_syar->vektor_s / $sum_vektor_s_syar,
-                        'updated_at' => now()
-                    ]);
+                    foreach ($vektor_s_kons as $vektor_s_kon) {
+                        DB::table('vektor_v_s')
+                        ->where('user_id', $user->id)
+                        ->where('emiten_id', $vektor_s_kon->id)
+                        ->update([
+                            'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
+                            'updated_at' => now()
+                        ]);
+                    }
                 }
             }
             if ($user->instrument_saham_id == 3) {
@@ -480,26 +369,30 @@ class EmitenController extends Controller
                     ]);
                 }
                 //update vektor v
-                $sum_vektor_s_kon = DB::table('emitens')
-                ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                ->where('index_id', 1)
-                ->where('vektor_s.user_id', $user->id)
-                ->select('vektor_s.vektor_s')
-                ->sum('vektor_s.vektor_s');
-                $vektor_s_kons = DB::table('emitens')
-                ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                ->where('index_id', 1)
-                ->where('vektor_s.user_id', $user->id)
-                ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
-                ->get();
-                foreach ($vektor_s_kons as $vektor_s_kon) {
-                    DB::table('vektor_v_s')
+                foreach ($index_kons as $index_kon) {
+                    $sum_vektor_s_kon = DB::table('emitens')
+                    ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                    ->where('index_sahams.id', $index_kon->id)
+                    ->where('vektor_s.user_id', $user->id)
+                    ->select('vektor_s.vektor_s')
+                        ->sum('vektor_s.vektor_s');
+                    $vektor_s_kons = DB::table('emitens')
+                    ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                    ->where('index_sahams.id', $index_kon->id)
+                    ->where('vektor_s.user_id', $user->id)
+                    ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
+                    ->get();
+                    foreach ($vektor_s_kons as $vektor_s_kon) {
+                        DB::table('vektor_v_s')
                         ->where('user_id', $user->id)
                         ->where('emiten_id', $vektor_s_kon->id)
                         ->update([
                             'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
                             'updated_at' => now()
                         ]);
+                    }
                 }
                 //update vektor s
                 foreach ($emiten_syars as $emiten_syar) {
@@ -514,26 +407,30 @@ class EmitenController extends Controller
                     ]);
                 }
                 //update vektor v
-                $sum_vektor_s_syar = DB::table('emitens')
+                foreach ($index_syars as $index_syar) {
+                    $sum_vektor_s_kon = DB::table('emitens')
                     ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                    ->where('index_id', 2)
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                    ->where('index_sahams.id', $index_syar->id)
                     ->where('vektor_s.user_id', $user->id)
                     ->select('vektor_s.vektor_s')
-                    ->sum('vektor_s.vektor_s');
-                $vektor_s_syars = DB::table('emitens')
+                        ->sum('vektor_s.vektor_s');
+                    $vektor_s_kons = DB::table('emitens')
                     ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                    ->where('index_id', 2)
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                    ->where('index_sahams.id', $index_syar->id)
                     ->where('vektor_s.user_id', $user->id)
                     ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
                     ->get();
-                foreach ($vektor_s_syars as $vektor_s_syar) {
-                    DB::table('vektor_v_s')
-                    ->where('user_id', $user->id)
-                    ->where('emiten_id', $vektor_s_syar->id)
-                    ->update([
-                        'vektor_v' => $vektor_s_syar->vektor_s / $sum_vektor_s_syar,
-                        'updated_at' => now()
-                    ]);
+                    foreach ($vektor_s_kons as $vektor_s_kon) {
+                        DB::table('vektor_v_s')
+                        ->where('user_id', $user->id)
+                        ->where('emiten_id', $vektor_s_kon->id)
+                        ->update([
+                            'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
+                            'updated_at' => now()
+                        ]);
+                    }
                 }
             }
         }
@@ -603,259 +500,135 @@ class EmitenController extends Controller
             'der' => request('der'),
         ]);
 
-        $min_eps_kon = Emiten::where('index_id', '=', 1)->min('eps');
-        $min_roe_kon = Emiten::where('index_id', '=', 1)->min('roe');
-        $min_per_kon = Emiten::where('index_id', '=', 1)->min('per');
-        $min_der_kon = Emiten::where('index_id', '=', 1)->min('der');
-        $max_eps_kon = Emiten::where('index_id', '=', 1)->max('eps');
-        $max_roe_kon = Emiten::where('index_id', '=', 1)->max('roe');
-        $max_per_kon = Emiten::where('index_id', '=', 1)->max('per');
-        $max_der_kon = Emiten::where('index_id', '=', 1)->max('der');
-        $mean_eps_kon = Emiten::where('index_id', '=', 1)->avg('eps');
-        $mean_roe_kon = Emiten::where('index_id', '=', 1)->avg('roe');
-        $mean_per_kon = Emiten::where('index_id', '=', 1)->avg('per');
-        $mean_der_kon = Emiten::where('index_id', '=', 1)->avg('der');
-        $avg_bawah_eps_kon = ($min_eps_kon + $mean_eps_kon) / 2;
-        $avg_bawah_roe_kon = ($min_roe_kon + $mean_roe_kon) / 2;
-        $avg_bawah_per_kon = ($min_per_kon + $mean_per_kon) / 2;
-        $avg_bawah_der_kon = ($min_der_kon + $mean_der_kon) / 2;
-        $avg_atas_eps_kon = ($mean_eps_kon + $max_eps_kon) / 2;
-        $avg_atas_roe_kon = ($mean_roe_kon + $max_roe_kon) / 2;
-        $avg_atas_per_kon = ($mean_per_kon + $max_per_kon) / 2;
-        $avg_atas_der_kon = ($mean_der_kon + $max_der_kon) / 2;
-        $min_eps_sya = Emiten::where('index_id', '=', 2)->min('eps');
-        $min_roe_sya = Emiten::where('index_id', '=', 2)->min('roe');
-        $min_per_sya = Emiten::where('index_id', '=', 2)->min('per');
-        $min_der_sya = Emiten::where('index_id', '=', 2)->min('der');
-        $max_eps_sya = Emiten::where('index_id', '=', 2)->max('eps');
-        $max_roe_sya = Emiten::where('index_id', '=', 2)->max('roe');
-        $max_per_sya = Emiten::where('index_id', '=', 2)->max('per');
-        $max_der_sya = Emiten::where('index_id', '=', 2)->max('der');
-        $mean_eps_sya = Emiten::where('index_id', '=', 2)->avg('eps');
-        $mean_roe_sya = Emiten::where('index_id', '=', 2)->avg('roe');
-        $mean_per_sya = Emiten::where('index_id', '=', 2)->avg('per');
-        $mean_der_sya = Emiten::where('index_id', '=', 2)->avg('der');
-        $avg_bawah_eps_sya = ($min_eps_sya + $mean_eps_sya) / 2;
-        $avg_bawah_roe_sya = ($min_roe_sya + $mean_roe_sya) / 2;
-        $avg_bawah_per_sya = ($min_per_sya + $mean_per_sya) / 2;
-        $avg_bawah_der_sya = ($min_der_sya + $mean_der_sya) / 2;
-        $avg_atas_eps_sya = ($mean_eps_sya + $max_eps_sya) / 2;
-        $avg_atas_roe_sya = ($mean_roe_sya + $max_roe_sya) / 2;
-        $avg_atas_per_sya = ($mean_per_sya + $max_per_sya) / 2;
-        $avg_atas_der_sya = ($mean_der_sya + $max_der_sya) / 2;
-        
-        $konfensional = DB::table('preferensis')->where('id', 1)->update([
-            'min_eps' => $min_eps_kon,
-            'max_eps' => $max_eps_kon,
-            'mean_eps' => $mean_eps_kon,
-            'avg_bawah_eps' => $avg_bawah_eps_kon,
-            'avg_atas_eps' => $avg_atas_eps_kon,
-            'min_roe' => $min_roe_kon,
-            'max_roe' => $max_roe_kon,
-            'mean_roe' => $mean_roe_kon,
-            'avg_bawah_roe' => $avg_bawah_roe_kon,
-            'avg_atas_roe' => $avg_atas_roe_kon,
-            'min_per' => $min_per_kon,
-            'max_per' => $max_per_kon,
-            'mean_per' => $mean_per_kon,
-            'avg_bawah_per' => $avg_bawah_per_kon,
-            'avg_atas_per' => $avg_atas_per_kon,
-            'min_der' => $min_der_kon,
-            'max_der' => $max_der_kon,
-            'mean_der' => $mean_der_kon,
-            'avg_bawah_der' => $avg_bawah_der_kon,
-            'avg_atas_der' => $avg_atas_der_kon,
-        ]);
-        $syariah = DB::table('preferensis')->where('id', 2)->update([
-            'min_eps' => $min_eps_sya,
-            'max_eps' => $max_eps_sya,
-            'mean_eps' => $mean_eps_sya,
-            'avg_bawah_eps' => $avg_bawah_eps_sya,
-            'avg_atas_eps' => $avg_atas_eps_sya,
-            'min_roe' => $min_roe_sya,
-            'max_roe' => $max_roe_sya,
-            'mean_roe' => $mean_roe_sya,
-            'avg_bawah_roe' => $avg_bawah_roe_sya,
-            'avg_atas_roe' => $avg_atas_roe_sya,
-            'min_per' => $min_per_sya,
-            'max_per' => $max_per_sya,
-            'mean_per' => $mean_per_sya,
-            'avg_bawah_per' => $avg_bawah_per_sya,
-            'avg_atas_per' => $avg_atas_per_sya,
-            'min_der' => $min_der_sya,
-            'max_der' => $max_der_sya,
-            'mean_der' => $mean_der_sya,
-            'avg_bawah_der' => $avg_bawah_der_sya,
-            'avg_atas_der' => $avg_atas_der_sya,
-        ]);
+        //Update preferensi
+        $indexs = IndexSaham::get();
+        foreach ($indexs as $index) {
+            $min_eps = Emiten::where('index_id', '=', $index->id)->min('eps');
+            $min_roe = Emiten::where('index_id', '=', $index->id)->min('roe');
+            $min_per = Emiten::where('index_id', '=', $index->id)->min('per');
+            $min_der = Emiten::where('index_id', '=', $index->id)->min('der');
+            $max_eps = Emiten::where('index_id', '=', $index->id)->max('eps');
+            $max_roe = Emiten::where('index_id', '=', $index->id)->max('roe');
+            $max_per = Emiten::where('index_id', '=', $index->id)->max('per');
+            $max_der = Emiten::where('index_id', '=', $index->id)->max('der');
+            $mean_eps = Emiten::where('index_id', '=', $index->id)->avg('eps');
+            $mean_roe = Emiten::where('index_id', '=', $index->id)->avg('roe');
+            $mean_per = Emiten::where('index_id', '=', $index->id)->avg('per');
+            $mean_der = Emiten::where('index_id', '=', $index->id)->avg('der');
+            $avg_bawah_eps = ($min_eps + $mean_eps) / 2;
+            $avg_bawah_roe = ($min_roe + $mean_roe) / 2;
+            $avg_bawah_per = ($min_per + $mean_per) / 2;
+            $avg_bawah_der = ($min_der + $mean_der) / 2;
+            $avg_atas_eps = ($mean_eps + $max_eps) / 2;
+            $avg_atas_roe = ($mean_roe + $max_roe) / 2;
+            $avg_atas_per = ($mean_per + $max_per) / 2;
+            $avg_atas_der = ($mean_der + $max_der) / 2;
+            DB::table('preferensis')->where('index_id', $index->id)->update([
+                'index_id' => $index->id,
+                'min_eps' => $min_eps,
+                'max_eps' => $max_eps,
+                'mean_eps' => $mean_eps,
+                'avg_bawah_eps' => $avg_bawah_eps,
+                'avg_atas_eps' => $avg_atas_eps,
+                'min_roe' => $min_roe,
+                'max_roe' => $max_roe,
+                'mean_roe' => $mean_roe,
+                'avg_bawah_roe' => $avg_bawah_roe,
+                'avg_atas_roe' => $avg_atas_roe,
+                'min_per' => $min_per,
+                'max_per' => $max_per,
+                'mean_per' => $mean_per,
+                'avg_bawah_per' => $avg_bawah_per,
+                'avg_atas_per' => $avg_atas_per,
+                'min_der' => $min_der,
+                'max_der' => $max_der,
+                'mean_der' => $mean_der,
+                'avg_bawah_der' => $avg_bawah_der,
+                'avg_atas_der' => $avg_atas_der,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
 
         //Update data terakhir sesuai perhitungan
-        $preferensis_kons = Preferensi::where('index_id', '=', 1)->get();
-        $emiten_kons = Emiten::where('index_id', '=', 1)->get();
-        foreach ($emiten_kons as $emiten_kon) {
-            foreach ($preferensis_kons as $preferensis_kon) {
-                if ($emiten_kon['eps'] < $preferensis_kon['avg_bawah_eps'] && $emiten_kon['eps'] >= $preferensis_kon['min_eps']) {
-                    $eps_pk_kon = 1;
-                } elseif ($emiten_kon['eps'] < $preferensis_kon['mean_eps'] && $emiten_kon['eps'] >= $preferensis_kon['avg_bawah_eps']) {
-                    $eps_pk_kon = 2;
-                } elseif ($emiten_kon['eps'] < $preferensis_kon['avg_atas_eps'] && $emiten_kon['eps'] >= $preferensis_kon['mean_eps']) {
-                    $eps_pk_kon = 3;
-                } elseif ($emiten_kon['eps'] <= $preferensis_kon['max_eps'] && $emiten_kon['eps'] > $preferensis_kon['avg_atas_eps']) {
-                    $eps_pk_kon = 4;
-                }
+        $indexs = IndexSaham::get();
+        foreach ($indexs as $index) {
+            $preferensis = Preferensi::where('index_id', '=', $index->id)->get();
+            $emitens = Emiten::where('index_id', '=', $index->id)->get();
+            foreach ($emitens as $emiten) {
+                foreach ($preferensis as $preferensi) {
+                    if ($emiten['eps'] < $preferensi['avg_bawah_eps'] && $emiten['eps'] >= $preferensi['min_eps']) {
+                        $eps_pk = 1;
+                    } elseif ($emiten['eps'] < $preferensi['mean_eps'] && $emiten['eps'] >= $preferensi['avg_bawah_eps']) {
+                        $eps_pk = 2;
+                    } elseif ($emiten['eps'] < $preferensi['avg_atas_eps'] && $emiten['eps'] >= $preferensi['mean_eps']) {
+                        $eps_pk = 3;
+                    } elseif (
+                        $emiten['eps'] <= $preferensi['max_eps'] && $emiten['eps'] > $preferensi['avg_atas_eps']
+                    ) {
+                        $eps_pk = 4;
+                    }
 
-                if ($emiten_kon['roe'] < $preferensis_kon['avg_bawah_roe'] && $emiten_kon['roe'] >= $preferensis_kon['min_roe']) {
-                    $roe_pk_kon = 1;
-                } elseif ($emiten_kon['roe'] < $preferensis_kon['mean_roe'] && $emiten_kon['roe'] >= $preferensis_kon['avg_bawah_roe']) {
-                    $roe_pk_kon = 2;
-                } elseif ($emiten_kon['roe'] < $preferensis_kon['avg_atas_roe'] && $emiten_kon['roe'] >= $preferensis_kon['mean_roe']) {
-                    $roe_pk_kon = 3;
-                } elseif ($emiten_kon['roe'] <= $preferensis_kon['max_roe'] && $emiten_kon['roe'] > $preferensis_kon['avg_atas_roe']) {
-                    $roe_pk_kon = 4;
-                }
+                    if ($emiten['roe'] < $preferensi['avg_bawah_roe'] && $emiten['roe'] >= $preferensi['min_roe']) {
+                        $roe_pk = 1;
+                    } elseif ($emiten['roe'] < $preferensi['mean_roe'] && $emiten['roe'] >= $preferensi['avg_bawah_roe']) {
+                        $roe_pk = 2;
+                    } elseif ($emiten['roe'] < $preferensi['avg_atas_roe'] && $emiten['roe'] >= $preferensi['mean_roe']) {
+                        $roe_pk = 3;
+                    } elseif (
+                        $emiten['roe'] <= $preferensi['max_roe'] && $emiten['roe'] > $preferensi['avg_atas_roe']
+                    ) {
+                        $roe_pk = 4;
+                    }
 
-                if ($emiten_kon['per'] < $preferensis_kon['avg_bawah_per'] && $emiten_kon['per'] >= $preferensis_kon['min_per']) {
-                    $per_pk_kon = 1;
-                } elseif ($emiten_kon['per'] < $preferensis_kon['mean_per'] && $emiten_kon['per'] >= $preferensis_kon['avg_bawah_per']) {
-                    $per_pk_kon = 2;
-                } elseif ($emiten_kon['per'] < $preferensis_kon['avg_atas_per'] && $emiten_kon['per'] >= $preferensis_kon['mean_per']) {
-                    $per_pk_kon = 3;
-                } elseif ($emiten_kon['per'] <= $preferensis_kon['max_per'] && $emiten_kon['per'] > $preferensis_kon['avg_atas_per']) {
-                    $per_pk_kon = 4;
-                }
+                    if ($emiten['per'] < $preferensi['avg_bawah_per'] && $emiten['per'] >= $preferensi['min_per']) {
+                        $per_pk = 1;
+                    } elseif ($emiten['per'] < $preferensi['mean_per'] && $emiten['per'] >= $preferensi['avg_bawah_per']) {
+                        $per_pk = 2;
+                    } elseif ($emiten['per'] < $preferensi['avg_atas_per'] && $emiten['per'] >= $preferensi['mean_per']) {
+                        $per_pk = 3;
+                    } elseif (
+                        $emiten['per'] <= $preferensi['max_per'] && $emiten['per'] > $preferensi['avg_atas_per']
+                    ) {
+                        $per_pk = 4;
+                    }
 
-                if ($emiten_kon['der'] < $preferensis_kon['avg_bawah_der'] && $emiten_kon['der'] >= $preferensis_kon['min_der']) {
-                    $der_pk_kon = 1;
-                } elseif ($emiten_kon['der'] < $preferensis_kon['mean_der'] && $emiten_kon['der'] >= $preferensis_kon['avg_bawah_der']) {
-                    $der_pk_kon = 2;
-                } elseif ($emiten_kon['der'] < $preferensis_kon['avg_atas_der'] && $emiten_kon['der'] >= $preferensis_kon['mean_der']) {
-                    $der_pk_kon = 3;
-                } elseif ($emiten_kon['der'] <= $preferensis_kon['max_der'] && $emiten_kon['der'] > $preferensis_kon['avg_atas_der']) {
-                    $der_pk_kon = 4;
+                    if ($emiten['der'] < $preferensi['avg_bawah_der'] && $emiten['der'] >= $preferensi['min_der']) {
+                        $der_pk = 1;
+                    } elseif ($emiten['der'] < $preferensi['mean_der'] && $emiten['der'] >= $preferensi['avg_bawah_der']) {
+                        $der_pk = 2;
+                    } elseif ($emiten['der'] < $preferensi['avg_atas_der'] && $emiten['der'] >= $preferensi['mean_der']) {
+                        $der_pk = 3;
+                    } elseif (
+                        $emiten['der'] <= $preferensi['max_der'] && $emiten['der'] > $preferensi['avg_atas_der']
+                    ) {
+                        $der_pk = 4;
+                    }
+                    DB::table('preferensi_kriterias')->where('emiten_id', $emiten->id)->update([
+                        'emiten_id' => $emiten->id,
+                        'eps_pk' => $eps_pk,
+                        'roe_pk' => $roe_pk,
+                        'per_pk' => $per_pk,
+                        'der_pk' => $der_pk,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ]);
                 }
-
-                $update = DB::table('preferensi_kriterias')->where('emiten_id', $emiten_kon->id)->update([
-                    'emiten_id' => $emiten_kon->id,
-                    'eps_pk' => $eps_pk_kon,
-                    'roe_pk' => $roe_pk_kon,
-                    'per_pk' => $per_pk_kon,
-                    'der_pk' => $der_pk_kon,
-                ]);
             }
         }
 
-        $preferensis_syars = Preferensi::where('index_id', '=', 2)->get();
-        $emiten_syars = Emiten::where('index_id', '=', 2)->get();
-        foreach ($emiten_syars as $emiten_syar) {
-            foreach ($preferensis_syars as $preferensis_syar) {
-                if ($emiten_syar['eps'] < $preferensis_syar['avg_bawah_eps'] && $emiten_syar['eps'] >= $preferensis_syar['min_eps']) {
-                    $eps_pk_syar = 1;
-                } elseif ($emiten_syar['eps'] < $preferensis_syar['mean_eps'] && $emiten_syar['eps'] >= $preferensis_syar['avg_bawah_eps']) {
-                    $eps_pk_syar = 2;
-                } elseif ($emiten_syar['eps'] < $preferensis_syar['avg_atas_eps'] && $emiten_syar['eps'] >= $preferensis_syar['mean_eps']) {
-                    $eps_pk_syar = 3;
-                } elseif ($emiten_syar['eps'] <= $preferensis_syar['max_eps'] && $emiten_syar['eps'] > $preferensis_syar['avg_atas_eps']) {
-                    $eps_pk_syar = 4;
-                }
-
-                if ($emiten_syar['roe'] < $preferensis_syar['avg_bawah_roe'] && $emiten_syar['roe'] >= $preferensis_syar['min_roe']) {
-                    $roe_pk_syar = 1;
-                } elseif ($emiten_syar['roe'] < $preferensis_syar['mean_roe'] && $emiten_syar['roe'] >= $preferensis_syar['avg_bawah_roe']) {
-                    $roe_pk_syar = 2;
-                } elseif ($emiten_syar['roe'] < $preferensis_syar['avg_atas_roe'] && $emiten_syar['roe'] >= $preferensis_syar['mean_roe']) {
-                    $roe_pk_syar = 3;
-                } elseif ($emiten_syar['roe'] <= $preferensis_syar['max_roe'] && $emiten_syar['roe'] > $preferensis_syar['avg_atas_roe']) {
-                    $roe_pk_syar = 4;
-                }
-
-                if ($emiten_syar['per'] < $preferensis_syar['avg_bawah_per'] && $emiten_syar['per'] >= $preferensis_syar['min_per']) {
-                    $per_pk_syar = 1;
-                } elseif ($emiten_syar['per'] < $preferensis_syar['mean_per'] && $emiten_syar['per'] >= $preferensis_syar['avg_bawah_per']) {
-                    $per_pk_syar = 2;
-                } elseif ($emiten_syar['per'] < $preferensis_syar['avg_atas_per'] && $emiten_syar['per'] >= $preferensis_syar['mean_per']) {
-                    $per_pk_syar = 3;
-                } elseif ($emiten_syar['per'] <= $preferensis_syar['max_per'] && $emiten_syar['per'] > $preferensis_syar['avg_atas_per']) {
-                    $per_pk_syar = 4;
-                }
-
-                if ($emiten_syar['der'] < $preferensis_syar['avg_bawah_der'] && $emiten_syar['der'] >= $preferensis_syar['min_der']) {
-                    $der_pk_syar = 1;
-                } elseif ($emiten_syar['der'] < $preferensis_syar['mean_der'] && $emiten_syar['der'] >= $preferensis_syar['avg_bawah_der']) {
-                    $der_pk_syar = 2;
-                } elseif ($emiten_syar['der'] < $preferensis_syar['avg_atas_der'] && $emiten_syar['der'] >= $preferensis_syar['mean_der']) {
-                    $der_pk_syar = 3;
-                } elseif ($emiten_syar['der'] <= $preferensis_syar['max_der'] && $emiten_syar['der'] > $preferensis_syar['avg_atas_der']) {
-                    $der_pk_syar = 4;
-                }
-
-                $update = DB::table('preferensi_kriterias')->where('emiten_id', $emiten_syar->id)->update([
-                    'emiten_id' => $emiten_syar->id,
-                    'eps_pk' => $eps_pk_syar,
-                    'roe_pk' => $roe_pk_syar,
-                    'per_pk' => $per_pk_syar,
-                    'der_pk' => $der_pk_syar,
-                ]);
-            }
-        }
-
-        $preferensis_syars = Preferensi::where('index_id', '=', 2)->get();
-        $emiten_syars = Emiten::where('index_id', '=', 2)->get();
-        foreach ($emiten_syars as $emiten_syar) {
-            foreach ($preferensis_syars as $preferensis_syar) {
-                if ($emiten_syar['eps'] < $preferensis_syar['avg_bawah_eps'] && $emiten_syar['eps'] >= $preferensis_syar['min_eps']) {
-                    $eps_pk_syar = 1;
-                } elseif ($emiten_syar['eps'] < $preferensis_syar['mean_eps'] && $emiten_syar['eps'] >= $preferensis_syar['avg_bawah_eps']) {
-                    $eps_pk_syar = 2;
-                } elseif ($emiten_syar['eps'] < $preferensis_syar['avg_atas_eps'] && $emiten_syar['eps'] >= $preferensis_syar['mean_eps']) {
-                    $eps_pk_syar = 3;
-                } elseif ($emiten_syar['eps'] <= $preferensis_syar['max_eps'] && $emiten_syar['eps'] > $preferensis_syar['avg_atas_eps']) {
-                    $eps_pk_syar = 4;
-                }
-
-                if ($emiten_syar['roe'] < $preferensis_syar['avg_bawah_roe'] && $emiten_syar['roe'] >= $preferensis_syar['min_roe']) {
-                    $roe_pk_syar = 1;
-                } elseif ($emiten_syar['roe'] < $preferensis_syar['mean_roe'] && $emiten_syar['roe'] >= $preferensis_syar['avg_bawah_roe']) {
-                    $roe_pk_syar = 2;
-                } elseif ($emiten_syar['roe'] < $preferensis_syar['avg_atas_roe'] && $emiten_syar['roe'] >= $preferensis_syar['mean_roe']) {
-                    $roe_pk_syar = 3;
-                } elseif ($emiten_syar['roe'] <= $preferensis_syar['max_roe'] && $emiten_syar['roe'] > $preferensis_syar['avg_atas_roe']) {
-                    $roe_pk_syar = 4;
-                }
-
-                if ($emiten_syar['per'] < $preferensis_syar['avg_bawah_per'] && $emiten_syar['per'] >= $preferensis_syar['min_per']) {
-                    $per_pk_syar = 1;
-                } elseif ($emiten_syar['per'] < $preferensis_syar['mean_per'] && $emiten_syar['per'] >= $preferensis_syar['avg_bawah_per']) {
-                    $per_pk_syar = 2;
-                } elseif ($emiten_syar['per'] < $preferensis_syar['avg_atas_per'] && $emiten_syar['per'] >= $preferensis_syar['mean_per']) {
-                    $per_pk_syar = 3;
-                } elseif ($emiten_syar['per'] <= $preferensis_syar['max_per'] && $emiten_syar['per'] > $preferensis_syar['avg_atas_per']) {
-                    $per_pk_syar = 4;
-                }
-
-                if ($emiten_syar['der'] < $preferensis_syar['avg_bawah_der'] && $emiten_syar['der'] >= $preferensis_syar['min_der']) {
-                    $der_pk_syar = 1;
-                } elseif ($emiten_syar['der'] < $preferensis_syar['mean_der'] && $emiten_syar['der'] >= $preferensis_syar['avg_bawah_der']) {
-                    $der_pk_syar = 2;
-                } elseif ($emiten_syar['der'] < $preferensis_syar['avg_atas_der'] && $emiten_syar['der'] >= $preferensis_syar['mean_der']) {
-                    $der_pk_syar = 3;
-                } elseif ($emiten_syar['der'] <= $preferensis_syar['max_der'] && $emiten_syar['der'] > $preferensis_syar['avg_atas_der']) {
-                    $der_pk_syar = 4;
-                }
-
-                DB::table('preferensi_kriterias')->where('emiten_id', $emiten_syar->id)->update([
-                    'emiten_id' => $emiten_syar->id,
-                    'eps_pk' => $eps_pk_syar,
-                    'roe_pk' => $roe_pk_syar,
-                    'per_pk' => $per_pk_syar,
-                    'der_pk' => $der_pk_syar,
-                ]);
-            }
-        }
-
+        //Update vektor s dan vektor v
         $users = User::get();
-        $emiten_kons = Emiten::where('index_id', 1)->get();
-        $emiten_syars = Emiten::where('index_id', 2)->get();
-        $lastdata_emiten = Emiten::orderBy('id', 'DESC')->first();
+        $index_kons = IndexSaham::where('instrument_saham_id', 1)->get();
+        $index_syars = IndexSaham::where('instrument_saham_id', 2)->get();
+        $emiten_kons = Emiten::join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+        ->where('instrument_saham_id', 1)
+        ->select('emitens.*', 'index_sahams.name')
+        ->get();
+        $emiten_syars = Emiten::join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+        ->where('instrument_saham_id', 2)
+            ->select('emitens.*', 'index_sahams.name')
+            ->get();
         foreach ($users as $user) {
             if ($user->instrument_saham_id == 1) {
                 //update vektor s
@@ -874,29 +647,30 @@ class EmitenController extends Controller
                     ]);
                 }
                 //update vektor v
-                $sum_vektor_s_kon = DB::table('emitens')
-                ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                ->where('index_id', 1)
+                foreach ($index_kons as $index_kon) {
+                    $sum_vektor_s_kon = DB::table('emitens')
+                    ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                        ->where('index_sahams.id', $index_kon->id)
+                        ->where('vektor_s.user_id', $user->id)
+                        ->select('vektor_s.vektor_s')
+                        ->sum('vektor_s.vektor_s');
+                    $vektor_s_kons = DB::table('emitens')
+                    ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                    ->where('index_sahams.id', $index_kon->id)
                     ->where('vektor_s.user_id', $user->id)
-                    ->select('vektor_s.vektor_s')
-                    ->sum('vektor_s.vektor_s');
-                $vektor_s_kons = DB::table('emitens')
-                ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                ->where('index_id', 1)
-                ->where('vektor_s.user_id', $user->id)
-                ->select('emitens.*',
-                    'vektor_s.user_id',
-                    'vektor_s.vektor_s'
-                )
-                ->get();
-                foreach ($vektor_s_kons as $vektor_s_kon) {
-                    DB::table('vektor_v_s')
-                    ->where('user_id', $user->id)
-                        ->where('emiten_id', $vektor_s_kon->id)
-                        ->update([
-                            'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
-                            'updated_at' => now()
-                        ]);
+                    ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
+                    ->get();
+                    foreach ($vektor_s_kons as $vektor_s_kon) {
+                        DB::table('vektor_v_s')
+                        ->where('user_id', $user->id)
+                            ->where('emiten_id', $vektor_s_kon->id)
+                            ->update([
+                                'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
+                                'updated_at' => now()
+                            ]);
+                    }
                 }
             }
             if ($user->instrument_saham_id == 2) {
@@ -913,26 +687,32 @@ class EmitenController extends Controller
                     ]);
                 }
                 //update vektor v
-                $sum_vektor_s_syar = DB::table('emitens')
+                foreach ($index_syars as $index_syar) {
+                    $sum_vektor_s_kon = DB::table('emitens')
                     ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                    ->where('index_id', 2)
-                    ->where('vektor_s.user_id', $user->id)
-                    ->select('vektor_s.vektor_s')
-                    ->sum('vektor_s.vektor_s');
-                $vektor_s_syars = DB::table('emitens')
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                        ->where('index_sahams.id', $index_syar->id)
+                        ->where('vektor_s.user_id', $user->id)
+                        ->select('vektor_s.vektor_s')
+                        ->sum('vektor_s.vektor_s');
+                    $vektor_s_kons = DB::table('emitens')
                     ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                    ->where('index_id', 2)
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                    ->where('index_sahams.id', $index_syar->id)
                     ->where('vektor_s.user_id', $user->id)
-                    ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
+                    ->select('emitens.*', 'vektor_s.user_id',
+                        'vektor_s.vektor_s'
+                    )
                     ->get();
-                foreach ($vektor_s_syars as $vektor_s_syar) {
-                    DB::table('vektor_v_s')
-                    ->where('user_id', $user->id)
-                    ->where('emiten_id', $vektor_s_syar->id)
-                    ->update([
-                        'vektor_v' => $vektor_s_syar->vektor_s / $sum_vektor_s_syar,
-                        'updated_at' => now()
-                    ]);
+                    foreach ($vektor_s_kons as $vektor_s_kon) {
+                        DB::table('vektor_v_s')
+                        ->where('user_id', $user->id)
+                            ->where('emiten_id', $vektor_s_kon->id)
+                            ->update([
+                                'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
+                                'updated_at' => now()
+                            ]);
+                    }
                 }
             }
             if ($user->instrument_saham_id == 3) {
@@ -949,29 +729,30 @@ class EmitenController extends Controller
                     ]);
                 }
                 //update vektor v
-                $sum_vektor_s_kon = DB::table('emitens')
+                foreach ($index_kons as $index_kon) {
+                    $sum_vektor_s_kon = DB::table('emitens')
                     ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                    ->where('index_id', 1)
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                        ->where('index_sahams.id', $index_kon->id)
+                        ->where('vektor_s.user_id', $user->id)
+                        ->select('vektor_s.vektor_s')
+                        ->sum('vektor_s.vektor_s');
+                    $vektor_s_kons = DB::table('emitens')
+                    ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                    ->where('index_sahams.id', $index_kon->id)
                     ->where('vektor_s.user_id', $user->id)
-                    ->select('vektor_s.vektor_s')
-                    ->sum('vektor_s.vektor_s');
-                $vektor_s_kons = DB::table('emitens')
-                ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                ->where('index_id', 1)
-                ->where('vektor_s.user_id', $user->id)
-                ->select('emitens.*',
-                    'vektor_s.user_id',
-                    'vektor_s.vektor_s'
-                )
-                ->get();
-                foreach ($vektor_s_kons as $vektor_s_kon) {
-                    DB::table('vektor_v_s')
-                    ->where('user_id', $user->id)
-                    ->where('emiten_id', $vektor_s_kon->id)
-                    ->update([
-                        'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
-                        'updated_at' => now()
-                    ]);
+                    ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
+                    ->get();
+                    foreach ($vektor_s_kons as $vektor_s_kon) {
+                        DB::table('vektor_v_s')
+                        ->where('user_id', $user->id)
+                            ->where('emiten_id', $vektor_s_kon->id)
+                            ->update([
+                                'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
+                                'updated_at' => now()
+                            ]);
+                    }
                 }
                 //update vektor s
                 foreach ($emiten_syars as $emiten_syar) {
@@ -986,26 +767,32 @@ class EmitenController extends Controller
                     ]);
                 }
                 //update vektor v
-                $sum_vektor_s_syar = DB::table('emitens')
+                foreach ($index_syars as $index_syar) {
+                    $sum_vektor_s_kon = DB::table('emitens')
                     ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                    ->where('index_id', 2)
-                    ->where('vektor_s.user_id', $user->id)
-                    ->select('vektor_s.vektor_s')
-                    ->sum('vektor_s.vektor_s');
-                $vektor_s_syars = DB::table('emitens')
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                        ->where('index_sahams.id', $index_syar->id)
+                        ->where('vektor_s.user_id', $user->id)
+                        ->select('vektor_s.vektor_s')
+                        ->sum('vektor_s.vektor_s');
+                    $vektor_s_kons = DB::table('emitens')
                     ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                    ->where('index_id', 2)
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                    ->where('index_sahams.id', $index_syar->id)
                     ->where('vektor_s.user_id', $user->id)
-                    ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
+                    ->select('emitens.*', 'vektor_s.user_id',
+                        'vektor_s.vektor_s'
+                    )
                     ->get();
-                foreach ($vektor_s_syars as $vektor_s_syar) {
-                    DB::table('vektor_v_s')
-                    ->where('user_id', $user->id)
-                    ->where('emiten_id', $vektor_s_syar->id)
-                    ->update([
-                        'vektor_v' => $vektor_s_syar->vektor_s / $sum_vektor_s_syar,
-                        'updated_at' => now()
-                    ]);
+                    foreach ($vektor_s_kons as $vektor_s_kon) {
+                        DB::table('vektor_v_s')
+                        ->where('user_id', $user->id)
+                            ->where('emiten_id', $vektor_s_kon->id)
+                            ->update([
+                                'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
+                                'updated_at' => now()
+                            ]);
+                    }
                 }
             }
         }
@@ -1029,6 +816,311 @@ class EmitenController extends Controller
     {
         $emiten = Emiten::findOrFail($emiten->id);
         $emiten->delete();
+        DB::table('preferensi_kriterias')->where('emiten_id', $emiten->id)->delete();
+        DB::table('vektor_s')->where('emiten_id', $emiten->id)->delete();
+        DB::table('vektor_v_s')->where('emiten_id', $emiten->id)->delete();
+
+        //Update preferensi
+        $indexs = IndexSaham::get();
+        foreach ($indexs as $index) {
+            $min_eps = Emiten::where('index_id', '=', $index->id)->min('eps');
+            $min_roe = Emiten::where('index_id', '=', $index->id)->min('roe');
+            $min_per = Emiten::where('index_id', '=', $index->id)->min('per');
+            $min_der = Emiten::where('index_id', '=', $index->id)->min('der');
+            $max_eps = Emiten::where('index_id', '=', $index->id)->max('eps');
+            $max_roe = Emiten::where('index_id', '=', $index->id)->max('roe');
+            $max_per = Emiten::where('index_id', '=', $index->id)->max('per');
+            $max_der = Emiten::where('index_id', '=', $index->id)->max('der');
+            $mean_eps = Emiten::where('index_id', '=', $index->id)->avg('eps');
+            $mean_roe = Emiten::where('index_id', '=', $index->id)->avg('roe');
+            $mean_per = Emiten::where('index_id', '=', $index->id)->avg('per');
+            $mean_der = Emiten::where('index_id', '=', $index->id)->avg('der');
+            $avg_bawah_eps = ($min_eps + $mean_eps) / 2;
+            $avg_bawah_roe = ($min_roe + $mean_roe) / 2;
+            $avg_bawah_per = ($min_per + $mean_per) / 2;
+            $avg_bawah_der = ($min_der + $mean_der) / 2;
+            $avg_atas_eps = ($mean_eps + $max_eps) / 2;
+            $avg_atas_roe = ($mean_roe + $max_roe) / 2;
+            $avg_atas_per = ($mean_per + $max_per) / 2;
+            $avg_atas_der = ($mean_der + $max_der) / 2;
+            DB::table('preferensis')->where('index_id', $index->id)->update([
+                'index_id' => $index->id,
+                'min_eps' => $min_eps,
+                'max_eps' => $max_eps,
+                'mean_eps' => $mean_eps,
+                'avg_bawah_eps' => $avg_bawah_eps,
+                'avg_atas_eps' => $avg_atas_eps,
+                'min_roe' => $min_roe,
+                'max_roe' => $max_roe,
+                'mean_roe' => $mean_roe,
+                'avg_bawah_roe' => $avg_bawah_roe,
+                'avg_atas_roe' => $avg_atas_roe,
+                'min_per' => $min_per,
+                'max_per' => $max_per,
+                'mean_per' => $mean_per,
+                'avg_bawah_per' => $avg_bawah_per,
+                'avg_atas_per' => $avg_atas_per,
+                'min_der' => $min_der,
+                'max_der' => $max_der,
+                'mean_der' => $mean_der,
+                'avg_bawah_der' => $avg_bawah_der,
+                'avg_atas_der' => $avg_atas_der,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
+
+        //Update data terakhir sesuai perhitungan
+        $indexs = IndexSaham::get();
+        foreach ($indexs as $index) {
+            $preferensis = Preferensi::where('index_id', '=', $index->id)->get();
+            $emitens = Emiten::where('index_id', '=', $index->id)->get();
+            foreach ($emitens as $emiten) {
+                foreach ($preferensis as $preferensi) {
+                    if ($emiten['eps'] < $preferensi['avg_bawah_eps'] && $emiten['eps'] >= $preferensi['min_eps']) {
+                        $eps_pk = 1;
+                    } elseif ($emiten['eps'] < $preferensi['mean_eps'] && $emiten['eps'] >= $preferensi['avg_bawah_eps']) {
+                        $eps_pk = 2;
+                    } elseif ($emiten['eps'] < $preferensi['avg_atas_eps'] && $emiten['eps'] >= $preferensi['mean_eps']) {
+                        $eps_pk = 3;
+                    } elseif (
+                        $emiten['eps'] <= $preferensi['max_eps'] && $emiten['eps'] > $preferensi['avg_atas_eps']
+                    ) {
+                        $eps_pk = 4;
+                    }
+
+                    if ($emiten['roe'] < $preferensi['avg_bawah_roe'] && $emiten['roe'] >= $preferensi['min_roe']) {
+                        $roe_pk = 1;
+                    } elseif ($emiten['roe'] < $preferensi['mean_roe'] && $emiten['roe'] >= $preferensi['avg_bawah_roe']) {
+                        $roe_pk = 2;
+                    } elseif ($emiten['roe'] < $preferensi['avg_atas_roe'] && $emiten['roe'] >= $preferensi['mean_roe']) {
+                        $roe_pk = 3;
+                    } elseif (
+                        $emiten['roe'] <= $preferensi['max_roe'] && $emiten['roe'] > $preferensi['avg_atas_roe']
+                    ) {
+                        $roe_pk = 4;
+                    }
+
+                    if ($emiten['per'] < $preferensi['avg_bawah_per'] && $emiten['per'] >= $preferensi['min_per']) {
+                        $per_pk = 1;
+                    } elseif ($emiten['per'] < $preferensi['mean_per'] && $emiten['per'] >= $preferensi['avg_bawah_per']) {
+                        $per_pk = 2;
+                    } elseif ($emiten['per'] < $preferensi['avg_atas_per'] && $emiten['per'] >= $preferensi['mean_per']) {
+                        $per_pk = 3;
+                    } elseif (
+                        $emiten['per'] <= $preferensi['max_per'] && $emiten['per'] > $preferensi['avg_atas_per']
+                    ) {
+                        $per_pk = 4;
+                    }
+
+                    if ($emiten['der'] < $preferensi['avg_bawah_der'] && $emiten['der'] >= $preferensi['min_der']) {
+                        $der_pk = 1;
+                    } elseif ($emiten['der'] < $preferensi['mean_der'] && $emiten['der'] >= $preferensi['avg_bawah_der']) {
+                        $der_pk = 2;
+                    } elseif ($emiten['der'] < $preferensi['avg_atas_der'] && $emiten['der'] >= $preferensi['mean_der']) {
+                        $der_pk = 3;
+                    } elseif (
+                        $emiten['der'] <= $preferensi['max_der'] && $emiten['der'] > $preferensi['avg_atas_der']
+                    ) {
+                        $der_pk = 4;
+                    }
+                    DB::table('preferensi_kriterias')->where('emiten_id', $emiten->id)->update([
+                        'emiten_id' => $emiten->id,
+                        'eps_pk' => $eps_pk,
+                        'roe_pk' => $roe_pk,
+                        'per_pk' => $per_pk,
+                        'der_pk' => $der_pk,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ]);
+                }
+            }
+        }
+
+        //Update vektor s dan vektor v
+        $users = User::get();
+        $index_kons = IndexSaham::where('instrument_saham_id', 1)->get();
+        $index_syars = IndexSaham::where('instrument_saham_id', 2)->get();
+        $emiten_kons = Emiten::join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+        ->where('instrument_saham_id', 1)
+        ->select('emitens.*', 'index_sahams.name')
+        ->get();
+        $emiten_syars = Emiten::join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+        ->where('instrument_saham_id', 2)
+        ->select('emitens.*', 'index_sahams.name')
+        ->get();
+        foreach ($users as $user) {
+            if ($user->instrument_saham_id == 1) {
+                //update vektor s
+                foreach ($emiten_kons as $emiten_kon) {
+                    $w_user_total = $user->w_eps_kon + $user->w_roe_kon + $user->w_per_kon;
+                    $w_eps = pow($emiten_kon->prefereni_kriteria['eps_pk'], - ($user['w_eps_kon'] / $w_user_total));
+                    $w_roe = pow($emiten_kon->prefereni_kriteria['roe_pk'], ($user['w_roe_kon'] / $w_user_total));
+                    $w_per = pow($emiten_kon->prefereni_kriteria['per_pk'], ($user['w_per_kon'] / $w_user_total));
+                    $w_total = $w_eps * $w_roe * $w_per;
+                    DB::table('vektor_s')
+                    ->where('user_id', $user->id)
+                        ->where('emiten_id', $emiten_kon->id)
+                        ->update([
+                            'vektor_s' => $w_total,
+                            'updated_at' => now()
+                        ]);
+                }
+                //update vektor v
+                foreach ($index_kons as $index_kon) {
+                    $sum_vektor_s_kon = DB::table('emitens')
+                    ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                    ->where('index_sahams.id', $index_kon->id)
+                        ->where('vektor_s.user_id', $user->id)
+                        ->select('vektor_s.vektor_s')
+                        ->sum('vektor_s.vektor_s');
+                    $vektor_s_kons = DB::table('emitens')
+                    ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                    ->where('index_sahams.id', $index_kon->id)
+                        ->where('vektor_s.user_id', $user->id)
+                        ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
+                        ->get();
+                    foreach ($vektor_s_kons as $vektor_s_kon) {
+                        DB::table('vektor_v_s')
+                        ->where('user_id', $user->id)
+                            ->where('emiten_id', $vektor_s_kon->id)
+                            ->update([
+                                'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
+                                'updated_at' => now()
+                            ]);
+                    }
+                }
+            }
+            if ($user->instrument_saham_id == 2) {
+                //update vektor s
+                foreach ($emiten_syars as $emiten_syar) {
+                    $w_user_total = $user->w_eps_syar + $user->w_roe_syar + $user->w_der_syar;
+                    $w_eps = pow($emiten_syar->prefereni_kriteria['eps_pk'], ($user['w_eps_syar'] / $w_user_total));
+                    $w_roe = pow($emiten_syar->prefereni_kriteria['roe_pk'], ($user['w_roe_syar'] / $w_user_total));
+                    $w_der = pow($emiten_syar->prefereni_kriteria['der_pk'], ($user['w_der_syar'] / $w_user_total));
+                    $w_total = $w_eps * $w_roe * $w_der;
+                    DB::table('vektor_s')->where('user_id', $user->id)->where('emiten_id', $emiten_syar->id)->update([
+                        'vektor_s' => $w_total,
+                        'updated_at' => now()
+                    ]);
+                }
+                //update vektor v
+                foreach ($index_syars as $index_syar) {
+                    $sum_vektor_s_kon = DB::table('emitens')
+                    ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                    ->where('index_sahams.id', $index_syar->id)
+                        ->where('vektor_s.user_id', $user->id)
+                        ->select('vektor_s.vektor_s')
+                        ->sum('vektor_s.vektor_s');
+                    $vektor_s_kons = DB::table('emitens')
+                    ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                    ->where('index_sahams.id', $index_syar->id)
+                        ->where('vektor_s.user_id', $user->id)
+                        ->select(
+                            'emitens.*',
+                            'vektor_s.user_id',
+                            'vektor_s.vektor_s'
+                        )
+                        ->get();
+                    foreach ($vektor_s_kons as $vektor_s_kon) {
+                        DB::table('vektor_v_s')
+                        ->where('user_id', $user->id)
+                            ->where('emiten_id', $vektor_s_kon->id)
+                            ->update([
+                                'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
+                                'updated_at' => now()
+                            ]);
+                    }
+                }
+            }
+            if ($user->instrument_saham_id == 3) {
+                //update vektor s
+                foreach ($emiten_kons as $emiten_kon) {
+                    $w_user_total = $user->w_eps_kon + $user->w_roe_kon + $user->w_per_kon;
+                    $w_eps = pow($emiten_kon->prefereni_kriteria['eps_pk'], - ($user['w_eps_kon'] / $w_user_total));
+                    $w_roe = pow($emiten_kon->prefereni_kriteria['roe_pk'], ($user['w_roe_kon'] / $w_user_total));
+                    $w_per = pow($emiten_kon->prefereni_kriteria['per_pk'], ($user['w_per_kon'] / $w_user_total));
+                    $w_total = $w_eps * $w_roe * $w_per;
+                    DB::table('vektor_s')->where('user_id', $user->id)->where('emiten_id', $emiten_kon->id)->update([
+                        'vektor_s' => $w_total,
+                        'updated_at' => now()
+                    ]);
+                }
+                //update vektor v
+                foreach ($index_kons as $index_kon) {
+                    $sum_vektor_s_kon = DB::table('emitens')
+                    ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                    ->where('index_sahams.id', $index_kon->id)
+                        ->where('vektor_s.user_id', $user->id)
+                        ->select('vektor_s.vektor_s')
+                        ->sum('vektor_s.vektor_s');
+                    $vektor_s_kons = DB::table('emitens')
+                    ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                    ->where('index_sahams.id', $index_kon->id)
+                        ->where('vektor_s.user_id', $user->id)
+                        ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
+                        ->get();
+                    foreach ($vektor_s_kons as $vektor_s_kon) {
+                        DB::table('vektor_v_s')
+                        ->where('user_id', $user->id)
+                            ->where('emiten_id', $vektor_s_kon->id)
+                            ->update([
+                                'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
+                                'updated_at' => now()
+                            ]);
+                    }
+                }
+                //update vektor s
+                foreach ($emiten_syars as $emiten_syar) {
+                    $w_user_total = $user->w_eps_syar + $user->w_roe_syar + $user->w_der_syar;
+                    $w_eps = pow($emiten_syar->prefereni_kriteria['eps_pk'], ($user['w_eps_syar'] / $w_user_total));
+                    $w_roe = pow($emiten_syar->prefereni_kriteria['roe_pk'], ($user['w_roe_syar'] / $w_user_total));
+                    $w_der = pow($emiten_syar->prefereni_kriteria['der_pk'], ($user['w_der_syar'] / $w_user_total));
+                    $w_total = $w_eps * $w_roe * $w_der;
+                    DB::table('vektor_s')->where('user_id', $user->id)->where('emiten_id', $emiten_syar->id)->update([
+                        'vektor_s' => $w_total,
+                        'updated_at' => now()
+                    ]);
+                }
+                //update vektor v
+                foreach ($index_syars as $index_syar) {
+                    $sum_vektor_s_kon = DB::table('emitens')
+                    ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                    ->where('index_sahams.id', $index_syar->id)
+                        ->where('vektor_s.user_id', $user->id)
+                        ->select('vektor_s.vektor_s')
+                        ->sum('vektor_s.vektor_s');
+                    $vektor_s_kons = DB::table('emitens')
+                    ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                    ->where('index_sahams.id', $index_syar->id)
+                        ->where('vektor_s.user_id', $user->id)
+                        ->select(
+                            'emitens.*',
+                            'vektor_s.user_id',
+                            'vektor_s.vektor_s'
+                        )
+                        ->get();
+                    foreach ($vektor_s_kons as $vektor_s_kon) {
+                        DB::table('vektor_v_s')
+                        ->where('user_id', $user->id)
+                            ->where('emiten_id', $vektor_s_kon->id)
+                            ->update([
+                                'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
+                                'updated_at' => now()
+                            ]);
+                    }
+                }
+            }
+        }
+
         if ($emiten) {
             //redirect dengan pesan sukses
             return redirect()->route('emiten.index')->with(['success' => 'Data Berhasil Dihapus!']);

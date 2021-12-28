@@ -631,20 +631,20 @@ class EmitenSeeder extends Seeder
             'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
-        // DB::table('emitens')->insert([
-        //     'emiten_char' => 'WSKT',
-        //     'perusahaan' => 'WSKT',
-        //     'index_id' => 1,
-        //     'sektor_id' => 8,
-        //     'deskripsi' => 'Desc WSKT',
-        //     // 'tahun' => '2018',
-        //     'eps' => 441.0000,
-        //     'roe' => 15.0774,
-        //     'per' => 3.8600,
-        //     'der' => 3.4800,
-        //     'created_at' => "2018-01-01",
-        //     'updated_at' => now()
-        // ]);
+        DB::table('emitens')->insert([
+            'emiten_char' => 'WSKT',
+            'perusahaan' => 'WSKT',
+            'index_id' => 1,
+            'sektor_id' => 8,
+            'deskripsi' => 'Desc WSKT',
+            // 'tahun' => '2018',
+            'eps' => 441.0000,
+            'roe' => 15.0774,
+            'per' => 3.8600,
+            'der' => 3.4800,
+            'created_at' => "2018-01-01",
+            'updated_at' => now()
+        ]);
 
         //Syariah
         DB::table('emitens')->insert([
@@ -1053,10 +1053,25 @@ class EmitenSeeder extends Seeder
             'created_at' => "2018-01-01",
             'updated_at' => now()
         ]);
+        DB::table('emitens')->insert([
+            'emiten_char' => 'WSKT',
+            'perusahaan' => 'WSKT',
+            'index_id' => 2,
+            'sektor_id' => 8,
+            'deskripsi' => 'Desc WSKT',
+            // 'tahun' => '2018',
+            'eps' => 441.0000,
+            'roe' => 15.0774,
+            'per' => 3.8600,
+            'der' => 3.4800,
+            'created_at' => "2018-01-01",
+            'updated_at' => now()
+        ]);
+
         // DB::table('emitens')->insert([
         //     'emiten_char' => 'WSKT',
         //     'perusahaan' => 'WSKT',
-        //     'index_id' => 2,
+        //     'index_id' => 3,
         //     'sektor_id' => 8,
         //     'deskripsi' => 'Desc WSKT',
         //     // 'tahun' => '2018',
@@ -1067,36 +1082,49 @@ class EmitenSeeder extends Seeder
         //     'created_at' => "2018-01-01",
         //     'updated_at' => now()
         // ]);
+        // DB::table('emitens')->insert([
+        //     'emiten_char' => 'GGWP',
+        //     'perusahaan' => 'GGWP',
+        //     'index_id' => 3,
+        //     'sektor_id' => 8,
+        //     'deskripsi' => 'Desc GGWP',
+        //     // 'tahun' => '2018',
+        //     'eps' => 441.0000,
+        //     'roe' => 15.0774,
+        //     'per' => 3.8600,
+        //     'der' => 3.4800,
+        //     'created_at' => "2018-01-01",
+        //     'updated_at' => now()
+        // ]);
 
-        DB::table('emitens')->insert([
-            'emiten_char' => 'WSKT',
-            'perusahaan' => 'WSKT',
-            'index_id' => 3,
-            'sektor_id' => 8,
-            'deskripsi' => 'Desc WSKT',
-            // 'tahun' => '2018',
-            'eps' => 441.0000,
-            'roe' => 15.0774,
-            'per' => 3.8600,
-            'der' => 3.4800,
-            'created_at' => "2018-01-01",
-            'updated_at' => now()
-        ]);
-
-        DB::table('emitens')->insert([
-            'emiten_char' => 'WSKT',
-            'perusahaan' => 'WSKT',
-            'index_id' => 4,
-            'sektor_id' => 8,
-            'deskripsi' => 'Desc WSKT',
-            // 'tahun' => '2018',
-            'eps' => 441.0000,
-            'roe' => 15.0774,
-            'per' => 3.8600,
-            'der' => 3.4800,
-            'created_at' => "2018-01-01",
-            'updated_at' => now()
-        ]);
+        // DB::table('emitens')->insert([
+        //     'emiten_char' => 'WSKT',
+        //     'perusahaan' => 'WSKT',
+        //     'index_id' => 4,
+        //     'sektor_id' => 8,
+        //     'deskripsi' => 'Desc WSKT',
+        //     // 'tahun' => '2018',
+        //     'eps' => 441.0000,
+        //     'roe' => 15.0774,
+        //     'per' => 3.8600,
+        //     'der' => 3.4800,
+        //     'created_at' => "2018-01-01",
+        //     'updated_at' => now()
+        // ]);
+        // DB::table('emitens')->insert([
+        //     'emiten_char' => 'GGWP',
+        //     'perusahaan' => 'GGWP',
+        //     'index_id' => 4,
+        //     'sektor_id' => 8,
+        //     'deskripsi' => 'Desc GGWP',
+        //     // 'tahun' => '2018',
+        //     'eps' => 2,
+        //     'roe' => 5,
+        //     'per' => 6,
+        //     'der' => 5,
+        //     'created_at' => "2018-01-01",
+        //     'updated_at' => now()
+        // ]);
         
     }
 }
