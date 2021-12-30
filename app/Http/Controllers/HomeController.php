@@ -288,8 +288,20 @@ class HomeController extends Controller
         ->orderByRaw('vektor_s DESC')
         ->get();
 
-        // $emiten = Emiten::where('index_id', 4)->get();
-        // dd($emiten);
+        $kons = DB::table('emitens')
+        ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
+        ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+        ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
+        ->join('sektors', 'sektor_id', '=', 'sektors.id')
+        ->where('index_sahams.instrument_saham_id', 1)
+        ->where('tahun', 2019)
+        ->where('sektor_id', 4)
+        ->where('vektor_v_s.user_id', Auth::user()->id)
+        ->where('vektor_s.user_id', Auth::user()->id)
+        ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
+        ->orderByRaw('vektor_s DESC')
+        ->get();
+        // dd($kons);
         return view('dashboard.index', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar', 'years'))->with('i')->with('j');
     }
 

@@ -114,7 +114,7 @@ class FilterController extends Controller
         $emitens = Emiten::get();
         $konvensionals = $emitens->where('index_id', 1);
         $syariahs = $emitens->where('index_id', 2);
-        if ($year != null) {
+        if ($year != null && $sektor == null && $top == null) {
             $final_kons = DB::table('emitens')
             ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
             ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
@@ -139,7 +139,8 @@ class FilterController extends Controller
             ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
             ->orderByRaw('vektor_s DESC')
             ->get();
-        }elseif ($sektor != null) {
+            return view('dashboard.filter', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar'))->with('i')->with('j');
+        }elseif ($sektor != null && $year == null && $top == null) {
             $final_kons = DB::table('emitens')
             ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
             ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
@@ -164,7 +165,8 @@ class FilterController extends Controller
             ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
             ->orderByRaw('vektor_s DESC')
             ->get();
-        }elseif ($top != null) {
+            return view('dashboard.filter', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar'))->with('i')->with('j');
+        }elseif ($top != null && $year == null && $sektor == null) {
             $final_kons = DB::table('emitens')
             ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
             ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
@@ -187,7 +189,8 @@ class FilterController extends Controller
             ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
             ->orderByRaw('vektor_s DESC')
             ->paginate($top);
-        }elseif ($year != null && $sektor != null) {
+            return view('dashboard.filter', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar'))->with('i')->with('j');
+        }elseif ($year != null && $sektor != null && $top == null) {
             $final_kons = DB::table('emitens')
             ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
             ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
@@ -214,7 +217,8 @@ class FilterController extends Controller
             ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
             ->orderByRaw('vektor_s DESC')
             ->get();
-        }elseif ($year != null && $top != null) {
+            return view('dashboard.filter', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar'))->with('i')->with('j');
+        }elseif ($year != null && $top != null && $sektor == null) {
             $final_kons = DB::table('emitens')
             ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
             ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
@@ -239,7 +243,8 @@ class FilterController extends Controller
             ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
             ->orderByRaw('vektor_s DESC')
             ->paginate($top);
-        }elseif ($sektor != null && $top != null) {
+            return view('dashboard.filter', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar'))->with('i')->with('j');
+        }elseif ($sektor != null && $top != null && $year == null) {
             $final_kons = DB::table('emitens')
             ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
             ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
@@ -264,6 +269,7 @@ class FilterController extends Controller
             ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
             ->orderByRaw('vektor_s DESC')
             ->paginate($top);
+            return view('dashboard.filter', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar'))->with('i')->with('j');
         }elseif ($year != null &&$sektor != null && $top != null) {
             $final_kons = DB::table('emitens')
             ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
@@ -291,7 +297,7 @@ class FilterController extends Controller
             ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
             ->orderByRaw('vektor_s DESC')
             ->paginate($top);
+            return view('dashboard.filter', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar'))->with('i')->with('j');
         }
-        return view('dashboard.filter', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar'))->with('i')->with('j');
     }
 }
