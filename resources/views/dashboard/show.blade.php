@@ -43,7 +43,7 @@
                             <div class="form-group">
                                 <label for="">Index</label>
                                 <div class="input-group mb-4">
-                                <input class="form-control" placeholder="Nama Perusahaan" type="text" name="perusahaan" id="perusahaan" value="{{ $emiten->index }}" disabled>
+                                <input class="form-control" placeholder="Nama Perusahaan" type="text" name="perusahaan" id="perusahaan" value="{{ $emiten->index->name }}" disabled>
                                 </div>
                             </div>
                             </div>
@@ -51,7 +51,7 @@
                             <div class="form-group">
                                 <label for="">Sektor</label>
                                 <div class="input-group mb-4">
-                                <input class="form-control" placeholder="Nama Perusahaan" type="text" name="perusahaan" id="perusahaan" value="{{ $emiten->sektor }}" disabled>
+                                <input class="form-control" placeholder="Nama Perusahaan" type="text" name="perusahaan" id="perusahaan" value="{{ $emiten->sektor->name }}" disabled>
                                 </div>
                             </div>
                             </div>
