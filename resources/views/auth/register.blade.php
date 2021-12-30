@@ -89,9 +89,12 @@
                                     </div>
                                     <select class="form-control" id="instrument_saham" name="instrument_saham">
                                     {{-- <option value="#" disabled>Preferensi Saham</option> --}}
-                                    @foreach ($instrument_sahams as $instrument_saham)
-                                    <option value={{ $instrument_saham->id }}>{{ $instrument_saham->name }}</option>
-                                    @endforeach
+                                    {{-- @foreach ($instrument_sahams as $instrument_saham) --}}
+                                    {{-- <option value={{ $instrument_saham->id }}>{{ $instrument_saham->name }}</option> --}}
+                                    <option value=1>Konvensional</option>
+                                    <option value=2>Syariah</option>
+                                    <option value=3>Gabungan</option>
+                                    {{-- @endforeach --}}
                                 </select>
                                     {{-- <input class="form-control datepicker" placeholder="Preferensi Saham" type="text" name="instrument_saham" value="{{ old('instrument_saham') }}" required> --}}
                                     {{-- <input class="form-control{{ $errors->has('instrument_saham') ? ' is-invalid' : '' }}" placeholder="{{ __('Date of Birth') }}" type="instrument_saham" name="instrument_saham" value="{{ old('instrument_saham') }}" required> --}}

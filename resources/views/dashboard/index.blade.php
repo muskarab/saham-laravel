@@ -98,7 +98,51 @@
     </div>
     
     <div class="container-fluid mt--7">
-        <div class="dropdown">
+        <form action="{{ route('filter') }}" method="POST">
+            @csrf
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupSelect01">Tahun</label>
+                    <select class="form-control p-2" id="year" name="year">
+                        <option value="">Pilih Tahun</option>
+                        @foreach ($years as $year)
+                        <option value="{{ $year->tahun }}">{{ $year->tahun }}</option>
+                        @endforeach
+                    </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupSelect01">Sektor</label>
+                    <select class="form-control p-2" id="sektor" name="sektor">
+                        <option value="">Pilih Sector</option>
+                        @foreach ($sectors as $sector)
+                        <option value="{{ $sector->id }}">{{ $sector->name }}</option>
+                        @endforeach
+                    </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupSelect01">Top</label>
+                    <select class="form-control p-2" id="top" name="top">
+                        <option value="">Pilih Top</option>
+                        <option value="3">3</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group mb-3">
+                        <button type="submit" class="btn btn-secondary">Sort</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
+        {{-- <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Sort By Tahun
         </button>
@@ -127,7 +171,7 @@
             <a class="dropdown-item" href="dashboard/top/5">5</a>
             <a class="dropdown-item" href="dashboard/top/10">10</a>
         </div>
-        </div>
+        </div> --}}
         <div class="row mt-3">
             <div class="col-xl-12 mb-5 mb-xl-0">
                 @if (Auth::user()->instrument_saham_id == 1)

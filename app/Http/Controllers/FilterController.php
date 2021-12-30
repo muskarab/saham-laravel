@@ -104,4 +104,194 @@ class FilterController extends Controller
         ->paginate($top);
         return view('dashboard.filter', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar'))->with('i')->with('j');
     }
+
+    public function filter(Request $request){
+        $year = $request->year;
+        $sektor = $request->sektor;
+        $top = $request->top;
+        // dd($request->all());
+        $sectors = Sektor::get();
+        $emitens = Emiten::get();
+        $konvensionals = $emitens->where('index_id', 1);
+        $syariahs = $emitens->where('index_id', 2);
+        if ($year != null) {
+            $final_kons = DB::table('emitens')
+            ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
+            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+            ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
+            ->join('sektors', 'sektor_id', '=', 'sektors.id')
+            ->where('index_sahams.instrument_saham_id', 1)
+            ->where('tahun', $year)
+            ->where('vektor_v_s.user_id', Auth::user()->id)
+            ->where('vektor_s.user_id', Auth::user()->id)
+            ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
+            ->orderByRaw('vektor_s DESC')
+            ->get();
+            $final_syar = DB::table('emitens')
+            ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
+            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+            ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
+            ->join('sektors', 'sektor_id', '=', 'sektors.id')
+            ->where('index_sahams.instrument_saham_id', 2)
+            ->where('tahun', $year)
+            ->where('vektor_v_s.user_id', Auth::user()->id)
+            ->where('vektor_s.user_id', Auth::user()->id)
+            ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
+            ->orderByRaw('vektor_s DESC')
+            ->get();
+        }elseif ($sektor != null) {
+            $final_kons = DB::table('emitens')
+            ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
+            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+            ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
+            ->join('sektors', 'sektor_id', '=', 'sektors.id')
+            ->where('index_sahams.instrument_saham_id', 1)
+            ->where('sektor_id', $sektor)
+            ->where('vektor_v_s.user_id', Auth::user()->id)
+            ->where('vektor_s.user_id', Auth::user()->id)
+            ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
+            ->orderByRaw('vektor_s DESC')
+            ->get();
+            $final_syar = DB::table('emitens')
+            ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
+            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+            ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
+            ->join('sektors', 'sektor_id', '=', 'sektors.id')
+            ->where('index_sahams.instrument_saham_id', 2)
+            ->where('sektor_id', $sektor)
+            ->where('vektor_v_s.user_id', Auth::user()->id)
+            ->where('vektor_s.user_id', Auth::user()->id)
+            ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
+            ->orderByRaw('vektor_s DESC')
+            ->get();
+        }elseif ($top != null) {
+            $final_kons = DB::table('emitens')
+            ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
+            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+            ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
+            ->join('sektors', 'sektor_id', '=', 'sektors.id')
+            ->where('index_sahams.instrument_saham_id', 1)
+            ->where('vektor_v_s.user_id', Auth::user()->id)
+            ->where('vektor_s.user_id', Auth::user()->id)
+            ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
+            ->orderByRaw('vektor_s DESC')
+            ->paginate($top);
+            $final_syar = DB::table('emitens')
+            ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
+            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+            ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
+            ->join('sektors', 'sektor_id', '=', 'sektors.id')
+            ->where('index_sahams.instrument_saham_id', 2)
+            ->where('vektor_v_s.user_id', Auth::user()->id)
+            ->where('vektor_s.user_id', Auth::user()->id)
+            ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
+            ->orderByRaw('vektor_s DESC')
+            ->paginate($top);
+        }elseif ($year != null && $sektor != null) {
+            $final_kons = DB::table('emitens')
+            ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
+            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+            ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
+            ->join('sektors', 'sektor_id', '=', 'sektors.id')
+            ->where('index_sahams.instrument_saham_id', 1)
+            ->where('tahun', $year)
+            ->where('sektor_id', $sektor)
+            ->where('vektor_v_s.user_id', Auth::user()->id)
+            ->where('vektor_s.user_id', Auth::user()->id)
+            ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
+            ->orderByRaw('vektor_s DESC')
+            ->get();
+            $final_syar = DB::table('emitens')
+            ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
+            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+            ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
+            ->join('sektors', 'sektor_id', '=', 'sektors.id')
+            ->where('index_sahams.instrument_saham_id', 2)
+            ->where('tahun', $year)
+            ->where('sektor_id', $sektor)
+            ->where('vektor_v_s.user_id', Auth::user()->id)
+            ->where('vektor_s.user_id', Auth::user()->id)
+            ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
+            ->orderByRaw('vektor_s DESC')
+            ->get();
+        }elseif ($year != null && $top != null) {
+            $final_kons = DB::table('emitens')
+            ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
+            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+            ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
+            ->join('sektors', 'sektor_id', '=', 'sektors.id')
+            ->where('index_sahams.instrument_saham_id', 1)
+            ->where('tahun', $year)
+            ->where('vektor_v_s.user_id', Auth::user()->id)
+            ->where('vektor_s.user_id', Auth::user()->id)
+            ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
+            ->orderByRaw('vektor_s DESC')
+            ->paginate($top);
+            $final_syar = DB::table('emitens')
+            ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
+            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+            ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
+            ->join('sektors', 'sektor_id', '=', 'sektors.id')
+            ->where('index_sahams.instrument_saham_id', 2)
+            ->where('tahun', $year)
+            ->where('vektor_v_s.user_id', Auth::user()->id)
+            ->where('vektor_s.user_id', Auth::user()->id)
+            ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
+            ->orderByRaw('vektor_s DESC')
+            ->paginate($top);
+        }elseif ($sektor != null && $top != null) {
+            $final_kons = DB::table('emitens')
+            ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
+            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+            ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
+            ->join('sektors', 'sektor_id', '=', 'sektors.id')
+            ->where('index_sahams.instrument_saham_id', 1)
+            ->where('sektor', $sektor)
+            ->where('vektor_v_s.user_id', Auth::user()->id)
+            ->where('vektor_s.user_id', Auth::user()->id)
+            ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
+            ->orderByRaw('vektor_s DESC')
+            ->paginate($top);
+            $final_syar = DB::table('emitens')
+            ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
+            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+            ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
+            ->join('sektors', 'sektor_id', '=', 'sektors.id')
+            ->where('index_sahams.instrument_saham_id', 2)
+            ->where('sektor', $sektor)
+            ->where('vektor_v_s.user_id', Auth::user()->id)
+            ->where('vektor_s.user_id', Auth::user()->id)
+            ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
+            ->orderByRaw('vektor_s DESC')
+            ->paginate($top);
+        }elseif ($year != null &&$sektor != null && $top != null) {
+            $final_kons = DB::table('emitens')
+            ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
+            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+            ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
+            ->join('sektors', 'sektor_id', '=', 'sektors.id')
+            ->where('index_sahams.instrument_saham_id', 1)
+            ->where('year', $year)
+            ->where('sektor', $sektor)
+            ->where('vektor_v_s.user_id', Auth::user()->id)
+            ->where('vektor_s.user_id', Auth::user()->id)
+            ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
+            ->orderByRaw('vektor_s DESC')
+            ->paginate($top);
+            $final_syar = DB::table('emitens')
+            ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
+            ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+            ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
+            ->join('sektors', 'sektor_id', '=', 'sektors.id')
+            ->where('index_sahams.instrument_saham_id', 2)
+            ->where('year', $year)
+            ->where('sektor', $sektor)
+            ->where('vektor_v_s.user_id', Auth::user()->id)
+            ->where('vektor_s.user_id', Auth::user()->id)
+            ->select('emitens.*', 'vektor_s.vektor_s', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'index_sahams.tahun as tahun', 'sektors.name as sektor')
+            ->orderByRaw('vektor_s DESC')
+            ->paginate($top);
+        }
+        return view('dashboard.filter', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar'))->with('i')->with('j');
+    }
 }

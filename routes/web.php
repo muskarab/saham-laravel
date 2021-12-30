@@ -25,6 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 	Route::get('dashboard/year/{year:year}', [FilterController::class, 'sortbyyear']);
 	Route::get('dashboard/sektor/{sektor:sektor}', [FilterController::class, 'sortbysektor']);
 	Route::get('dashboard/top/{top:top}', [FilterController::class, 'sortbytop']);
+	Route::post('dashboard/filter', [FilterController::class, 'filter'])->name('filter');
 	Route::resource('user', UserController::class);
 	Route::group(['middleware' => ['cek_login:admin']], function () {
 		Route::resource('emiten', EmitenController::class);

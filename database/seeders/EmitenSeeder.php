@@ -993,84 +993,84 @@ class EmitenSeeder extends Seeder
             'updated_at' => now()
         ]);
 
-        DB::table('emitens')->insert([
-            'emiten_char' => 'ADHI',
-            'perusahaan' => 'ADHI',
-            'index_id' => 3,
-            'sektor_id' => 8,
-            'deskripsi' => 'Desc ADHI',
-            'eps' => 119.0000,
-            'roe' => 3.5804,
-            'per' => 11.6300,
-            'der' => 3.4600,
-            'created_at' => "2018-01-01",
-            'updated_at' => now()
-        ]);
-        DB::table('emitens')->insert([
-            'emiten_char' => 'ADRO',
-            'perusahaan' => 'ADRO',
-            'index_id' => 3,
-            'sektor_id' => 4,
-            'deskripsi' => 'Desc ADRO',
-            'eps' => 176.0000,
-            'roe' => 5.3779,
-            'per' => 10.4300,
-            'der' => 0.6300,
-            'created_at' => "2018-01-01",
-            'updated_at' => now()
-        ]);
-        DB::table('emitens')->insert([
-            'emiten_char' => 'AKRA',
-            'perusahaan' => 'AKRA',
-            'index_id' => 3,
-            'sektor_id' => 4,
-            'deskripsi' => 'Desc AKRA',
-            'eps' => 558.0000,
-            'roe' => 11.1855,
-            'per' => 6.5700,
-            'der' => 0.9500,
-            'created_at' => "2018-01-01",
-            'updated_at' => now()
-        ]);
-        DB::table('emitens')->insert([
-            'emiten_char' => 'ADHI',
-            'perusahaan' => 'ADHI',
-            'index_id' => 4,
-            'sektor_id' => 8,
-            'deskripsi' => 'Desc ADHI',
-            'eps' => 119.0000,
-            'roe' => 3.5804,
-            'per' => 11.6300,
-            'der' => 3.4600,
-            'created_at' => "2018-01-01",
-            'updated_at' => now()
-        ]);
-        DB::table('emitens')->insert([
-            'emiten_char' => 'ADRO',
-            'perusahaan' => 'ADRO',
-            'index_id' => 4,
-            'sektor_id' => 4,
-            'deskripsi' => 'Desc ADRO',
-            'eps' => 176.0000,
-            'roe' => 5.3779,
-            'per' => 10.4300,
-            'der' => 0.6300,
-            'created_at' => "2018-01-01",
-            'updated_at' => now()
-        ]);
-        DB::table('emitens')->insert([
-            'emiten_char' => 'AKRA',
-            'perusahaan' => 'AKRA',
-            'index_id' => 4,
-            'sektor_id' => 4,
-            'deskripsi' => 'Desc AKRA',
-            'eps' => 558.0000,
-            'roe' => 11.1855,
-            'per' => 6.5700,
-            'der' => 0.9500,
-            'created_at' => "2018-01-01",
-            'updated_at' => now()
-        ]);
+        // DB::table('emitens')->insert([
+        //     'emiten_char' => 'ADHI',
+        //     'perusahaan' => 'ADHI',
+        //     'index_id' => 3,
+        //     'sektor_id' => 8,
+        //     'deskripsi' => 'Desc ADHI',
+        //     'eps' => 119.0000,
+        //     'roe' => 3.5804,
+        //     'per' => 11.6300,
+        //     'der' => 3.4600,
+        //     'created_at' => "2018-01-01",
+        //     'updated_at' => now()
+        // ]);
+        // DB::table('emitens')->insert([
+        //     'emiten_char' => 'ADRO',
+        //     'perusahaan' => 'ADRO',
+        //     'index_id' => 3,
+        //     'sektor_id' => 4,
+        //     'deskripsi' => 'Desc ADRO',
+        //     'eps' => 176.0000,
+        //     'roe' => 5.3779,
+        //     'per' => 10.4300,
+        //     'der' => 0.6300,
+        //     'created_at' => "2018-01-01",
+        //     'updated_at' => now()
+        // ]);
+        // DB::table('emitens')->insert([
+        //     'emiten_char' => 'AKRA',
+        //     'perusahaan' => 'AKRA',
+        //     'index_id' => 3,
+        //     'sektor_id' => 4,
+        //     'deskripsi' => 'Desc AKRA',
+        //     'eps' => 558.0000,
+        //     'roe' => 11.1855,
+        //     'per' => 6.5700,
+        //     'der' => 0.9500,
+        //     'created_at' => "2018-01-01",
+        //     'updated_at' => now()
+        // ]);
+        // DB::table('emitens')->insert([
+        //     'emiten_char' => 'ADHI',
+        //     'perusahaan' => 'ADHI',
+        //     'index_id' => 4,
+        //     'sektor_id' => 8,
+        //     'deskripsi' => 'Desc ADHI',
+        //     'eps' => 119.0000,
+        //     'roe' => 3.5804,
+        //     'per' => 11.6300,
+        //     'der' => 3.4600,
+        //     'created_at' => "2018-01-01",
+        //     'updated_at' => now()
+        // ]);
+        // DB::table('emitens')->insert([
+        //     'emiten_char' => 'ADRO',
+        //     'perusahaan' => 'ADRO',
+        //     'index_id' => 4,
+        //     'sektor_id' => 4,
+        //     'deskripsi' => 'Desc ADRO',
+        //     'eps' => 176.0000,
+        //     'roe' => 5.3779,
+        //     'per' => 10.4300,
+        //     'der' => 0.6300,
+        //     'created_at' => "2018-01-01",
+        //     'updated_at' => now()
+        // ]);
+        // DB::table('emitens')->insert([
+        //     'emiten_char' => 'AKRA',
+        //     'perusahaan' => 'AKRA',
+        //     'index_id' => 4,
+        //     'sektor_id' => 4,
+        //     'deskripsi' => 'Desc AKRA',
+        //     'eps' => 558.0000,
+        //     'roe' => 11.1855,
+        //     'per' => 6.5700,
+        //     'der' => 0.9500,
+        //     'created_at' => "2018-01-01",
+        //     'updated_at' => now()
+        // ]);
 
         
         
