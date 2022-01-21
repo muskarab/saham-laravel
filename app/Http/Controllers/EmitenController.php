@@ -272,167 +272,83 @@ class EmitenController extends Controller
         ->select('emitens.*', 'index_sahams.name')
         ->get();
         foreach ($users as $user) {
-            // if ($user->instrument_saham_id == 1) {
-            //     //update vektor s
-            //     foreach ($emiten_kons as $emiten_kon) {
-            //         $w_user_total = $user->w_eps_kon + $user->w_roe_kon + $user->w_per_kon;
-            //         $w_eps = pow($emiten_kon->prefereni_kriteria['eps_pk'], - ($user['w_eps_kon'] / $w_user_total));
-            //         $w_roe = pow($emiten_kon->prefereni_kriteria['roe_pk'], ($user['w_roe_kon'] / $w_user_total));
-            //         $w_per = pow($emiten_kon->prefereni_kriteria['per_pk'], ($user['w_per_kon'] / $w_user_total));
-            //         $w_total = $w_eps * $w_roe * $w_per;
-            //         DB::table('vektor_s')
-            //         ->where('user_id', $user->id)
-            //         ->where('emiten_id', $emiten_kon->id)
-            //         ->update([
-            //             'vektor_s' => $w_total,
-            //             'updated_at' => now()
-            //         ]);
-            //     }
-            //     //update vektor v
-            //     foreach ($index_kons as $index_kon) {
-            //         $sum_vektor_s_kon = DB::table('emitens')
-            //         ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-            //         ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
-            //         ->where('index_sahams.id', $index_kon->id)
-            //         ->where('vektor_s.user_id', $user->id)
-            //         ->select('vektor_s.vektor_s')
-            //         ->sum('vektor_s.vektor_s');
-            //         $vektor_s_kons = DB::table('emitens')
-            //         ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-            //         ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
-            //         ->where('index_sahams.id', $index_kon->id)
-            //         ->where('vektor_s.user_id', $user->id)
-            //         ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
-            //         ->get();
-            //         foreach ($vektor_s_kons as $vektor_s_kon) {
-            //             DB::table('vektor_v_s')
-            //             ->where('user_id', $user->id)
-            //             ->where('emiten_id', $vektor_s_kon->id)
-            //             ->update([
-            //                 'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
-            //                 'updated_at' => now()
-            //             ]);
-            //         }
-            //     }
-            // }
-            // if ($user->instrument_saham_id == 2) {
-            //     //update vektor s
-            //     foreach($emiten_syars as $emiten_syar) {
-            //         $w_user_total = $user->w_eps_syar + $user->w_roe_syar + $user->w_der_syar;
-            //         $w_eps = pow($emiten_syar->prefereni_kriteria['eps_pk'], ($user['w_eps_syar'] / $w_user_total));
-            //         $w_roe = pow($emiten_syar->prefereni_kriteria['roe_pk'], ($user['w_roe_syar'] / $w_user_total));
-            //         $w_der = pow($emiten_syar->prefereni_kriteria['der_pk'], ($user['w_der_syar'] / $w_user_total));
-            //         $w_total = $w_eps * $w_roe * $w_der;
-            //         DB::table('vektor_s')->where('user_id', $user->id)->where('emiten_id', $emiten_syar->id)->update([
-            //             'vektor_s' => $w_total,
-            //             'updated_at' => now()
-            //         ]);
-            //     }
-            //     //update vektor v
-            //     foreach ($index_syars as $index_syar) {
-            //         $sum_vektor_s_kon = DB::table('emitens')
-            //         ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-            //         ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
-            //         ->where('index_sahams.id', $index_syar->id)
-            //         ->where('vektor_s.user_id', $user->id)
-            //         ->select('vektor_s.vektor_s')
-            //         ->sum('vektor_s.vektor_s');
-            //         $vektor_s_kons = DB::table('emitens')
-            //         ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-            //         ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
-            //         ->where('index_sahams.id', $index_syar->id)
-            //         ->where('vektor_s.user_id', $user->id)
-            //         ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
-            //         ->get();
-            //         foreach ($vektor_s_kons as $vektor_s_kon) {
-            //             DB::table('vektor_v_s')
-            //             ->where('user_id', $user->id)
-            //             ->where('emiten_id', $vektor_s_kon->id)
-            //             ->update([
-            //                 'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
-            //                 'updated_at' => now()
-            //             ]);
-            //         }
-            //     }
-            // }
-            // if ($user->instrument_saham_id == 3) {
-                //update vektor s
-                foreach ($emiten_kons as $emiten_kon) {
-                    $w_user_total = $user->w_eps_kon + $user->w_roe_kon + $user->w_per_kon;
-                    $w_eps = pow($emiten_kon->prefereni_kriteria['eps_pk'], - ($user['w_eps_kon'] / $w_user_total));
-                    $w_roe = pow($emiten_kon->prefereni_kriteria['roe_pk'], ($user['w_roe_kon'] / $w_user_total));
-                    $w_per = pow($emiten_kon->prefereni_kriteria['per_pk'], ($user['w_per_kon'] / $w_user_total));
-                    $w_total = $w_eps * $w_roe * $w_per;
-                    DB::table('vektor_s')->where('user_id', $user->id)->where('emiten_id', $emiten_kon->id)->update([
-                        'vektor_s' => $w_total,
+            //update vektor s Konvensional
+            foreach ($emiten_kons as $emiten_kon) {
+                $w_user_total = $user->w_eps_kon + $user->w_roe_kon + $user->w_per_kon;
+                $w_eps = pow($emiten_kon->prefereni_kriteria['eps_pk'], - ($user['w_eps_kon'] / $w_user_total));
+                $w_roe = pow($emiten_kon->prefereni_kriteria['roe_pk'], ($user['w_roe_kon'] / $w_user_total));
+                $w_per = pow($emiten_kon->prefereni_kriteria['per_pk'], ($user['w_per_kon'] / $w_user_total));
+                $w_total = $w_eps * $w_roe * $w_per;
+                DB::table('vektor_s')->where('user_id', $user->id)->where('emiten_id', $emiten_kon->id)->update([
+                    'vektor_s' => $w_total,
+                    'updated_at' => now()
+                ]);
+            }
+            //update vektor v
+            foreach ($index_kons as $index_kon) {
+                $sum_vektor_s_kon = DB::table('emitens')
+                ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                ->where('index_sahams.id', $index_kon->id)
+                ->where('vektor_s.user_id', $user->id)
+                ->select('vektor_s.vektor_s')
+                    ->sum('vektor_s.vektor_s');
+                $vektor_s_kons = DB::table('emitens')
+                ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                ->where('index_sahams.id', $index_kon->id)
+                ->where('vektor_s.user_id', $user->id)
+                ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
+                ->get();
+                foreach ($vektor_s_kons as $vektor_s_kon) {
+                    DB::table('vektor_v_s')
+                    ->where('user_id', $user->id)
+                    ->where('emiten_id', $vektor_s_kon->id)
+                    ->update([
+                        'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
                         'updated_at' => now()
                     ]);
                 }
-                //update vektor v
-                foreach ($index_kons as $index_kon) {
-                    $sum_vektor_s_kon = DB::table('emitens')
-                    ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
-                    ->where('index_sahams.id', $index_kon->id)
-                    ->where('vektor_s.user_id', $user->id)
-                    ->select('vektor_s.vektor_s')
-                        ->sum('vektor_s.vektor_s');
-                    $vektor_s_kons = DB::table('emitens')
-                    ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
-                    ->where('index_sahams.id', $index_kon->id)
-                    ->where('vektor_s.user_id', $user->id)
-                    ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
-                    ->get();
-                    foreach ($vektor_s_kons as $vektor_s_kon) {
-                        DB::table('vektor_v_s')
-                        ->where('user_id', $user->id)
-                        ->where('emiten_id', $vektor_s_kon->id)
-                        ->update([
-                            'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
-                            'updated_at' => now()
-                        ]);
-                    }
-                }
-                //update vektor s
-                foreach ($emiten_syars as $emiten_syar) {
-                    $w_user_total = $user->w_eps_syar + $user->w_roe_syar + $user->w_der_syar;
-                    $w_eps = pow($emiten_syar->prefereni_kriteria['eps_pk'], ($user['w_eps_syar'] / $w_user_total));
-                    $w_roe = pow($emiten_syar->prefereni_kriteria['roe_pk'], ($user['w_roe_syar'] / $w_user_total));
-                    $w_der = pow($emiten_syar->prefereni_kriteria['der_pk'], ($user['w_der_syar'] / $w_user_total));
-                    $w_total = $w_eps * $w_roe * $w_der;
-                    DB::table('vektor_s')->where('user_id', $user->id)->where('emiten_id', $emiten_syar->id)->update([
-                        'vektor_s' => $w_total,
+            }
+
+            //update vektor s Syariah
+            foreach ($emiten_syars as $emiten_syar) {
+                $w_user_total = $user->w_eps_syar + $user->w_roe_syar + $user->w_der_syar;
+                $w_eps = pow($emiten_syar->prefereni_kriteria['eps_pk'], ($user['w_eps_syar'] / $w_user_total));
+                $w_roe = pow($emiten_syar->prefereni_kriteria['roe_pk'], ($user['w_roe_syar'] / $w_user_total));
+                $w_der = pow($emiten_syar->prefereni_kriteria['der_pk'], ($user['w_der_syar'] / $w_user_total));
+                $w_total = $w_eps * $w_roe * $w_der;
+                DB::table('vektor_s')->where('user_id', $user->id)->where('emiten_id', $emiten_syar->id)->update([
+                    'vektor_s' => $w_total,
+                    'updated_at' => now()
+                ]);
+            }
+            //update vektor v
+            foreach ($index_syars as $index_syar) {
+                $sum_vektor_s_kon = DB::table('emitens')
+                ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                ->where('index_sahams.id', $index_syar->id)
+                ->where('vektor_s.user_id', $user->id)
+                ->select('vektor_s.vektor_s')
+                    ->sum('vektor_s.vektor_s');
+                $vektor_s_kons = DB::table('emitens')
+                ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
+                ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
+                ->where('index_sahams.id', $index_syar->id)
+                ->where('vektor_s.user_id', $user->id)
+                ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
+                ->get();
+                foreach ($vektor_s_kons as $vektor_s_kon) {
+                    DB::table('vektor_v_s')
+                    ->where('user_id', $user->id)
+                    ->where('emiten_id', $vektor_s_kon->id)
+                    ->update([
+                        'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
                         'updated_at' => now()
                     ]);
                 }
-                //update vektor v
-                foreach ($index_syars as $index_syar) {
-                    $sum_vektor_s_kon = DB::table('emitens')
-                    ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
-                    ->where('index_sahams.id', $index_syar->id)
-                    ->where('vektor_s.user_id', $user->id)
-                    ->select('vektor_s.vektor_s')
-                        ->sum('vektor_s.vektor_s');
-                    $vektor_s_kons = DB::table('emitens')
-                    ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-                    ->join('index_sahams', 'emitens.index_id', '=', 'index_sahams.id')
-                    ->where('index_sahams.id', $index_syar->id)
-                    ->where('vektor_s.user_id', $user->id)
-                    ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
-                    ->get();
-                    foreach ($vektor_s_kons as $vektor_s_kon) {
-                        DB::table('vektor_v_s')
-                        ->where('user_id', $user->id)
-                        ->where('emiten_id', $vektor_s_kon->id)
-                        ->update([
-                            'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
-                            'updated_at' => now()
-                        ]);
-                    }
-                }
-            // }
+            }
         }
 
         if ($emiten) {

@@ -31,6 +31,7 @@ class HomeController extends Controller
         // if (Auth::user()->instrument_saham_id == 1) {
         //     //Konvensional
 
+        //Perhitungan Vektor S
         foreach ($emiten_kons as $emiten_kon) {
             $w_user_total = Auth::user()->w_eps_kon + Auth::user()->w_roe_kon + Auth::user()->w_per_kon;
             $w_eps = pow($emiten_kon->prefereni_kriteria['eps_pk'], - (Auth::user()->w_eps_kon / $w_user_total));
@@ -62,6 +63,7 @@ class HomeController extends Controller
             ]);
         }
 
+        //Perhitungan Vektor V
         foreach ($indexs as $index) {
             $sum_vektor_s_kon = DB::table('emitens')
                 ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
@@ -91,176 +93,10 @@ class HomeController extends Controller
             }
         }
 
-            // foreach ($emiten_kons as $emiten_kon) {
-            //     $w_user_total = Auth::user()->w_eps_kon + Auth::user()->w_roe_kon + Auth::user()->w_per_kon;
-            //     $w_eps = pow($emiten_kon->prefereni_kriteria['eps_pk'], - (Auth::user()->w_eps_kon / $w_user_total));
-            //     $w_roe = pow($emiten_kon->prefereni_kriteria['roe_pk'], (Auth::user()->w_roe_kon / $w_user_total));
-            //     $w_per = pow($emiten_kon->prefereni_kriteria['per_pk'], (Auth::user()->w_per_kon / $w_user_total));
-            //     $w_total = $w_eps * $w_roe * $w_per;
-            //     DB::table('vektor_s')
-            //     ->where('user_id', 0)
-            //     ->where('emiten_id', $emiten_kon->id)
-            //     ->update([
-            //         'emiten_id' => $emiten_kon->id,
-            //         'user_id' => Auth::user()->id,
-            //         'vektor_s' => $w_total,
-            //         'created_at' => now(),
-            //         'updated_at' => now()
-            //     ]);
-            // }
-        //     $sum_vektor_s_kon = DB::table('emitens')
-        //     ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-        //     ->where('index_id', 1)
-        //     ->where('vektor_s.user_id', Auth::user()->id)
-        //     ->select('vektor_s.vektor_s')
-        //     ->sum('vektor_s.vektor_s');
-        //     $vektor_s_kons = DB::table('emitens')
-        //     ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-        //     ->where('index_id', 1)
-        //     ->where('vektor_s.user_id', Auth::user()->id)
-        //     ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
-        //     ->get();
-        //     foreach ($vektor_s_kons as $vektor_s_kon) {
-        //         DB::table('vektor_v_s')
-        //         ->where('user_id', 0)
-        //         ->where('emiten_id', $vektor_s_kon->id)
-        //         ->update([
-        //             'user_id' => Auth::user()->id,
-        //             'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
-        //             'updated_at' => now()
-        //         ]);
-        //     }
-        // }elseif (Auth::user()->instrument_saham_id == 2) {
-        //     //Syariah
-        //     foreach ($emiten_syars as $emiten_syar) {
-        //         $w_user_total = Auth::user()->w_eps_syar + Auth::user()->w_roe_syar + Auth::user()->w_der_syar;
-        //         $w_eps = pow($emiten_syar->prefereni_kriteria['eps_pk'], (Auth::user()->w_eps_syar / $w_user_total));
-        //         $w_roe = pow($emiten_syar->prefereni_kriteria['roe_pk'], (Auth::user()->w_roe_syar / $w_user_total));
-        //         $w_der = pow($emiten_syar->prefereni_kriteria['der_pk'], (Auth::user()->w_der_syar / $w_user_total));
-        //         $w_total = $w_eps * $w_roe * $w_der;
-        //         DB::table('vektor_s')
-        //         ->where('user_id', 0)
-        //         ->where('emiten_id', $emiten_syar->id)
-        //         ->update([
-        //             'emiten_id' => $emiten_syar->id,
-        //             'user_id' => Auth::user()->id,
-        //             'vektor_s' => $w_total,
-        //             'created_at' => now(),
-        //             'updated_at' => now()
-        //         ]);
-        //     }
-        //     $sum_vektor_s_syar = DB::table('emitens')
-        //         ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-        //         ->where('index_id', 2)
-        //         ->where('vektor_s.user_id', Auth::user()->id)
-        //         ->select('vektor_s.vektor_s')
-        //         ->sum('vektor_s.vektor_s');
-        //     $vektor_s_syars = DB::table('emitens')
-        //         ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-        //         ->where('index_id', 2)
-        //         ->where('vektor_s.user_id', Auth::user()->id)
-        //         ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
-        //         ->get();
-        //     foreach ($vektor_s_syars as $vektor_s_syar) {
-        //         DB::table('vektor_v_s')
-        //         ->where('user_id', 0)
-        //         ->where('emiten_id', $vektor_s_syar->id)
-        //         ->update([
-        //         'user_id' => Auth::user()->id,
-        //             'vektor_v' => $vektor_s_syar->vektor_s / $sum_vektor_s_syar,
-        //             'updated_at' => now()
-        //         ]);
-        //     }
-        // }elseif (Auth::user()->instrument_saham_id == 3) {
-        //     //Konvensional
-        //     foreach ($emiten_kons as $emiten_kon) {
-        //         $w_user_total = Auth::user()->w_eps_kon + Auth::user()->w_roe_kon + Auth::user()->w_per_kon;
-        //         $w_eps = pow($emiten_kon->prefereni_kriteria['eps_pk'], - (Auth::user()->w_eps_kon / $w_user_total));
-        //         $w_roe = pow($emiten_kon->prefereni_kriteria['roe_pk'], (Auth::user()->w_roe_kon / $w_user_total));
-        //         $w_per = pow($emiten_kon->prefereni_kriteria['per_pk'], (Auth::user()->w_per_kon / $w_user_total));
-        //         $w_total = $w_eps * $w_roe * $w_per;
-        //         DB::table('vektor_s')
-        //         ->where('user_id', 0)
-        //         ->where('emiten_id', $emiten_kon->id)
-        //         ->update([
-        //             'emiten_id' => $emiten_kon->id,
-        //             'user_id' => Auth::user()->id,
-        //             'vektor_s' => $w_total,
-        //             'created_at' => now(),
-        //             'updated_at' => now()
-        //         ]);
-        //     }
-        //     $sum_vektor_s_kon = DB::table('emitens')
-        //     ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-        //     ->where('index_id', 1)
-        //     ->where('vektor_s.user_id', Auth::user()->id)
-        //     ->select('vektor_s.vektor_s')
-        //     ->sum('vektor_s.vektor_s');
-        //     $vektor_s_kons = DB::table('emitens')
-        //     ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-        //     ->where('index_id', 1)
-        //     ->where('vektor_s.user_id', Auth::user()->id)
-        //     ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
-        //     ->get();
-        //     foreach ($vektor_s_kons as $vektor_s_kon) {
-        //         DB::table('vektor_v_s')
-        //         ->where('user_id', 0)
-        //         ->where('emiten_id', $vektor_s_kon->id)
-        //         ->update([
-        //             'user_id' => Auth::user()->id,
-        //             'vektor_v' => $vektor_s_kon->vektor_s / $sum_vektor_s_kon,
-        //             'updated_at' => now()
-        //         ]);
-        //     }
-        //     //Syariah
-        //     foreach ($emiten_syars as $emiten_syar) {
-        //         $w_user_total = Auth::user()->w_eps_syar + Auth::user()->w_roe_syar + Auth::user()->w_der_syar;
-        //         $w_eps = pow($emiten_syar->prefereni_kriteria['eps_pk'], (Auth::user()->w_eps_syar / $w_user_total));
-        //         $w_roe = pow($emiten_syar->prefereni_kriteria['roe_pk'], (Auth::user()->w_roe_syar / $w_user_total));
-        //         $w_der = pow($emiten_syar->prefereni_kriteria['der_pk'], (Auth::user()->w_der_syar / $w_user_total));
-        //         $w_total = $w_eps * $w_roe * $w_der;
-        //         DB::table('vektor_s')
-        //         ->where('user_id', 0)
-        //         ->where('emiten_id', $emiten_syar->id)
-        //         ->update([
-        //             'emiten_id' => $emiten_syar->id,
-        //             'user_id' => Auth::user()->id,
-        //             'vektor_s' => $w_total,
-        //             'created_at' => now(),
-        //             'updated_at' => now()
-        //         ]);
-        //     }
-        //     $sum_vektor_s_syar = DB::table('emitens')
-        //         ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-        //         ->where('index_id', 2)
-        //         ->where('vektor_s.user_id', Auth::user()->id)
-        //         ->select('vektor_s.vektor_s')
-        //         ->sum('vektor_s.vektor_s');
-        //     $vektor_s_syars = DB::table('emitens')
-        //         ->join('vektor_s', 'emitens.id', '=', 'vektor_s.emiten_id')
-        //         ->where('index_id', 2)
-        //         ->where('vektor_s.user_id', Auth::user()->id)
-        //         ->select('emitens.*', 'vektor_s.user_id', 'vektor_s.vektor_s')
-        //         ->get();
-        //     foreach ($vektor_s_syars as $vektor_s_syar) {
-        //         DB::table('vektor_v_s')
-        //         ->where('user_id', 0)
-        //         ->where('emiten_id', $vektor_s_syar->id)
-        //         ->update([
-        //             'user_id' => Auth::user()->id,
-        //             'vektor_v' => $vektor_s_syar->vektor_s / $sum_vektor_s_syar,
-        //             'updated_at' => now()
-        //         ]);
-        //     }
-        // }
-
-        
         $sectors = Sektor::get();
         $emitens = Emiten::get();
         $konvensionals = $emitens->where('index_id', 1);
         $syariahs = $emitens->where('index_id', 2);
-        // $final_kon = Emiten::where('index_id', 1)->get();
-        // $final_syar = Emiten::where('index_id', 2)->get();
 
         $years = IndexSaham::distinct('tahun')->get('tahun');
 
@@ -288,16 +124,11 @@ class HomeController extends Controller
         ->orderByRaw('vektor_s DESC')
         ->get();
 
-        $emitens_a = Emiten::
-        // join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
-        // ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
-        // ->join('sektors', 'sektor_id', '=', 'sektors.id')
-        where('id', 1)
-        // ->select('emitens.*', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'sektors.name as sektor')
-        ->get();
+        $user_login = User::where('id', Auth::user()->id)->get();
+        $not_user_login = User::where('role', '!=', 'admin')->where('id', '!=', Auth::user()->id)->get();
+        dd($not_user_login, $user_login);
 
-        // dd($emitens_a);
-        return view('dashboard.index', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar', 'years'))->with('i')->with('j');
+        // return view('dashboard.index', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar', 'years'))->with('i')->with('j');
     }
 
     /**
@@ -329,22 +160,7 @@ class HomeController extends Controller
      */
     public function show($emitens)
     {
-        // $emitens = DB::table('emitens')
-        // ->join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
-        // ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
-        // ->join('sektors', 'sektor_id', '=', 'sektors.id')
-        // ->where('emitens.id', $emitens)
-        // ->select('emitens.*', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'sektors.name as sektor')
-        // ->orderByRaw('vektor_v DESC')
-        // ->first();
-        $emitens = Emiten::
-        // join('vektor_v_s', 'emitens.id', '=', 'vektor_v_s.emiten_id')
-        // ->join('index_sahams', 'index_id', '=', 'index_sahams.id')
-        // ->join('sektors', 'sektor_id', '=', 'sektors.id')
-        where('id', $emitens)
-        // ->select('emitens.*', 'vektor_v_s.vektor_v', 'index_sahams.name as index', 'sektors.name as sektor')
-        ->get();
-        // dd($emitens);
+        $emitens = Emiten::where('id', $emitens)->get();
         return view('dashboard.show', compact('emitens'));
     }
 
