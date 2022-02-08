@@ -34,8 +34,8 @@
                         </div>
                         <div class="row">
                             <div class="col">
+                                @if (auth()->user()->instrument_saham_id == 1)
                                 <div class="card-profile-stats d-flex justify-content-center">
-                                    @if (auth()->user()->instrument_saham_id == 1)
                                     <div>
                                         <span class="heading">{{ auth()->user()->w_eps_kon }}</span>
                                         <span class="description">{{ __('EPS') }}</span>
@@ -48,8 +48,29 @@
                                         <span class="heading">{{ auth()->user()->w_per_kon }}</span>
                                         <span class="description">{{ __('PER') }}</span>
                                     </div>
-                                    @endif
-                                    @if (auth()->user()->instrument_saham_id == 2)
+                                </div>
+                                <div class="text-center">
+                                @foreach ($get_user_sim as $get_user_sim)
+                                <i class="ni education_hat mr-2"></i>{{ __('Similariti Dengan') }} {{ $get_user_sim->name }}
+                                <div class="card-profile-stats d-flex justify-content-center">
+                                    <div>
+                                        <span class="heading">{{ $get_user_sim->w_eps_kon }}</span>
+                                        <span class="description">{{ __('EPS KON') }}</span>
+                                    </div>
+                                    <div>
+                                        <span class="heading">{{ $get_user_sim->w_roe_kon }}</span>
+                                        <span class="description">{{ __('ROE KON') }}</span>
+                                    </div>
+                                    <div>
+                                        <span class="heading">{{ $get_user_sim->w_per_kon }}</span>
+                                        <span class="description">{{ __('PER KON') }}</span>
+                                    </div>
+                                </div>
+                                @endforeach
+                                </div>
+                                @endif
+                                @if (auth()->user()->instrument_saham_id == 2)
+                                <div class="card-profile-stats d-flex justify-content-center">
                                     <div>
                                         <span class="heading">{{ auth()->user()->w_eps_syar }}</span>
                                         <span class="description">{{ __('EPS') }}</span>
@@ -62,8 +83,8 @@
                                         <span class="heading">{{ auth()->user()->w_der_syar }}</span>
                                         <span class="description">{{ __('DER') }}</span>
                                     </div>
-                                    @endif
                                 </div>
+                                @endif
                                 @if (auth()->user()->instrument_saham_id == 3)
                                 <div class="card-profile-stats d-flex justify-content-center">
                                     <div>

@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+// use function Complex\sqrt;
+
 class HomeController extends Controller
 {
     /**
@@ -124,11 +126,40 @@ class HomeController extends Controller
         ->orderByRaw('vektor_s DESC')
         ->get();
 
-        $user_login = User::where('id', Auth::user()->id)->get();
-        $not_user_login = User::where('role', '!=', 'admin')->where('id', '!=', Auth::user()->id)->get();
-        dd($not_user_login, $user_login);
-
-        // return view('dashboard.index', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar', 'years'))->with('i')->with('j');
+        $sim_kon = array();
+        $sim_syar = array();
+        $sim_gab = array();
+        $user_logins = User::where('id', Auth::user()->id)->get();
+        $not_user_logins = User::where('role', '!=', 'admin')->where('id', '!=', Auth::user()->id)->where('instrument_saham_id', Auth::user()->instrument_saham_id)->get();
+        if (Auth::user()->instrument_saham_id == 1) {
+            foreach ($user_logins as $user_login) {
+                foreach ($not_user_logins as $not_user_login) {
+                    $sim_kon[] = ["name" => $not_user_login->name, "sim" => (($user_login->w_eps_kon * $not_user_login->w_eps_kon) + ($user_login->w_roe_kon * $not_user_login->w_roe_kon) + ($user_login->w_per_kon * $not_user_login->w_per_kon)) / (sqrt(pow($user_login->w_eps_kon, 2) + pow($user_login->w_roe_kon, 2) + pow($user_login->w_per_kon, 2)) * sqrt(pow($not_user_login->w_eps_kon, 2) + pow($not_user_login->w_roe_kon, 2) + pow($not_user_login->w_per_kon, 2)))];
+                }
+            }
+            $max_sim_kon = $sim_kon[array_search(max($prices = array_column($sim_kon, 'sim')), $prices)];
+            $get_user_sim_kon = User::where('name', $max_sim_kon['name'])->get();
+            dd($sim_kon, $get_user_sim_kon);
+        }elseif (Auth::user()->instrument_saham_id == 2) {
+            foreach ($user_logins as $user_login) {
+                foreach ($not_user_logins as $not_user_login) {
+                    $sim_syar[] = ["name" => $not_user_login->name, "sim" => (($user_login->w_eps_syar * $not_user_login->w_eps_syar) + ($user_login->w_roe_syar * $not_user_login->w_roe_syar) + ($user_login->w_der_syar * $not_user_login->w_der_syar)) / (sqrt(pow($user_login->w_eps_syar, 2) + pow($user_login->w_roe_syar, 2) + pow($user_login->w_der_syar, 2)) * sqrt(pow($not_user_login->w_eps_syar, 2) + pow($not_user_login->w_roe_syar, 2) + pow($not_user_login->w_der_syar, 2)))];
+                }
+            }
+            $max_sim_syar = $sim_syar[array_search(max($prices = array_column($sim_syar, 'sim')), $prices)];
+            $get_user_sim_syar = User::where('name', $max_sim_syar['name'])->get();
+            dd($sim_syar, $get_user_sim_syar);
+        }elseif (Auth::user()->instrument_saham_id == 3) {
+            foreach ($user_logins as $user_login) {
+                foreach ($not_user_logins as $not_user_login) {
+                    $sim_gab[] = ["name" => $not_user_login->name, "sim" => (((($user_login->w_eps_kon * $not_user_login->w_eps_kon) + ($user_login->w_roe_kon * $not_user_login->w_roe_kon) + ($user_login->w_per_kon * $not_user_login->w_per_kon)) / (sqrt(pow($user_login->w_eps_kon, 2) + pow($user_login->w_roe_kon, 2) + pow($user_login->w_per_kon, 2)) * sqrt(pow($not_user_login->w_eps_kon, 2) + pow($not_user_login->w_roe_kon, 2) + pow($not_user_login->w_per_kon, 2)))) + ((($user_login->w_eps_syar * $not_user_login->w_eps_syar) + ($user_login->w_roe_syar * $not_user_login->w_roe_syar) + ($user_login->w_der_syar * $not_user_login->w_der_syar)) / (sqrt(pow($user_login->w_eps_syar, 2) + pow($user_login->w_roe_syar, 2) + pow($user_login->w_der_syar, 2)) * sqrt(pow($not_user_login->w_eps_syar, 2) + pow($not_user_login->w_roe_syar, 2) + pow($not_user_login->w_der_syar, 2))))) / 2];
+                }
+            }
+            $max_sim_gab = $sim_gab[array_search(max($prices = array_column($sim_gab, 'sim')), $prices)];
+            $get_user_sim_gab = User::where('name', $max_sim_gab['name'])->get();
+            dd($sim_gab, $get_user_sim_gab);
+        }
+        return view('dashboard.index', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar', 'years'))->with('i')->with('j');
     }
 
     /**
