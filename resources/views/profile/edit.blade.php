@@ -50,7 +50,7 @@
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                @foreach ($get_user_sim as $get_user_sim)
+                                {{-- @foreach ($get_user_sim as $get_user_sim)
                                 <i class="ni education_hat mr-2"></i>{{ __('Similariti Dengan') }} {{ $get_user_sim->name }}
                                 <div class="card-profile-stats d-flex justify-content-center">
                                     <div>
@@ -66,7 +66,7 @@
                                         <span class="description">{{ __('PER KON') }}</span>
                                     </div>
                                 </div>
-                                @endforeach
+                                @endforeach --}}
                                 </div>
                                 @endif
                                 @if (auth()->user()->instrument_saham_id == 2)

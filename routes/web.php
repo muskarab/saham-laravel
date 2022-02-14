@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IndexSahamController;
 use App\Http\Controllers\InstrumentSahamController;
 use App\Http\Controllers\PreferensiController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SektorSahamController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -34,17 +35,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
 		Route::resource('index_saham', IndexSahamController::class);
 		Route::resource('perhitungan', PreferensiController::class);
 		// Route::get('map', function () {
-			// 	return view('pages.maps');
-			// })->name('map');
-		});
+		// 	return view('pages.maps');
+		// })->name('map');
+	});
 		
-		Route::group(['middleware' => ['cek_login:user']], function () {
-			// Route::resource('user', UserController::class);
-			// Route::get('icons', function () {
-				// 	return view('pages.icons');
-				// })->name('icons');
-			});
-			
+	Route::group(['middleware' => ['cek_login:user']], function () {
+		// Route::resource('user', UserController::class);
+		// Route::get('icons', function () {
+		// 	return view('pages.icons');
+		// })->name('icons');
+	});
+	Route::post('similarity', [ProfileController::class, 'similarity'])->name('similarity');
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::get('upgrade', function () {

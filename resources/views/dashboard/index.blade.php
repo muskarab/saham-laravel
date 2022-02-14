@@ -189,7 +189,18 @@
                                     <h3 class="mb-0">Konvensional</h3>
                                 </div>
                                 <div class="col text-right">
-                                    {{-- <a href="#!" class="btn btn-sm btn-primary">See all</a> --}}
+                                    @foreach ($get_user_sim_kon as $item)
+                                    <form action="{{ route('similarity') }}" method="POST" onSubmit="if(!confirm('Apakah anda yakin untuk mengganti nilai preferensi ?')){return false;}">
+                                        @csrf
+                                        <input type="number" id="w_eps_kon" name="w_eps_kon" hidden value="{{ $item->w_eps_kon }}">
+                                        <input type="number" id="w_roe_kon" name="w_roe_kon" hidden value="{{ $item->w_roe_kon }}">
+                                        <input type="number" id="w_per_kon" name="w_per_kon" hidden value="{{ $item->w_per_kon }}">
+                                        {{-- <input type="number" id="w_eps_syar" name="w_eps_syar" hidden value="{{ $item->w_eps_syar }}">
+                                        <input type="number" id="w_roe_syar" name="w_roe_syar" hidden value="{{ $item->w_roe_syar }}">
+                                        <input type="number" id="w_der_syar" name="w_der_syar" hidden value="{{ $item->w_der_syar }}"> --}}
+                                        Similarity Dengan <button type="submit" class="btn btn-sm btn-primary">{{ $item->name }}</button>
+                                    </form>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -242,7 +253,18 @@
                                     <h3 class="mb-0">Syariah</h3>
                                 </div>
                                 <div class="col text-right">
-                                    {{-- <a href="#!" class="btn btn-sm btn-primary">See all</a> --}}
+                                    @foreach ($get_user_sim_syar as $item)
+                                    <form action="{{ route('similarity') }}" method="POST" onSubmit="if(!confirm('Apakah anda yakin untuk mengganti nilai preferensi ?')){return false;}">
+                                        @csrf
+                                        {{-- <input type="number" id="w_eps_kon" name="w_eps_kon" hidden value="{{ $item->w_eps_kon }}">
+                                        <input type="number" id="w_roe_kon" name="w_roe_kon" hidden value="{{ $item->w_roe_kon }}">
+                                        <input type="number" id="w_per_kon" name="w_per_kon" hidden value="{{ $item->w_per_kon }}"> --}}
+                                        <input type="number" id="w_eps_syar" name="w_eps_syar" hidden value="{{ $item->w_eps_syar }}">
+                                        <input type="number" id="w_roe_syar" name="w_roe_syar" hidden value="{{ $item->w_roe_syar }}">
+                                        <input type="number" id="w_der_syar" name="w_der_syar" hidden value="{{ $item->w_der_syar }}">
+                                        Similarity Dengan <button type="submit" class="btn btn-sm btn-primary">{{ $item->name }}</button>
+                                    </form>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -295,7 +317,18 @@
                                     <h3 class="mb-0">Konvensional</h3>
                                 </div>
                                 <div class="col text-right">
-                                    {{-- <a href="#!" class="btn btn-sm btn-primary">See all</a> --}}
+                                    @foreach ($get_user_sim_gab as $item)
+                                    <form action="{{ route('similarity') }}" method="POST" onSubmit="if(!confirm('Apakah anda yakin untuk mengganti nilai preferensi ?')){return false;}">
+                                        @csrf
+                                        <input type="number" id="w_eps_kon" name="w_eps_kon" hidden value="{{ $item->w_eps_kon }}">
+                                        <input type="number" id="w_roe_kon" name="w_roe_kon" hidden value="{{ $item->w_roe_kon }}">
+                                        <input type="number" id="w_per_kon" name="w_per_kon" hidden value="{{ $item->w_per_kon }}">
+                                        <input type="number" id="w_eps_syar" name="w_eps_syar" hidden value="{{ $item->w_eps_syar }}">
+                                        <input type="number" id="w_roe_syar" name="w_roe_syar" hidden value="{{ $item->w_roe_syar }}">
+                                        <input type="number" id="w_der_syar" name="w_der_syar" hidden value="{{ $item->w_der_syar }}">
+                                        Similarity Dengan <button type="submit" class="btn btn-sm btn-primary">{{ $item->name }}</button>
+                                    </form>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
