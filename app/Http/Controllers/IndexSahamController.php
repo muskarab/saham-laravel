@@ -20,6 +20,7 @@ class IndexSahamController extends Controller
     {
         $indexs = IndexSaham::get();
         $bobots = Bobot::get();
+        dd($indexs);
         return view('index_saham.index', compact('indexs', 'bobots'))->with('i')->with('j');
 
     }

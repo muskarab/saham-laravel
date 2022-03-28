@@ -6,6 +6,7 @@ use App\Models\Emiten;
 use App\Models\IndexSaham;
 use App\Models\Sektor;
 use App\Models\User;
+use App\Models\VektorX;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -140,7 +141,7 @@ class HomeController extends Controller
             $max_sim_kon = $sim_kon[array_search(max($prices = array_column($sim_kon, 'sim')), $prices)];
             $get_user_sim_kon = User::where('name', $max_sim_kon['name'])->get();
             // dd($sim_kon, $get_user_sim_kon);
-            return view('dashboard.index', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar', 'years', 'get_user_sim_kon'))->with('i')->with('j');
+            // return view('dashboard.index', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar', 'years', 'get_user_sim_kon'))->with('i')->with('j');
         }elseif (Auth::user()->instrument_saham_id == 2) {
             foreach ($user_logins as $user_login) {
                 foreach ($not_user_logins as $not_user_login) {
@@ -150,7 +151,7 @@ class HomeController extends Controller
             $max_sim_syar = $sim_syar[array_search(max($prices = array_column($sim_syar, 'sim')), $prices)];
             $get_user_sim_syar = User::where('name', $max_sim_syar['name'])->get();
             // dd($sim_syar, $get_user_sim_syar);
-            return view('dashboard.index', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar', 'years', 'get_user_sim_syar'))->with('i')->with('j');
+            // return view('dashboard.index', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar', 'years', 'get_user_sim_syar'))->with('i')->with('j');
         }elseif (Auth::user()->instrument_saham_id == 3) {
             foreach ($user_logins as $user_login) {
                 foreach ($not_user_logins as $not_user_login) {
@@ -160,8 +161,11 @@ class HomeController extends Controller
             $max_sim_gab = $sim_gab[array_search(max($prices = array_column($sim_gab, 'sim')), $prices)];
             $get_user_sim_gab = User::where('name', $max_sim_gab['name'])->get();
             // dd($sim_gab, $get_user_sim_gab);
-            return view('dashboard.index', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar', 'years', 'get_user_sim_gab'))->with('i')->with('j');
+            // return view('dashboard.index', compact('sectors', 'emitens', 'konvensionals', 'syariahs', 'final_kons', 'final_syar', 'years', 'get_user_sim_gab'))->with('i')->with('j');
         }
+
+        $vektors_x_kon = VektorX::join('emitens', 'vektor_x.emiten_id', '=', 'emitens.id')->where('vektor_x.user_id', 1)->where('emitens.index_id', 1)->get();
+        dd($vektors_x_kon);
     }
 
     /**

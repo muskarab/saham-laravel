@@ -11,8 +11,15 @@ class Preferensi extends Model
 
     protected $guarded = ['id'];
     protected $with = ['index'];
+    
     public function index()
     {
         return $this->belongsTo(IndexSaham::class);
     }
+
+    public function vektor_x()
+    {
+        return $this->belongsTo(VektorX::class);
+    }
+
 }

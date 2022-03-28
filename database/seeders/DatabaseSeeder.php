@@ -25,5 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call([PreferensiKriteriaSeeder::class]);
         $this->call([VektorSSeeder::class]);
         $this->call([VektorVSeeder::class]);
+        $this->call([VektorXSeeder::class]);
+        $this->call([VektorYSeeder::class]);
     }
 }

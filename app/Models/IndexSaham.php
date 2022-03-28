@@ -24,4 +24,6 @@ class IndexSaham extends Model
     {
         return $this->hasMany(Preferensi::class);
     }
+
+
 }
