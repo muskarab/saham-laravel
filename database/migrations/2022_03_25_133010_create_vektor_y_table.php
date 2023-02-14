@@ -18,6 +18,7 @@ class CreateVektorYTable extends Migration
             $table->foreignId('user_id');
             $table->foreignId('emiten_id');
             $table->double('vektor_y');
+            $table->double('tes');
             $table->timestamps();
         });
     }
